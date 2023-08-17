@@ -4,41 +4,49 @@ import { Outlet } from 'react-router-dom';
 import { Navbar } from '../component/Navbar';
 import { me } from '../api/auth';
 import { useSetRecoilState } from 'recoil';
-import { userAtom } from '../recoil/authAtom';
-import { useMe } from '../hooks/auth';
+import { emotionAtom, userAtom, weatherAtom } from '../recoil/authAtom';
+import { useMe, useType } from '../hooks/auth';
 
 export function Main() {
     const setUser = useSetRecoilState(userAtom);
+    const setWeather = useSetRecoilState(weatherAtom);
+    const setEmotion = useSetRecoilState(emotionAtom);
+    const [isMeLoading, setIsMeLoading] = useState(true); // 로딩 상태 관리
 
-    const { data, isLoading, isError } = useMe();
+    const {
+        data: userData,
+        isLoading: userLoading,
+        isError: userError,
+    } = useMe();
+
+    const {
+        data: weatherData,
+        isLoading: weatherLoading,
+        isError: weatherError,
+    } = useType('weather');
+
+    const {
+        data: emotionData,
+        isLoading: emotionLoading,
+        isError: emotionError,
+    } = useType('emotion');
 
     useEffect(() => {
-        data && setUser(data.data.id);
-        console.log('me', data);
-    }, [data]);
+        if (userData && weatherData && emotionData) {
+            setUser(userData.data.id);
+            setWeather(weatherData.data);
+            setEmotion(emotionData.data);
+            setIsMeLoading(false);
+        }
+    }, [userData, weatherData, emotionData]);
 
-    console.log('isLoading', isLoading);
+    useEffect(() => {
+        if (userError || weatherError || emotionError) {
+            setIsMeLoading(false);
+        }
+    }, [userError, weatherError, emotionError]);
 
-    if (isError) {
-        console.log('err', isError);
-    }
-
-    // useEffect(() => {
-    //     async function fetchAndSetUser() {
-    //         const user = await me()
-    //             .then()
-    //             .catch((err) => {
-    //                 console.log('err', err);
-    //             });
-    //         console.log('me', user);
-
-    //         user && setUser(user.data.id);
-    //     }
-
-    //     fetchAndSetUser();
-    // }, [setUser]);
-
-    if (isLoading) {
+    if (isMeLoading) {
         return <div>로딩중.....</div>;
     } else {
         return (

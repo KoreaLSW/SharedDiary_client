@@ -11,7 +11,7 @@ export function MyShareDiary() {
 
     const { data, isLoading, isError } = useDiaryUser(user);
 
-    data && console.log('MyShareDiary', data);
+    //data && console.log('MyShareDiary', data);
     return (
         <Container>
             <Content $maxWidth='550px'>

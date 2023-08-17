@@ -13,6 +13,7 @@ export type SetDiary = {
     diary_id: number;
     user_id: string;
     create_date: string;
+    dreate_date: string;
     contents: string;
     share_type: number;
     weather: number;
@@ -30,6 +31,7 @@ export type GetDiary = {
     profile_img: string | null;
     diary_id: number;
     create_date: string;
+    dreate_date: string;
     contents: string;
     share_type: number;
     weather: number;

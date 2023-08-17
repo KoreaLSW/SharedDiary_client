@@ -30,3 +30,8 @@ export async function me(): Promise<any> {
     const url: string = '/auth/me';
     return client.get(url, headers).then((result) => result);
 }
+
+export async function getType(type: string): Promise<any> {
+    const url: string = '/type/' + type;
+    return client.get(url).then((result) => result);
+}

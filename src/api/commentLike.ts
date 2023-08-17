@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { DiaryLike } from '../type/diaryLike';
+import { CommentLike } from '../type/commentLike';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -21,17 +22,17 @@ const client = axios.create({
 //     return client.get(url, { params: { diaryLike } }).then((result) => result);
 // }
 
-export async function create(diaryLike: DiaryLike): Promise<any> {
-    const url: string = '/diary/like';
-    console.log('create', diaryLike);
-    return client.post(url, diaryLike, headers).then((result) => result);
+export async function create(commnetLike: CommentLike): Promise<any> {
+    const url: string = '/diary/comment/like';
+    console.log('create', commnetLike);
+    return client.post(url, commnetLike, headers).then((result) => result);
 }
 
-export async function remove(diaryLike: DiaryLike): Promise<any> {
-    const url: string = '/diary/like/delete';
-    console.log('remove123', diaryLike);
+export async function remove(commnetLike: CommentLike): Promise<any> {
+    const url: string = '/diary/comment/like/delete';
+    console.log('remove123', commnetLike);
 
     return client
-        .delete(url, { data: diaryLike, headers }) // 여기서 data 옵션 사용
+        .delete(url, { data: commnetLike, headers }) // 여기서 data 옵션 사용
         .then((result) => result);
 }

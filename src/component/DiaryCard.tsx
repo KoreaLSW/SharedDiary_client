@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { styled } from 'styled-components';
+import { css, keyframes, styled } from 'styled-components';
 import { GetDiary } from '../type/diary';
 import { AiOutlineUser, AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
@@ -7,7 +7,8 @@ import { GoComment } from 'react-icons/go';
 import useDiaryLike from '../hooks/diaryLike';
 import { DiaryLike } from '../type/diaryLike';
 import { useDiaryMutations } from '../hooks/diary';
-import { ModalDiary } from './ModalDiary';
+import { ModalReadDiary } from './ModalReadDiary';
+import { LikeButton } from '../theme/theme';
 
 type Props = {
     info: GetDiary;
@@ -75,21 +76,24 @@ export function DiaryCard({ info, userId }: Props) {
                 <p className='title'>{info.contents}</p>
             </Body>
             <Bottom>
-                {likeStatus ? (
-                    <AiFillLike className='like' onClick={handleLikeToggle} />
-                ) : (
-                    <AiOutlineLike
-                        className='like'
-                        onClick={handleLikeToggle}
-                    />
-                )}
+                <LikeButton
+                    $liked={likeStatus ? 'true' : 'false'}
+                    $type='diary'
+                    onClick={handleLikeToggle}
+                >
+                    {likeStatus ? (
+                        <AiFillLike className='like' />
+                    ) : (
+                        <AiOutlineLike className='like' />
+                    )}
+                </LikeButton>
 
                 <p>{likeCount}</p>
                 <GoComment className='comment' onClick={toggleModal} />
                 <p>{info.comment_count}</p>
 
                 {isModalOpen && (
-                    <ModalDiary
+                    <ModalReadDiary
                         info={info}
                         userId={userId}
                         toggleModal={toggleModal}

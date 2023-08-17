@@ -11,13 +11,22 @@ const client = axios.create({
     withCredentials: true, // withCredentials 설정
 });
 
-export async function getComment(diaryId: string): Promise<any> {
-    const url: string = '/diary/comment/' + diaryId;
-    return client.get(url).then((result) => result);
+export async function getComment(
+    userId: string,
+    diaryId: string
+): Promise<any> {
+    const url: string = '/diary/comment';
+    return client
+        .get(url, {
+            params: {
+                user_id: userId,
+                diary_id: diaryId,
+            },
+        })
+        .then((result) => result);
 }
 
 export async function create(comments: CreateComments): Promise<any> {
-    console.log('create', comments);
     const url: string = '/diary/comment/';
     return client.post(url, comments, headers).then((result) => result);
 }

@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-interface DayProps {
+type DayProps = {
     $isToday: boolean;
-}
+    $isSunday: boolean; // 일요일 여부를 나타내는 프롭 추가
+};
 
-export function Calendar() {
+type Props = {
+    toggleModal: (date: string) => void;
+};
+
+export function Calendar({ toggleModal }: Props) {
+    const navigate = useNavigate();
     const [currentDate, setCurrentDate] = useState(new Date());
 
     const today = new Date();
@@ -13,7 +20,7 @@ export function Calendar() {
     const currentMonth = currentDate.getMonth();
     const currentDay = currentDate.getDate();
 
-    const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+    const daysOfWeek = ['Sun', 'Mon', 'Thu', 'Wed', 'Tue', 'Fri', 'Sat'];
 
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
@@ -22,8 +29,10 @@ export function Calendar() {
     const handleDayClick = (year: number, month: number, day: number) => {
         const formattedMonth = (month + 1).toString().padStart(2, '0'); // 월 포맷 변경
         const formattedDay = day.toString().padStart(2, '0'); // 날짜 포맷 변경
-        console.log(`Clicked on ${year}-${formattedMonth}-${formattedDay}`);
-        // 클릭한 날짜 처리 로직을 추가하면 됩니다.
+        const date = `${year}-${formattedMonth}-${formattedDay}`;
+        toggleModal(date);
+
+        //console.log(`Clicked on ${year}-${formattedMonth}-${formattedDay}`);
     };
 
     const prevMonth = () => {
@@ -50,8 +59,12 @@ export function Calendar() {
         ).getDate();
         for (let i = firstDayOfMonth - 1; i >= 0; i--) {
             days.push(
-                <PrevDay key={`empty-prev-${i}`} $isToday={false}>
-                    {prevMonthLastDate - i}
+                <PrevDay
+                    key={`empty-prev-${i}`}
+                    $isToday={false}
+                    $isSunday={false}
+                >
+                    <p>{prevMonthLastDate - i}</p>
                 </PrevDay>
             );
         }
@@ -64,14 +77,18 @@ export function Calendar() {
                 currentMonth === today.getMonth() &&
                 i === today.getDate();
 
+            // 일요일 여부 판단
+            const isSunday = (firstDayOfMonth + i - 1) % 7 === 0;
+
             // Day 컴포넌트를 생성하고 날짜를 표시합니다.
             days.push(
                 <Day
                     key={`day-${i}`}
                     $isToday={isToday}
-                    onClick={() => handleDayClick(currentYear, currentMonth, i)} // 년, 월, 일 정보를 전달
+                    $isSunday={isSunday} // 일요일 여부를 전달
+                    onClick={() => handleDayClick(currentYear, currentMonth, i)}
                 >
-                    {i}
+                    <p>{i}</p>
                 </Day>
             );
         }
@@ -82,22 +99,25 @@ export function Calendar() {
     return (
         <Container>
             <Header>
-                <button onClick={prevMonth}>&lt;</button>
                 <h1>
                     {currentDate.toLocaleString('default', {
                         year: 'numeric',
                         month: 'long',
                     })}
                 </h1>
-                <button onClick={nextMonth}>&gt;</button>
-                <button onClick={goToToday}>오늘</button>{' '}
-                {/* 오늘로 이동하는 버튼 추가 */}
+                <div>
+                    <button onClick={prevMonth}>&lt;</button>
+                    <button className='today' onClick={goToToday}>
+                        Today
+                    </button>
+                    <button onClick={nextMonth}>&gt;</button>
+                </div>
             </Header>
             <DaysOfWeek>
                 {daysOfWeek.map((day) => (
-                    <Day key={day} $isToday={false}>
+                    <Week key={day} $isToday={false} $isSunday={false}>
                         {day}
-                    </Day>
+                    </Week>
                 ))}
             </DaysOfWeek>
             <DayContainer>{renderDays()}</DayContainer>
@@ -108,23 +128,46 @@ export function Calendar() {
 const Container = styled.div`
     width: 100%;
     margin: 0 auto;
-    border: 1px solid #ccc;
     margin-top: 2rem;
 `;
 
 const Header = styled.div`
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     padding: 10px;
-    background-color: #f2f2f2;
+
+    h1 {
+        font-size: 0.7rem;
+    }
+
+    button {
+        border: 0;
+        background-color: transparent;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 0.5rem;
+    }
+
+    .today {
+        margin: 0 1rem;
+    }
 `;
 
 const DaysOfWeek = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    background-color: #f7f7f7;
+    font-size: 0.5rem;
+    background-color: ${(props) => props.theme.colors.sky};
+`;
+
+const Week = styled.div<DayProps>`
+    display: inline-grid;
+    justify-items: center;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    border: 1px solid ${(props) => props.theme.colors.line};
 `;
 
 const DayContainer = styled.div`
@@ -133,28 +176,46 @@ const DayContainer = styled.div`
 `;
 
 const PrevDay = styled.div<DayProps>`
+    height: 5rem;
+    position: relative;
     display: inline-grid;
     justify-items: center;
     align-items: center;
-    padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid ${(props) => props.theme.colors.line};
     background-color: ${(props) =>
         props.$isToday ? props.theme.colors.sky : 'white'};
-    height: 40px;
     color: ${(props) => props.theme.colors.skyText};
+
+    p {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.5rem;
+    }
 `;
 
 const Day = styled.div<DayProps>`
+    height: 5rem;
+    position: relative;
     display: inline-grid;
     justify-items: center;
     align-items: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: ${(props) =>
-        props.$isToday ? props.theme.colors.sky : 'white'};
-    height: 40px;
+    border: 1px solid
+        ${(props) =>
+            props.$isToday ? props.theme.colors.red : props.theme.colors.line};
+    font-weight: bold;
+    color: ${(props) =>
+        props.$isToday || props.$isSunday ? props.theme.colors.red : 'black'};
 
     &:hover {
         background-color: ${(props) => props.theme.colors.sky};
+    }
+
+    p {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.5rem;
+        color: ${(props) => (props.$isSunday ? 'red' : 'inherit')};
     }
 `;

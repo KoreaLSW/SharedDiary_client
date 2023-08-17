@@ -17,4 +17,6 @@ export type GetComment = {
     diary_id: string;
     contents: string;
     create_date: string;
+    like_check: number;
+    like_count: number;
 };

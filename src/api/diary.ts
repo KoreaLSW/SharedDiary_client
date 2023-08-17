@@ -13,17 +13,19 @@ const client = axios.create({
 
 export async function getAll(userId: string): Promise<any> {
     const url: string = '/diary/' + userId;
-    return client.get(url).then((result) => result);
+    return client
+        .get(url, {
+            params: { userId },
+        })
+        .then((result) => result);
 }
 
 export async function getByUserId(userId: string): Promise<any> {
-    console.log('getByUserId', userId);
     const url: string = '/diary';
     return client.get(url, { params: { userId } }).then((result) => result);
 }
 
 export async function create(diary: SetDiary): Promise<any> {
-    console.log('create');
     const url: string = '/diary';
     return client
         .post(url, { params: { diary }, headers })

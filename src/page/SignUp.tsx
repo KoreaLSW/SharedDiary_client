@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import { SignUp } from '../type/auth';
 import { signUp } from '../api/auth';
 import { useAuth } from '../hooks/auth';
+import { userSelector } from '../recoil/authAtom';
 
 const idRegex: RegExp = /^[a-z0-9]+$/i;
 const passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -26,6 +29,15 @@ export function SignUpPage() {
     const [passwordCheck, setPasswordCheck] = useState<string>('');
 
     const { signUpHook } = useAuth();
+    const navigate = useNavigate();
+    const isLogin = useRecoilValue(userSelector);
+
+    useEffect(() => {
+        // 로그인되어있으면 홈으로
+        if (isLogin) {
+            navigate('/');
+        }
+    }, [isLogin]);
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

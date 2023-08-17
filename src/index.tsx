@@ -33,7 +33,7 @@ const router = createBrowserRouter([
             { path: '/login', element: <LoginPage /> },
             { path: '/signup', element: <SignUpPage /> },
             { path: '/shareDiary', element: <ShareDiary /> },
-            { path: '/follow', element: <ProtectedRoute page={<Follow />} /> },
+            { path: '/follow', element: <Follow /> },
             { path: '/message', element: <Message /> },
             { path: '/statistics', element: <Statistics /> },
             { path: '/profile', element: <Profile /> },

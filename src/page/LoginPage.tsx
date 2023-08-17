@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { Login } from '../type/auth';
-import { login } from '../api/auth';
-import { userAtom } from '../recoil/authAtom';
+import { userAtom, userSelector } from '../recoil/authAtom';
 import { useAuth } from '../hooks/auth';
 
 export function LoginPage() {
-    const navigate = useNavigate();
     const { loginHook } = useAuth();
     const setUserAtom = useSetRecoilState(userAtom);
+    const navigate = useNavigate();
+    const isLogin = useRecoilValue(userSelector);
+
+    useEffect(() => {
+        // 로그인되어있으면 홈으로
+        if (isLogin) {
+            navigate('/');
+        }
+    }, [isLogin]);
 
     const [user, setUser] = useState<Login>({
         user_id: '',
@@ -42,6 +48,7 @@ export function LoginPage() {
             },
         });
     };
+
     return (
         <LoginPageContainer>
             <div>

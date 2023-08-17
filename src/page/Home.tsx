@@ -6,10 +6,16 @@ import { useQuery } from 'react-query';
 import { useDiaryUser } from '../hooks/diary';
 import { GetDiary } from '../type/diary';
 import { useRecoilValue } from 'recoil';
-import { userAtom, userSelector } from '../recoil/authAtom';
+import {
+    emotionAtom,
+    userAtom,
+    userSelector,
+    weatherAtom,
+} from '../recoil/authAtom';
 import { Container, Content } from '../theme/theme';
 import { Calendar } from '../component/Calendar';
 import { useNavigate } from 'react-router-dom';
+import { ModalWriteDiary } from './ModalWritediary';
 
 export type HomeMenuUnion = 'first' | 'second' | 'third';
 
@@ -26,15 +32,11 @@ export type HomeMenuItems<T, R> = {
 
 export function Home() {
     const user = useRecoilValue(userAtom);
-    const isLogin = useRecoilValue(userSelector);
-    const navigate = useNavigate();
 
     const { data, isLoading, isError } = useDiaryUser(user);
-    //console.log('data', data);
-    console.log('Datauser', user);
-    console.log('isLogin', isLogin);
 
     const [diary, setDiary] = useState<GetDiary[]>();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const firstMenu = createMenu('내가 쓴 글', 0, 'first');
     const secondMenu = createMenu('글쓰기', 0, 'second');
@@ -63,11 +65,10 @@ export function Home() {
         }
     }, [diary, data]);
 
-    // useEffect(() => {
-    //     if (!isLogin) {
-    //         navigate('/login');
-    //     }
-    // }, []);
+    const toggleModal = (date?: string) => {
+        setIsModalOpen(!isModalOpen);
+        console.log('쓰기 모달창', date);
+    };
 
     if (isLoading) {
         return <div>로딩중...</div>;
@@ -81,7 +82,11 @@ export function Home() {
                     <HomeMenuItem info={secondMenu} />
                     <HomeMenuItem info={thirdMenu} />
                 </Menu>
-                <Calendar />
+                <Calendar toggleModal={(date: string) => toggleModal(date)} />
+
+                {isModalOpen && (
+                    <ModalWriteDiary toggleModal={() => toggleModal()} />
+                )}
             </Content>
         </Container>
     );

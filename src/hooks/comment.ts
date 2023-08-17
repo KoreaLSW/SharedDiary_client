@@ -2,11 +2,14 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { create, getComment, remove } from '../api/comment';
 import { CreateComments, RemoveComments } from '../type/comment';
 
-export function useGetComment(diaryId: string) {
-    return useQuery(['comments', diaryId], () => getComment(diaryId), {
+export function useGetComment(userId: string | undefined, diaryId: string) {
+    const Id = userId ? userId : '';
+    console.log('useGetComment!!');
+
+    return useQuery(['comments', diaryId], () => getComment(Id, diaryId), {
         refetchOnWindowFocus: false,
         onError: (err) => {
-            console.error('getDiaryAllHook: ', err);
+            console.error('getCommentHook: ', err);
         },
     });
 }

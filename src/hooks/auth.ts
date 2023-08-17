@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { login, logout, me, signUp } from '../api/auth';
+import { getType, login, logout, me, signUp } from '../api/auth';
 import { Login, SignUp } from '../type/auth';
 
 export function useMe() {
@@ -9,6 +9,15 @@ export function useMe() {
             console.error('me: ', err);
         },
         retry: 1,
+    });
+}
+
+export function useType(type: string) {
+    return useQuery([type], () => getType(type), {
+        refetchOnWindowFocus: false,
+        onError: (err) => {
+            console.error('useType: ', err);
+        },
     });
 }
 

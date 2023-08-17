@@ -1,11 +1,17 @@
-import { useQuery } from 'react-query';
-import { atom, selector, useRecoilValue } from 'recoil';
-import { me } from '../api/auth';
-import { setLocal } from '../localstorage/localstorage';
-console.log('리코일!');
+import { atom, selector } from 'recoil';
 
 export const userAtom = atom({
-    key: 'CartAtom',
+    key: 'userAtom',
+    default: undefined,
+});
+
+export const weatherAtom = atom({
+    key: 'weatherAtom',
+    default: undefined,
+});
+
+export const emotionAtom = atom({
+    key: 'emotionAtom',
     default: undefined,
 });
 
