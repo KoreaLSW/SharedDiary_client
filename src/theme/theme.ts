@@ -19,7 +19,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 4rem;
+    padding-top: 4rem;
 `;
 
 export const Content = styled.div<{ $maxWidth: string }>`

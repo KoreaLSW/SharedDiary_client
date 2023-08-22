@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { SetDiary, GetDiary } from '../type/diary';
+import { SetDiary, GetDiary, UpdateDiary, DeleteDiary } from '../type/diary';
 
 const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     withCredentials: true,
 };
 
@@ -25,24 +25,21 @@ export async function getByUserId(userId: string): Promise<any> {
     return client.get(url, { params: { userId } }).then((result) => result);
 }
 
-export async function create(diary: SetDiary): Promise<any> {
+export async function create(diary: FormData): Promise<any> {
+    const url: string = '/diary';
+    return client.post(url, diary, headers).then((result) => result);
+}
+
+export async function update(diary: UpdateDiary): Promise<any> {
+    const url: string = '/diary/' + diary.diary_id;
+    return client.put(url, diary.diary, headers).then((result) => result);
+}
+
+export async function remove(diary: DeleteDiary): Promise<any> {
     const url: string = '/diary';
     return client
-        .post(url, { params: { diary }, headers })
+        .delete(url, {
+            params: { diaryId: diary.diary_id, userId: diary.user_id },
+        })
         .then((result) => result);
-}
-
-export async function update(data: {
-    diaryId: string;
-    diary: GetDiary;
-}): Promise<any> {
-    const url: string = '/diary/' + data.diaryId;
-    return client
-        .put(url, { params: data.diary, headers })
-        .then((result) => result);
-}
-
-export async function remove(diaryId: string): Promise<any> {
-    const url: string = '/diary/' + diaryId;
-    return client.delete(url, { headers }).then((result) => result);
 }

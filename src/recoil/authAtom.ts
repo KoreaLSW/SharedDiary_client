@@ -1,4 +1,5 @@
 import { atom, selector } from 'recoil';
+import { getType } from '../api/auth';
 
 export const userAtom = atom({
     key: 'userAtom',
@@ -7,12 +8,12 @@ export const userAtom = atom({
 
 export const weatherAtom = atom({
     key: 'weatherAtom',
-    default: undefined,
+    default: getType('weather'),
 });
 
 export const emotionAtom = atom({
     key: 'emotionAtom',
-    default: undefined,
+    default: getType('emotion'),
 });
 
 export const userSelector = selector({

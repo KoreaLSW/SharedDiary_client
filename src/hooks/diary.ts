@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 import { create, getAll, getByUserId, remove, update } from '../api/diary';
-import { SetDiary, GetDiary } from './../type/diary';
+import { SetDiary, GetDiary, UpdateDiary, DeleteDiary } from './../type/diary';
 
 export function useDiaryAll(userId?: string) {
     const id = userId ? userId : '';
 
-    return useQuery([userId], () => getAll(id), {
+    return useQuery(['diary', userId], () => getAll(id), {
         refetchOnWindowFocus: false,
         onError: (err) => {
             console.error('getDiaryAllHook: ', err);
@@ -17,7 +17,7 @@ export function useDiaryAll(userId?: string) {
 export function useDiaryUser(userId?: string) {
     const id = userId ? userId : '';
 
-    return useQuery([userId], () => getByUserId(id), {
+    return useQuery(['diary', userId], () => getByUserId(id), {
         refetchOnWindowFocus: false,
         onError: (err) => {
             console.error('getDiaryUserHook: ', err);
@@ -28,22 +28,19 @@ export function useDiaryUser(userId?: string) {
 export function useDiaryMutations() {
     const queryClient = useQueryClient();
 
-    const createDiaryHook = useMutation((diary: SetDiary) => create(diary), {
+    const createDiaryHook = useMutation((diary: FormData) => create(diary), {
         onSuccess: () => {
             queryClient.invalidateQueries(['diary']);
         },
     });
 
-    const updateDiaryHook = useMutation(
-        (data: { diaryId: string; diary: GetDiary }) => update(data),
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries(['diary']);
-            },
-        }
-    );
+    const updateDiaryHook = useMutation((diary: UpdateDiary) => update(diary), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['diary']);
+        },
+    });
 
-    const removeDiaryHook = useMutation((diaryId: string) => remove(diaryId), {
+    const removeDiaryHook = useMutation((diary: DeleteDiary) => remove(diary), {
         onSuccess: () => {
             queryClient.invalidateQueries(['diary']);
         },

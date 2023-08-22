@@ -1,4 +1,4 @@
-export type CreateComments = {
+export type SetComments = {
     diary_id: string;
     user_id: string;
     contents: string;

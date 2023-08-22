@@ -34,17 +34,22 @@ export function Main() {
     useEffect(() => {
         if (userData && weatherData && emotionData) {
             setUser(userData.data.id);
-            setWeather(weatherData.data);
-            setEmotion(emotionData.data);
-            setIsMeLoading(false);
+            //setWeather(weatherData.data);
+            //setEmotion(emotionData.data);
         }
     }, [userData, weatherData, emotionData]);
 
     useEffect(() => {
-        if (userError || weatherError || emotionError) {
+        if (!userLoading && !weatherLoading && !emotionLoading) {
             setIsMeLoading(false);
         }
-    }, [userError, weatherError, emotionError]);
+    }, [userLoading, weatherLoading, emotionLoading]);
+
+    // useEffect(() => {
+    //     if (userError || weatherError || emotionError) {
+    //         setIsMeLoading(false);
+    //     }
+    // }, [userError, weatherError, emotionError]);
 
     if (isMeLoading) {
         return <div>로딩중.....</div>;

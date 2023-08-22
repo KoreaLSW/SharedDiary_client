@@ -30,6 +30,7 @@ export function Calendar({ toggleModal }: Props) {
         const formattedMonth = (month + 1).toString().padStart(2, '0'); // 월 포맷 변경
         const formattedDay = day.toString().padStart(2, '0'); // 날짜 포맷 변경
         const date = `${year}-${formattedMonth}-${formattedDay}`;
+
         toggleModal(date);
 
         //console.log(`Clicked on ${year}-${formattedMonth}-${formattedDay}`);

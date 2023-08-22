@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CreateComments, RemoveComments } from '../type/comment';
+import { SetComments, RemoveComments } from '../type/comment';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export async function getComment(
         .then((result) => result);
 }
 
-export async function create(comments: CreateComments): Promise<any> {
+export async function create(comments: SetComments): Promise<any> {
     const url: string = '/diary/comment/';
     return client.post(url, comments, headers).then((result) => result);
 }

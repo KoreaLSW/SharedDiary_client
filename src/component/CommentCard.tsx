@@ -9,16 +9,18 @@ import useCommentLike from '../hooks/commentLike';
 import { CommentLike } from '../type/commentLike';
 import { userAtom } from '../recoil/authAtom';
 import { LikeButton } from '../theme/theme';
+import { useCommentMutations } from '../hooks/comment';
 
 type Props = {
     info: GetComment;
 };
 
 export function CommentCard({ info }: Props) {
+    const { removeComment } = useCommentMutations();
     const { createLike, removeLike } = useCommentLike();
     const user = useRecoilValue(userAtom);
 
-    const [showFullText, setShowFullText] = useState(false);
+    const [showFullText, setShowFullText] = useState<boolean>(false);
     const [likeCount, setLikeCount] = useState<number>(info.like_count);
     const [liked, setLiked] = useState<boolean>(info.like_check === 1);
     const [commentLike, setCommentLike] = useState<CommentLike>({
@@ -58,6 +60,22 @@ export function CommentCard({ info }: Props) {
         setLiked(!liked);
     };
 
+    const handleCommentRemove = () => {
+        console.log('delete...');
+
+        removeComment.mutate(
+            { comment_id: info.comment_id, user_id: user! },
+            {
+                onSuccess(data, variables, context) {
+                    window.alert('댓글이 삭제되었습니다.');
+                },
+                onError(error, variables, context) {
+                    window.alert(`댓글삭제 실패...${error}`);
+                },
+            }
+        );
+    };
+
     return (
         <CommentContainer>
             <AiOutlineUser className='no-profile' />
@@ -93,6 +111,11 @@ export function CommentCard({ info }: Props) {
                         {getTimeDifference(new Date(info.create_date))}
                     </CommentTime>
                     <LikeText>좋아요 {likeCount}개</LikeText>
+                    {user === info.user_id && (
+                        <DeleteText onClick={handleCommentRemove}>
+                            댓글삭제
+                        </DeleteText>
+                    )}
                 </CommentBottomBox>
             </CommentContent>
 
@@ -151,7 +174,7 @@ const FullCommentText = styled.span`
 
 const ShowMoreButton = styled.button`
     font-size: 0.8rem;
-    color: #007bff;
+    color: ${(props) => props.theme.colors.signature};
     border: none;
     background: none;
     cursor: pointer;
@@ -160,7 +183,7 @@ const ShowMoreButton = styled.button`
 
 const ShowLessButton = styled.button`
     font-size: 0.8rem;
-    color: #007bff;
+    color: ${(props) => props.theme.colors.signature};
     border: none;
     background: none;
     cursor: pointer;
@@ -181,4 +204,12 @@ const LikeText = styled.span`
     font-size: 0.8rem;
     color: ${(props) => props.theme.colors.darkGrayText};
     font-weight: bold;
+    margin-right: 1rem;
+`;
+
+const DeleteText = styled.span`
+    font-size: 0.8rem;
+    color: ${(props) => props.theme.colors.red};
+    font-weight: bold;
+    cursor: pointer;
 `;

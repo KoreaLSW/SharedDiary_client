@@ -15,7 +15,7 @@ import {
 import { Container, Content } from '../theme/theme';
 import { Calendar } from '../component/Calendar';
 import { useNavigate } from 'react-router-dom';
-import { ModalWriteDiary } from './ModalWritediary';
+import { ModalWriteDiary } from '../component/ModalWritediary';
 
 export type HomeMenuUnion = 'first' | 'second' | 'third';
 
@@ -32,6 +32,10 @@ export type HomeMenuItems<T, R> = {
 
 export function Home() {
     const user = useRecoilValue(userAtom);
+    const weather = useRecoilValue(weatherAtom);
+    const emotion = useRecoilValue(emotionAtom);
+
+    const [date, setDate] = useState<string>('');
 
     const { data, isLoading, isError } = useDiaryUser(user);
 
@@ -67,7 +71,7 @@ export function Home() {
 
     const toggleModal = (date?: string) => {
         setIsModalOpen(!isModalOpen);
-        console.log('쓰기 모달창', date);
+        date && setDate(date);
     };
 
     if (isLoading) {
@@ -85,7 +89,10 @@ export function Home() {
                 <Calendar toggleModal={(date: string) => toggleModal(date)} />
 
                 {isModalOpen && (
-                    <ModalWriteDiary toggleModal={() => toggleModal()} />
+                    <ModalWriteDiary
+                        date={date}
+                        toggleModal={() => toggleModal()}
+                    />
                 )}
             </Content>
         </Container>

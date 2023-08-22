@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { GetDiary } from '../type/diary';
 import { useCommentMutations, useGetComment } from '../hooks/comment';
-import { CreateComments, GetComment } from '../type/comment';
+import { SetComments, GetComment } from '../type/comment';
 import { CommentCard } from './CommentCard';
 import {
     AiFillLike,
@@ -25,11 +25,13 @@ import { FaRegSadCry } from 'react-icons/fa';
 import { GoComment } from 'react-icons/go';
 import useDiaryLike from '../hooks/diaryLike';
 import { DiaryLike } from '../type/diaryLike';
+import { ImageSlider } from './ImageSlider';
 
 type Props = {
     info: GetDiary;
     userId: string | undefined;
-    toggleModal: () => void;
+    imageArray: (string | null)[];
+    toggleReadModal: () => void;
 };
 
 type EmojiType = {
@@ -37,11 +39,16 @@ type EmojiType = {
     emoji: JSX.Element;
 };
 
-export function ModalReadDiary({ info, userId, toggleModal }: Props) {
-    const { createCommentHook, removeCommentHook } = useCommentMutations();
+export function ModalReadDiary({
+    info,
+    userId,
+    imageArray,
+    toggleReadModal,
+}: Props) {
+    const { createComment } = useCommentMutations();
     const { createLike, removeLike } = useDiaryLike();
 
-    const [comment, setComment] = useState<CreateComments>({
+    const [comment, setComment] = useState<SetComments>({
         diary_id: info.diary_id.toString(),
         user_id: userId!,
         contents: '',
@@ -86,7 +93,7 @@ export function ModalReadDiary({ info, userId, toggleModal }: Props) {
             contents: '',
         }));
 
-        createCommentHook.mutate(comment, {
+        createComment.mutate(comment, {
             onSuccess(data, variables, context) {},
             onError(error: any, variables, context) {},
         });
@@ -110,6 +117,9 @@ export function ModalReadDiary({ info, userId, toggleModal }: Props) {
         }
         setLikeStatus(!likeStatus);
     };
+
+    console.log('info.diary_date', info);
+
     return (
         <ModalWrapper>
             <ModalContent>
@@ -118,24 +128,26 @@ export function ModalReadDiary({ info, userId, toggleModal }: Props) {
                         <AiOutlineUser className='no-profile' />
                         <UserInfoBox>
                             <p className='nickname'>{info.nickname}</p>
-                            <p className='createdate'>{info.create_date}</p>
+                            <p className='diarydate'>
+                                일기날짜: {info.diary_date}
+                            </p>
+                            <p className='createdate'>
+                                작성날짜: {info.create_date}
+                            </p>
                         </UserInfoBox>
                     </LeftHeader>
                     <MainBox>
-                        <div>
-                            <p>top</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                            <p>zzzz</p>
-                        </div>
+                        {imageArray.length > 0 && (
+                            <ImageSlider imageArray={imageArray} />
+                        )}
+                        <p className='contents'>
+                            {info.contents.split('\n').map((line, index) => (
+                                <React.Fragment key={index}>
+                                    {line}
+                                    <br />
+                                </React.Fragment>
+                            ))}
+                        </p>
                     </MainBox>
                     <TypeBox>
                         <div>
@@ -165,13 +177,21 @@ export function ModalReadDiary({ info, userId, toggleModal }: Props) {
                     </TypeBox>
                 </LeftSection>
                 <RightSection>
-                    {/* 댓글 정보 등을 보여주는 컴포넌트를 넣어주세요 */}
-                    <ul>
-                        {data &&
-                            data.data.map((info: GetComment, index: number) => (
-                                <CommentCard key={index} info={info} />
-                            ))}
-                    </ul>
+                    {data && data.data.length <= 0 ? (
+                        <NotCommentBox>
+                            <p>작성된 댓글이 없습니다...</p>
+                        </NotCommentBox>
+                    ) : (
+                        <ul>
+                            {data &&
+                                data.data.map(
+                                    (info: GetComment, index: number) => (
+                                        <CommentCard key={index} info={info} />
+                                    )
+                                )}
+                        </ul>
+                    )}
+
                     <CommentBox>
                         <CommentInput
                             type='text'
@@ -190,7 +210,9 @@ export function ModalReadDiary({ info, userId, toggleModal }: Props) {
                     </CommentBox>
                 </RightSection>
             </ModalContent>
-            <ModalCloseButton onClick={toggleModal}>&times;</ModalCloseButton>
+            <ModalCloseButton onClick={toggleReadModal}>
+                &times;
+            </ModalCloseButton>
         </ModalWrapper>
     );
 }
@@ -279,6 +301,11 @@ const MainBox = styled.div`
         margin-top: 1rem;
         margin-bottom: 1rem;
     }
+
+    .contents {
+        margin: 0.5rem;
+        font-size: 1rem;
+    }
 `;
 const TypeBox = styled.div`
     position: sticky;
@@ -311,6 +338,15 @@ const RightSection = styled.div`
     overflow-y: auto;
     position: relative;
     height: 100%;
+`;
+
+const NotCommentBox = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const CommentBox = styled.div`
