@@ -13,12 +13,18 @@ const idRegex: RegExp = /^[a-z0-9]+$/i;
 const passwordRegex: RegExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const emailRegex: RegExp =
     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-const nickRegex: RegExp = /^[a-zA-Z가-힣0-9]+$/;
+const nickRegex: RegExp = /^(?:[aeiouAEIOUㄱ-ㅎㅏ-ㅣ]*[a-zA-Z가-힣0-9])*$/;
 const introductionRegex: RegExp =
     /^[a-zA-Z가-힣0-9!@#$%^&*(),.?":{}|<>\n\\ ]+$/;
 
+const formData = new FormData();
+
 export function SignUpPage() {
-    const queryClient = useQueryClient();
+    const { signUpHook } = useAuth();
+    const navigate = useNavigate();
+    const isLogin = useRecoilValue(userSelector);
+
+    const [avatar, setAvatar] = useState<File>();
     const [signup, setSignup] = useState<SignUp>({
         user_id: '',
         password: '',
@@ -27,10 +33,6 @@ export function SignUpPage() {
         birthday: '',
     });
     const [passwordCheck, setPasswordCheck] = useState<string>('');
-
-    const { signUpHook } = useAuth();
-    const navigate = useNavigate();
-    const isLogin = useRecoilValue(userSelector);
 
     useEffect(() => {
         // 로그인되어있으면 홈으로
@@ -50,6 +52,17 @@ export function SignUpPage() {
             return;
         }
         setSignup((res) => ({ ...res, [name]: value }));
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files && e.target.files[0];
+
+        // 이미지 업로드 전에 초기화
+        formData.delete('profile-image');
+        file && formData.append('profile-image', file);
+        file && setAvatar(file);
+
+        console.log('이미지파일', file);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -80,7 +93,11 @@ export function SignUpPage() {
             alert('이메일을 확인해주세요');
             return;
         }
-        signUpHook.mutate(signup, {
+
+        formData.delete('diary');
+        formData.append('signup', JSON.stringify(signup));
+
+        signUpHook.mutate(formData, {
             onSuccess(data, variables, context) {
                 console.log('signUpSuccess data', data);
                 console.log('signUpSuccess variables', variables);
@@ -96,7 +113,14 @@ export function SignUpPage() {
         <SignUpContainer>
             <div>
                 <h1>회원가입</h1>
+                {avatar && <Avatar src={URL.createObjectURL(avatar)} />}
+
                 <form onSubmit={handleSubmit}>
+                    <input
+                        type='file'
+                        accept='image/*'
+                        onChange={handleFileChange}
+                    />
                     <input
                         name='user_id'
                         type='text'
@@ -154,8 +178,8 @@ export function SignUpPage() {
                     <textarea
                         name='introduction'
                         rows={5}
-                        placeholder='자기소개를 입력해주세요(선택)(최대 500자)'
-                        maxLength={500}
+                        placeholder='자기소개를 입력해주세요(선택)(최대 2000자)'
+                        maxLength={2000}
                         onChange={handleChange}
                         value={signup.introduction ?? ''}
                     />
@@ -231,4 +255,11 @@ const SignUpContainer = styled.div`
         font-weight: bold;
         cursor: pointer;
     }
+`;
+
+const Avatar = styled.img`
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 50%;
 `;

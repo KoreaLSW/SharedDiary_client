@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { Login, SignUp } from '../type/auth';
 
 const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     withCredentials: true,
 };
 
@@ -11,7 +11,7 @@ const client = axios.create({
     withCredentials: true, // withCredentials 설정
 });
 
-export async function signUp(user: SignUp): Promise<any> {
+export async function signUp(user: FormData): Promise<any> {
     const url: string = '/auth/signup';
     return client.post(url, user, headers).then((result) => result);
 }

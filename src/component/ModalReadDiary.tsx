@@ -4,39 +4,19 @@ import { GetDiary } from '../type/diary';
 import { useCommentMutations, useGetComment } from '../hooks/comment';
 import { SetComments, GetComment } from '../type/comment';
 import { CommentCard } from './CommentCard';
-import {
-    AiFillLike,
-    AiOutlineLike,
-    AiOutlineSmile,
-    AiOutlineUser,
-} from 'react-icons/ai';
-import {
-    BsCloudRain,
-    BsCloudSnow,
-    BsCloudy,
-    BsEmojiAngry,
-    BsFillTicketPerforatedFill,
-    BsSun,
-} from 'react-icons/bs';
-import { HiOutlineEmojiHappy } from 'react-icons/hi';
-import { RiEmotionNormalLine } from 'react-icons/ri';
-import { TbMoodHeart } from 'react-icons/tb';
-import { FaRegSadCry } from 'react-icons/fa';
+import { AiFillLike, AiOutlineLike, AiOutlineUser } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 import useDiaryLike from '../hooks/diaryLike';
 import { DiaryLike } from '../type/diaryLike';
 import { ImageSlider } from './ImageSlider';
+import { WeatherEmoji } from './WeatherEmoji';
+import { EmotionEmoji } from './EmotionEmoji';
 
 type Props = {
     info: GetDiary;
     userId: string | undefined;
     imageArray: (string | null)[];
     toggleReadModal: () => void;
-};
-
-type EmojiType = {
-    text: string;
-    emoji: JSX.Element;
 };
 
 export function ModalReadDiary({
@@ -53,12 +33,7 @@ export function ModalReadDiary({
         user_id: userId!,
         contents: '',
     });
-    const [weather, setWeather] = useState<EmojiType>(
-        weatherEmoji(info.weather)
-    );
-    const [emotion, setEmotion] = useState<EmojiType>(
-        emotionEmoji(info.emotion)
-    );
+
     const [likeStatus, setLikeStatus] = useState<boolean>(
         info.like_check === 1
     );
@@ -118,14 +93,17 @@ export function ModalReadDiary({
         setLikeStatus(!likeStatus);
     };
 
-    console.log('info.diary_date', info);
-
     return (
         <ModalWrapper>
             <ModalContent>
                 <LeftSection>
                     <LeftHeader>
-                        <AiOutlineUser className='no-profile' />
+                        {info.profile_img ? (
+                            <UserAvatar src={info.profile_img} />
+                        ) : (
+                            <AiOutlineUser className='no-profile' />
+                        )}
+
                         <UserInfoBox>
                             <p className='nickname'>{info.nickname}</p>
                             <p className='diarydate'>
@@ -150,14 +128,8 @@ export function ModalReadDiary({
                         </p>
                     </MainBox>
                     <TypeBox>
-                        <div>
-                            {weather.emoji}
-                            <span>{weather.text}</span>
-                        </div>
-                        <div>
-                            {emotion.emoji}
-                            <span>{emotion.text}</span>
-                        </div>
+                        <WeatherEmoji type={info.weather} />
+                        <EmotionEmoji type={info.emotion} />
                         <LikeButton
                             $liked={likeStatus ? 'true' : 'false'}
                             className='likebtn'
@@ -267,11 +239,11 @@ const LeftHeader = styled.header`
 `;
 
 const UserAvatar = styled.img`
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     margin-right: 1rem;
     border-radius: 50%;
-    margin-right: 10px;
+    object-fit: cover;
 `;
 
 const UserInfoBox = styled.div`
@@ -409,97 +381,3 @@ const bounceAnimation = keyframes`
         transform: scale(1.2);
     }
 `;
-
-function weatherEmoji(type: number): EmojiType {
-    let weather: EmojiType;
-
-    switch (type) {
-        case 1:
-            weather = {
-                text: '맑음',
-                emoji: <BsSun />,
-            };
-            break;
-        case 2:
-            weather = {
-                text: '흐림',
-                emoji: <BsCloudy />,
-            };
-            break;
-        case 3:
-            weather = {
-                text: '비',
-                emoji: <BsCloudRain />,
-            };
-            break;
-        case 4:
-            weather = {
-                text: '눈',
-                emoji: <BsCloudSnow />,
-            };
-            break;
-        default:
-            weather = {
-                text: '눈',
-                emoji: <BsCloudSnow />,
-            };
-    }
-
-    return weather;
-}
-
-function emotionEmoji(type: number): EmojiType {
-    let emotion: EmojiType;
-
-    switch (type) {
-        case 1:
-            emotion = {
-                text: '행복',
-                emoji: <HiOutlineEmojiHappy />,
-            };
-            break;
-        case 2:
-            emotion = {
-                text: '신남',
-                emoji: <AiOutlineSmile />,
-            };
-            break;
-        case 3:
-            emotion = {
-                text: '설렘',
-                emoji: <TbMoodHeart />,
-            };
-            break;
-        case 4:
-            emotion = {
-                text: '보통',
-                emoji: <RiEmotionNormalLine />,
-            };
-            break;
-        case 5:
-            emotion = {
-                text: '피곤',
-                emoji: <BsFillTicketPerforatedFill />,
-            };
-            break;
-        case 6:
-            emotion = {
-                text: '슬픔',
-                emoji: <FaRegSadCry />,
-            };
-            break;
-        case 7:
-            emotion = {
-                text: '화남',
-                emoji: <BsEmojiAngry />,
-            };
-            break;
-        default:
-            emotion = {
-                text: '화남',
-                emoji: <BsEmojiAngry />,
-            };
-    }
-
-    return emotion;
-}

@@ -16,9 +16,9 @@ type Props = {
 };
 
 export function CommentCard({ info }: Props) {
+    const user = useRecoilValue(userAtom);
     const { removeComment } = useCommentMutations();
     const { createLike, removeLike } = useCommentLike();
-    const user = useRecoilValue(userAtom);
 
     const [showFullText, setShowFullText] = useState<boolean>(false);
     const [likeCount, setLikeCount] = useState<number>(info.like_count);
@@ -61,8 +61,6 @@ export function CommentCard({ info }: Props) {
     };
 
     const handleCommentRemove = () => {
-        console.log('delete...');
-
         removeComment.mutate(
             { comment_id: info.comment_id, user_id: user! },
             {
@@ -78,7 +76,11 @@ export function CommentCard({ info }: Props) {
 
     return (
         <CommentContainer>
-            <AiOutlineUser className='no-profile' />
+            {info.profile_img ? (
+                <CommentAvatar src={info.profile_img} />
+            ) : (
+                <AiOutlineUser className='no-profile' />
+            )}
             <CommentContent>
                 <CommentTopBox>
                     <CommentUsername>{info.nickname}</CommentUsername>
@@ -141,10 +143,11 @@ const CommentContainer = styled.div`
 `;
 
 const CommentAvatar = styled.img`
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 `;
 
 const CommentContent = styled.div`
@@ -161,6 +164,7 @@ const CommentUsername = styled.span`
     font-weight: bold;
     margin-right: 0.7rem;
     font-size: 0.8rem;
+    white-space: nowrap;
 `;
 
 const CommentText = styled.span`

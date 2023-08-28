@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { SetDiary, GetDiary, UpdateDiary, DeleteDiary } from '../type/diary';
+import {
+    SetDiary,
+    GetDiary,
+    UpdateDiary,
+    DeleteDiary,
+    SelectDiaryMonth,
+} from '../type/diary';
 
 const headers = {
     'Content-Type': 'multipart/form-data',
@@ -11,11 +17,15 @@ const client = axios.create({
     withCredentials: true, // withCredentials 설정
 });
 
-export async function getAll(userId: string): Promise<any> {
-    const url: string = '/diary/' + userId;
+export async function getAll(
+    userId: string,
+    page: number,
+    offset: number
+): Promise<any> {
+    const url: string = '/diary/all';
     return client
         .get(url, {
-            params: { userId },
+            params: { userId, page, offset },
         })
         .then((result) => result);
 }
@@ -23,6 +33,28 @@ export async function getAll(userId: string): Promise<any> {
 export async function getByUserId(userId: string): Promise<any> {
     const url: string = '/diary';
     return client.get(url, { params: { userId } }).then((result) => result);
+}
+
+export async function getByMonthHome(data: SelectDiaryMonth): Promise<any> {
+    const url: string = '/diary/month/home';
+    return client
+        .get(url, {
+            params: { user_id: data.user_id, month: data.month },
+        })
+        .then((result) => result);
+}
+
+export async function getByMonth(
+    data: SelectDiaryMonth,
+    page: number,
+    offset: number
+): Promise<any> {
+    const url: string = '/diary/month/page';
+    return client
+        .get(url, {
+            params: { user_id: data.user_id, month: data.month, page, offset },
+        })
+        .then((result) => result);
 }
 
 export async function create(diary: FormData): Promise<any> {

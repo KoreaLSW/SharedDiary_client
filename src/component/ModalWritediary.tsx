@@ -14,14 +14,14 @@ import {
 import { useDiaryMutations } from '../hooks/diary';
 
 type Props = {
-    date: string;
+    modalDate: string;
     toggleModal: () => void;
 };
 
 const formData = new FormData();
 const MAX_LENGTH = 2500;
 
-export function ModalWriteDiary({ date, toggleModal }: Props) {
+export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
     const user = useRecoilValue(userAtom);
     const weather = useRecoilValue(weatherAtom);
     const emotion = useRecoilValue(emotionAtom);
@@ -40,7 +40,7 @@ export function ModalWriteDiary({ date, toggleModal }: Props) {
     const [diary, setDiary] = useState<SetDiary>({
         user_id: user!,
         create_date: '',
-        diary_date: date,
+        diary_date: modalDate,
         contents: '',
         share_type: 0,
         weather: 0,

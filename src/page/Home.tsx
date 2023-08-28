@@ -1,13 +1,14 @@
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { HomeMenuItem } from '../component/HomeMenuItem';
 import { useQuery } from 'react-query';
-import { useDiaryUser } from '../hooks/diary';
+import { useDiaryMonth, useDiaryMonthHome, useDiaryUser } from '../hooks/diary';
 import { GetDiary } from '../type/diary';
 import { useRecoilValue } from 'recoil';
 import {
     emotionAtom,
+    dateAtome,
     userAtom,
     userSelector,
     weatherAtom,
@@ -32,17 +33,31 @@ export type HomeMenuItems<T, R> = {
 
 export function Home() {
     const user = useRecoilValue(userAtom);
-    const weather = useRecoilValue(weatherAtom);
-    const emotion = useRecoilValue(emotionAtom);
+    const date = useRecoilValue(dateAtome);
 
-    const [date, setDate] = useState<string>('');
-
-    const { data, isLoading, isError } = useDiaryUser(user);
-
+    const [modalDate, setModalDate] = useState<string>('');
     const [diary, setDiary] = useState<GetDiary[]>();
+
+    //const { data, isLoading, isError } = useDiaryUser(user);
+    const { data, isLoading, isError } = useDiaryMonthHome({
+        user_id: user!,
+        month: date.getMonth() + 1,
+    });
+
+    useEffect(() => {
+        data && setDiary(data.data);
+    }, [data]);
+
+    //const [diary, setDiary] = useState<GetDiary[]>();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const firstMenu = createMenu('내가 쓴 글', 0, 'first');
+    const [first, setFirst] = useState<
+        HomeMenuItems<string, number | undefined>
+    >({
+        name: `${date.getMonth() + 1}월에 내가 쓴 글`,
+        score: undefined,
+        type: 'first',
+    });
     const secondMenu = createMenu('글쓰기', 0, 'second');
     const thirdMenu = createMenu(
         {
@@ -56,22 +71,21 @@ export function Home() {
         'third'
     );
 
-    try {
-        useEffect(() => {
-            data && setDiary(data.data);
-        }, [data, user]);
-    } catch (err) {
-        console.log('data: ', err);
-    }
     useEffect(() => {
-        if (diary && data) {
-            firstMenu.score = diary.length;
+        if (data) {
+            first.score = data.data.length;
+            setFirst({
+                ...first,
+                name: `${date.getMonth() + 1}월에 내가 쓴 글`,
+                score: data.data.length,
+            });
+            console.log('useEffect', first.score);
         }
-    }, [diary, data]);
+    }, [data]);
 
     const toggleModal = (date?: string) => {
         setIsModalOpen(!isModalOpen);
-        date && setDate(date);
+        date && setModalDate(date);
     };
 
     if (isLoading) {
@@ -82,15 +96,18 @@ export function Home() {
         <Container>
             <Content $maxWidth='1000px'>
                 <Menu>
-                    {diary && <HomeMenuItem info={firstMenu} />}
+                    {data && <HomeMenuItem info={first} />}
                     <HomeMenuItem info={secondMenu} />
                     <HomeMenuItem info={thirdMenu} />
                 </Menu>
-                <Calendar toggleModal={(date: string) => toggleModal(date)} />
+                <Calendar
+                    info={diary}
+                    toggleModal={(date: string) => toggleModal(date)}
+                />
 
                 {isModalOpen && (
                     <ModalWriteDiary
-                        date={date}
+                        modalDate={modalDate}
                         toggleModal={() => toggleModal()}
                     />
                 )}

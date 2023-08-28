@@ -16,6 +16,11 @@ export const emotionAtom = atom({
     default: getType('emotion'),
 });
 
+export const dateAtome = atom({
+    key: 'monthAtome',
+    default: new Date(),
+});
+
 export const userSelector = selector({
     key: 'UserSelector',
     get: ({ get }) => !!get(userAtom),

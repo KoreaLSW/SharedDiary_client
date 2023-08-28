@@ -1,7 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, keyframes, styled } from 'styled-components';
 import { GetDiary } from '../type/diary';
-import { AiOutlineUser, AiOutlineLike, AiFillLike } from 'react-icons/ai';
+import {
+    AiOutlineUser,
+    AiOutlineLike,
+    AiFillLike,
+    AiOutlineLock,
+} from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 
 import useDiaryLike from '../hooks/diaryLike';
@@ -10,6 +15,7 @@ import { useDiaryMutations } from '../hooks/diary';
 import { ModalReadDiary } from './ModalReadDiary';
 import { LikeButton } from '../theme/theme';
 import { ModalUpdateDiary } from './ModalUpdateDiary';
+import { TextCollapse } from './TextCollapse';
 
 type Props = {
     info: GetDiary;
@@ -132,13 +138,14 @@ export function DiaryCard({ info, userId }: Props) {
         <Card>
             <Heard>
                 {info.profile_img ? (
-                    <img src={info.profile_img} alt='' />
+                    <Profile src={`${info.profile_img}`} alt='' />
                 ) : (
                     <AiOutlineUser className='no-profile' />
                 )}
 
                 <TiTle>
                     <p className='nickname'>{info.nickname}</p>
+                    <p className='diarydate'>{info.diary_date}날의 일기</p>
                     <p className='date'>{info.create_date}</p>
                 </TiTle>
             </Heard>
@@ -150,10 +157,7 @@ export function DiaryCard({ info, userId }: Props) {
                                 key={index}
                                 $isActive={index === currentSlide}
                             >
-                                <Image
-                                    src={`http://${value!}`}
-                                    alt={`Slide ${index}`}
-                                />
+                                <Image src={value!} alt={`Slide ${index}`} />
                             </Slide>
                         ))}
                         <SlideButtons>
@@ -190,25 +194,11 @@ export function DiaryCard({ info, userId }: Props) {
                 )}
 
                 <ContentText>
-                    {showFullText ? (
-                        <>
-                            <FullContentText>{info.contents}</FullContentText>
-                            <ShowLessButton onClick={toggleFullText}>
-                                접기
-                            </ShowLessButton>
-                        </>
-                    ) : (
-                        <>
-                            {info.contents.length > 100
-                                ? info.contents.slice(0, 150) + '...'
-                                : info.contents}
-                            {info.contents.length > 100 && (
-                                <ShowMoreButton onClick={toggleFullText}>
-                                    더 보기
-                                </ShowMoreButton>
-                            )}
-                        </>
-                    )}
+                    <TextCollapse
+                        text={info.contents}
+                        showLine={5}
+                        showText={100}
+                    />
                 </ContentText>
             </Body>
             <Bottom>
@@ -238,6 +228,8 @@ export function DiaryCard({ info, userId }: Props) {
                         삭제
                     </p>
                 )}
+
+                {info.share_type === 2 && <AiOutlineLock />}
 
                 {isModalReadOpen && (
                     <ModalReadDiary
@@ -273,14 +265,28 @@ const Heard = styled.div`
     justify-content: start;
 
     .no-profile {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-right: 0.5rem;
     }
+`;
+
+const Profile = styled.img`
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    object-fit: cover;
 `;
 
 const TiTle = styled.div`
     .nickname {
         font-size: 1rem;
+    }
+
+    .diarydate {
+        font-size: 0.8rem;
+        font-weight: 100;
+        color: ${(props) => props.theme.colors.darkGrayText};
     }
 
     .date {
@@ -332,8 +338,8 @@ const Bottom = styled.div`
 
 const Slider = styled.div`
     position: relative;
-    width: 80%;
-    padding-bottom: 80%;
+    width: 100%;
+    padding-bottom: 100%;
     background-color: black;
     overflow: hidden;
 `;

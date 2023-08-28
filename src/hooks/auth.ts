@@ -36,7 +36,7 @@ export function useAuth() {
         },
     });
 
-    const signUpHook = useMutation((user: SignUp) => signUp(user), {
+    const signUpHook = useMutation((user: FormData) => signUp(user), {
         onSuccess: () => {
             queryClient.invalidateQueries(['singUp']);
         },

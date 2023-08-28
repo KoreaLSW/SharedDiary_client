@@ -15,15 +15,15 @@ export function ImageSlider({ imageArray }: Props) {
     return (
         <Slider>
             {imageArray.map((value, index) => (
-                <Slide key={index} isActive={index === currentSlide}>
-                    <Image src={`http://${value!}`} alt={`Slide ${index}`} />
+                <Slide key={index} $isActive={index === currentSlide}>
+                    <Image src={value!} alt={`Slide ${index}`} />
                 </Slide>
             ))}
             <SlideButtons>
                 {imageArray.map((_, i) => (
                     <SlideButton
                         key={i}
-                        isActive={i === currentSlide}
+                        $isActive={i === currentSlide}
                         onClick={() => handleSlideChange(i)}
                     />
                 ))}
@@ -61,10 +61,10 @@ const Slider = styled.div`
     overflow: hidden;
 `;
 
-const Slide = styled.div<{ isActive: boolean }>`
+const Slide = styled.div<{ $isActive: boolean }>`
     position: absolute;
     top: 0;
-    left: ${(props) => (props.isActive ? '0' : '100%')};
+    left: ${(props) => (props.$isActive ? '0' : '100%')};
     width: 100%;
     height: 100%;
     opacity: 1;
@@ -87,11 +87,11 @@ const SlideButtons = styled.div`
     cursor: pointer;
 `;
 
-const SlideButton = styled.div<{ isActive: boolean }>`
+const SlideButton = styled.div<{ $isActive: boolean }>`
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: ${(props) => (props.isActive ? 'black' : 'gray')};
+    background-color: ${(props) => (props.$isActive ? 'black' : 'gray')};
     margin: 0 5px;
 `;
 

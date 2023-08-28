@@ -20,7 +20,7 @@ export function HomeMenuItem<T, R>({ info }: Props<T, R>) {
             : info.type === 'second'
             ? setSecond(info as HomeMenuItems<string, number>)
             : setThird(info as HomeMenuItems<Follow<string>, Follow<number>>);
-    }, []);
+    }, [info]);
 
     const onPageMove = (type: HomeMenuUnion) => {
         if (type === 'first') {
@@ -32,7 +32,7 @@ export function HomeMenuItem<T, R>({ info }: Props<T, R>) {
         return (
             <Item onClick={() => onPageMove(first.type)}>
                 <span>{first.name}</span>
-                <span>{first.score}</span>
+                <span>{first.score}개</span>
             </Item>
         );
     } else if (second) {

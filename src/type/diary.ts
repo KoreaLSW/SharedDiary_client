@@ -1,3 +1,8 @@
+export type SelectDiaryMonth = {
+    user_id: string;
+    month?: number;
+};
+
 export type User = {
     user_id: string;
     password: string;

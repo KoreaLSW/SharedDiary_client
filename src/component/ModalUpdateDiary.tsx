@@ -251,6 +251,7 @@ const ModalWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1000;
     /* 스크롤바 스타일 변경 */
     ::-webkit-scrollbar {
         width: 0;
