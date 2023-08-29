@@ -17,5 +17,5 @@ export async function getUser(userId: string): Promise<any> {
 
 export async function update(user: FormData): Promise<any> {
     const url: string = '/user';
-    return client.put(url, user, headers).then((result) => result);
+    return client.post(url, user, headers).then((result) => result);
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { Navbar } from '../component/Navbar';
 import { me } from '../api/auth';
@@ -12,6 +12,13 @@ export function Main() {
     const setWeather = useSetRecoilState(weatherAtom);
     const setEmotion = useSetRecoilState(emotionAtom);
     const [isMeLoading, setIsMeLoading] = useState(true); // 로딩 상태 관리
+
+    const { pathname } = useLocation();
+
+    // 페이지 이동시 스크롤 맨위로 고정
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     const {
         data: userData,

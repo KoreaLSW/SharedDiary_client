@@ -37,14 +37,6 @@ export function ShareDiary() {
         };
     }, [bottomBoundaryRef, fetchNextPage, hasNextPage]);
 
-    // data &&
-    //     data?.pages.map((page, pageIndex) => {
-    //         console.log('asdg', page.data.data);
-    //         page.data.data.map((item: any, index: any) => {
-    //             console.log(index);
-    //         });
-    //     });
-
     return (
         <Container>
             <Content $maxWidth='500px'>

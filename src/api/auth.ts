@@ -36,3 +36,8 @@ export async function getType(type: string): Promise<any> {
     const result = await client.get(url);
     return result.data; // 반환값으로 데이터만 사용
 }
+
+export async function update(user: FormData): Promise<any> {
+    const url: string = '/auth/update';
+    return client.post(url, user, headers).then((result) => result);
+}

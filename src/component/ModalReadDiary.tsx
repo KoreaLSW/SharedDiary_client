@@ -4,7 +4,7 @@ import { GetDiary } from '../type/diary';
 import { useCommentMutations, useGetComment } from '../hooks/comment';
 import { SetComments, GetComment } from '../type/comment';
 import { CommentCard } from './CommentCard';
-import { AiFillLike, AiOutlineLike, AiOutlineUser } from 'react-icons/ai';
+import { AiFillLike, AiOutlineLike } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 import useDiaryLike from '../hooks/diaryLike';
 import { DiaryLike } from '../type/diaryLike';
@@ -92,17 +92,18 @@ export function ModalReadDiary({
         }
         setLikeStatus(!likeStatus);
     };
-
     return (
         <ModalWrapper>
             <ModalContent>
                 <LeftSection>
                     <LeftHeader>
-                        {info.profile_img ? (
-                            <UserAvatar src={info.profile_img} />
-                        ) : (
-                            <AiOutlineUser className='no-profile' />
-                        )}
+                        <UserAvatar
+                            src={
+                                info.profile_img
+                                    ? info.profile_img
+                                    : 'https://dmemema.cafe24.com/img/noprofile/noprofile.jpg'
+                            }
+                        />
 
                         <UserInfoBox>
                             <p className='nickname'>{info.nickname}</p>

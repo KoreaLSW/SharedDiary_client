@@ -11,7 +11,7 @@ export default function useCommentLike() {
         (commentLike: CommentLike) => create(commentLike),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['comments']);
+                queryClient.invalidateQueries(['diary']);
             },
         }
     );
@@ -21,7 +21,7 @@ export default function useCommentLike() {
         (commentLike: CommentLike) => remove(commentLike),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['comments']);
+                queryClient.invalidateQueries(['diary']);
             },
         }
     );

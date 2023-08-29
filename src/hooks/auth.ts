@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { getType, login, logout, me, signUp } from '../api/auth';
+import { getType, login, logout, me, signUp, update } from '../api/auth';
 import { Login, SignUp } from '../type/auth';
 
 export function useMe() {
@@ -42,5 +42,11 @@ export function useAuth() {
         },
     });
 
-    return { loginHook, logoutHook, signUpHook };
+    const updateHook = useMutation((user: FormData) => update(user), {
+        onSuccess: () => {
+            queryClient.invalidateQueries(['user']);
+        },
+    });
+
+    return { loginHook, logoutHook, signUpHook, updateHook };
 }

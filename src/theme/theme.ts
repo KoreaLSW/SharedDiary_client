@@ -2,13 +2,14 @@ import { css, keyframes, styled } from 'styled-components';
 
 export const theme = {
     colors: {
-        signature: '#3e8df6',
+        signature: '#4193ef',
         line: '#e3e3e3',
         grayText: '#b9b9b9',
-        darkGrayText: '#737373',
+        darkGrayText: '#838383',
         sky: '#f1f8fe',
         skyText: '#cfd1e2',
         red: '#ff0000',
+        writeGray: '#efefef',
     },
 };
 

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { css, keyframes, styled } from 'styled-components';
 import { GetComment } from '../type/comment';
-import { AiOutlineHeart, AiFillHeart, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 import { getTimeDifference } from '../timedifference/timedifference';
 import useCommentLike from '../hooks/commentLike';
@@ -17,6 +18,7 @@ type Props = {
 
 export function CommentCard({ info }: Props) {
     const user = useRecoilValue(userAtom);
+    const navigate = useNavigate();
     const { removeComment } = useCommentMutations();
     const { createLike, removeLike } = useCommentLike();
 
@@ -27,7 +29,6 @@ export function CommentCard({ info }: Props) {
         comment_id: '',
         user_id: '',
     });
-
     //console.log('commendCard', liked);
 
     useEffect(() => {
@@ -76,11 +77,16 @@ export function CommentCard({ info }: Props) {
 
     return (
         <CommentContainer>
-            {info.profile_img ? (
-                <CommentAvatar src={info.profile_img} />
-            ) : (
-                <AiOutlineUser className='no-profile' />
-            )}
+            <CommentAvatar
+                src={
+                    info.profile_img
+                        ? info.profile_img
+                        : 'https://dmemema.cafe24.com/img/noprofile/noprofile.jpg'
+                }
+                onClick={() => {
+                    navigate(`/profile/${info.user_id}`);
+                }}
+            />
             <CommentContent>
                 <CommentTopBox>
                     <CommentUsername>{info.nickname}</CommentUsername>

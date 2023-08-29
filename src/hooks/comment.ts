@@ -6,7 +6,7 @@ export function useGetComment(userId: string | undefined, diaryId: string) {
     const Id = userId ? userId : '';
     console.log('useGetComment!!');
 
-    return useQuery(['comments', diaryId], () => getComment(Id, diaryId), {
+    return useQuery(['diary', diaryId], () => getComment(Id, diaryId), {
         refetchOnWindowFocus: false,
         onError: (err) => {
             console.error('getCommentHook: ', err);
@@ -21,7 +21,7 @@ export function useCommentMutations() {
         (comments: SetComments) => create(comments),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['comments']);
+                queryClient.invalidateQueries(['diary']);
             },
         }
     );
@@ -30,7 +30,7 @@ export function useCommentMutations() {
         (comments: RemoveComments) => remove(comments),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['comments']);
+                queryClient.invalidateQueries(['diary']);
             },
         }
     );

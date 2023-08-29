@@ -118,7 +118,6 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
             onError(error, variables, context) {},
         });
     };
-    console.log('createDiaryHook.isLoading', createDiaryHook.isLoading);
 
     return (
         <ModalWrapper>
@@ -151,6 +150,7 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
                 <RightContent>
                     <FileInput
                         type='file'
+                        accept='video/*, image/*'
                         multiple
                         onChange={handleFileChange}
                     />
@@ -233,6 +233,7 @@ const ModalWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
     /* 스크롤바 스타일 변경 */
     ::-webkit-scrollbar {
         width: 0;

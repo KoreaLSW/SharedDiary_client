@@ -90,13 +90,23 @@ export function Navbar() {
         setId(user);
     }, [user]);
 
-    const toggleActive = (i: number) => {
+    const toggleActive = (item: List | undefined, i: number) => {
         //console.log(i);
 
         setBtnActive(() => {
             return i;
         });
         setLocal('navbar', i.toString());
+
+        if (item) {
+            if (!user) {
+                navigate('/login');
+                return;
+            }
+            item.value === 6
+                ? navigate(`${item.path}/${user}`)
+                : navigate(item.path);
+        }
     };
 
     window.addEventListener('load', () => {
@@ -122,18 +132,17 @@ export function Navbar() {
     };
 
     const navbarList: JSX.Element[] = navbarArray.map((item, index) => (
-        <Link key={index} to={item.path}>
-            <Li
-                value={index}
-                className={index === btnActive ? 'active' : ''}
-                onClick={() => {
-                    toggleActive(index);
-                }}
-            >
-                {index === btnActive ? item.clickicon : item.icon}
-                {item.text}
-            </Li>
-        </Link>
+        <Li
+            key={index}
+            value={index}
+            className={index === btnActive ? 'active' : ''}
+            onClick={() => {
+                toggleActive(item, index);
+            }}
+        >
+            {index === btnActive ? item.clickicon : item.icon}
+            {item.text}
+        </Li>
     ));
     return (
         <Nav>
@@ -157,7 +166,7 @@ export function Navbar() {
                         }
                         to='/login'
                         onClick={() => {
-                            toggleActive(navbarArray.length + 1);
+                            toggleActive(undefined, navbarArray.length + 1);
                         }}
                     >
                         <AiOutlineLogin />

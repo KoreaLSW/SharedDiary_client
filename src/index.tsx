@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             { path: '/follow', element: <Follow /> },
             { path: '/message', element: <Message /> },
             { path: '/statistics', element: <Statistics /> },
-            { path: '/profile', element: <Profile /> },
+            { path: '/profile/:profileuser', element: <Profile /> },
             { path: '/mysharediary', element: <MyShareDiary /> },
         ],
     },

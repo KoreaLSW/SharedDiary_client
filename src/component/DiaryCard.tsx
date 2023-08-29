@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { css, keyframes, styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { GetDiary } from '../type/diary';
-import {
-    AiOutlineUser,
-    AiOutlineLike,
-    AiFillLike,
-    AiOutlineLock,
-} from 'react-icons/ai';
+import { AiOutlineLike, AiFillLike, AiOutlineLock } from 'react-icons/ai';
 import { GoComment } from 'react-icons/go';
 
 import useDiaryLike from '../hooks/diaryLike';
@@ -23,6 +19,7 @@ type Props = {
 };
 
 export function DiaryCard({ info, userId }: Props) {
+    const navigate = useNavigate();
     const { createLike, removeLike } = useDiaryLike();
     const { updateDiaryHook, removeDiaryHook } = useDiaryMutations();
 
@@ -137,11 +134,15 @@ export function DiaryCard({ info, userId }: Props) {
     return (
         <Card>
             <Heard>
-                {info.profile_img ? (
-                    <Profile src={`${info.profile_img}`} alt='' />
-                ) : (
-                    <AiOutlineUser className='no-profile' />
-                )}
+                <Avatar
+                    src={
+                        info.profile_img
+                            ? info.profile_img
+                            : 'https://dmemema.cafe24.com/img/noprofile/noprofile.jpg'
+                    }
+                    alt='프로필사진'
+                    onClick={() => navigate(`/profile/${info.user_id}`)}
+                />
 
                 <TiTle>
                     <p className='nickname'>{info.nickname}</p>
@@ -267,25 +268,28 @@ const Heard = styled.div`
     .no-profile {
         font-size: 2rem;
         margin-right: 0.5rem;
+        cursor: pointer;
     }
 `;
 
-const Profile = styled.img`
-    width: 2.5rem;
-    height: 2.5rem;
+const Avatar = styled.img`
+    width: 3rem;
+    height: 3rem;
     margin-right: 0.5rem;
     border-radius: 50%;
     object-fit: cover;
+    cursor: pointer;
 `;
 
 const TiTle = styled.div`
     .nickname {
         font-size: 1rem;
+        margin-bottom: 0.3rem;
     }
 
     .diarydate {
         font-size: 0.8rem;
-        font-weight: 100;
+        font-weight: bold;
         color: ${(props) => props.theme.colors.darkGrayText};
     }
 

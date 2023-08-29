@@ -11,6 +11,7 @@ import {
     getByMonth,
     getByMonthHome,
     getByUserId,
+    getByUserIdPage,
     remove,
     update,
 } from '../api/diary';
@@ -96,6 +97,26 @@ export function useDiaryUser(userId?: string) {
             console.error('getDiaryUserHook: ', err);
         },
     });
+}
+
+export function useDiaryUserPage(userId?: string) {
+    const id = userId ? userId : '';
+
+    return useInfiniteQuery(
+        ['diary', 'page', userId],
+        ({ pageParam = 0 }) => getByUserIdPage(id, pageParam, OFFSET),
+        {
+            getNextPageParam: (lastPage) => {
+                //console.log('lastPage', lastPage.data.nextPage);
+
+                return parseInt(lastPage.data.nextPage) + OFFSET;
+            }, // 10씩 증가
+            refetchOnWindowFocus: false,
+            onError: (err) => {
+                console.error('getDiaryAllHook: ', err);
+            },
+        }
+    );
 }
 
 export function useDiaryMutations() {

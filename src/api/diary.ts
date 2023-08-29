@@ -35,6 +35,17 @@ export async function getByUserId(userId: string): Promise<any> {
     return client.get(url, { params: { userId } }).then((result) => result);
 }
 
+export async function getByUserIdPage(
+    userId: string,
+    page: number,
+    offset: number
+): Promise<any> {
+    const url: string = '/diary/page';
+    return client
+        .get(url, { params: { userId, page, offset } })
+        .then((result) => result);
+}
+
 export async function getByMonthHome(data: SelectDiaryMonth): Promise<any> {
     const url: string = '/diary/month/home';
     return client

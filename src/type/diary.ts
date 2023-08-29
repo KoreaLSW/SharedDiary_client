@@ -6,6 +6,7 @@ export type SelectDiaryMonth = {
 export type User = {
     user_id: string;
     password: string;
+    passwordUpdate: string;
     nickname: string;
     email: string;
     birthday: string;
