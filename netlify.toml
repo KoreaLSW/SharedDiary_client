@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/proxy/*"
+  to = "https://sharediary-sangwoo.koyeb.app/:splat"
+  status = 200
+  force = true
