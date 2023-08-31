@@ -7,7 +7,7 @@ const headers = {
 };
 
 const client = axios.create({
-    baseURL: 'http://localhost:8080', // 기본 URL 설정
+    baseURL: process.env.REACT_APP_BASE_URL, // 기본 URL 설정
     withCredentials: true, // withCredentials 설정
 });
 

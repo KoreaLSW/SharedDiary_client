@@ -3,7 +3,7 @@ import { Container, Content } from '../theme/theme';
 import socket from 'socket.io-client';
 
 export function Message() {
-    const socketIO = socket('http://localhost:8080');
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!);
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
 
