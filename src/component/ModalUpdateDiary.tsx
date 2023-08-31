@@ -92,7 +92,6 @@ export function ModalUpdateDiary({ info, toggleUpdateModal }: Props) {
 
     const handleDiaryUpload = () => {
         formData.delete('diary');
-        console.log('diary', diary);
         formData.append('diary', JSON.stringify(diary));
 
         if (diary.contents === '') {
@@ -124,7 +123,6 @@ export function ModalUpdateDiary({ info, toggleUpdateModal }: Props) {
             }
         );
     };
-    console.log('createDiaryHook.isLoading', updateDiaryHook.isLoading);
 
     return (
         <ModalWrapper>

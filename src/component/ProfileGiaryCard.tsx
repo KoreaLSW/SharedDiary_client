@@ -8,6 +8,8 @@ import { WeatherEmoji } from './WeatherEmoji';
 import { EmotionEmoji } from './EmotionEmoji';
 import { ModalReadDiary } from './ModalReadDiary';
 import { userAtom } from '../recoil/authAtom';
+import { ModalUpdateDiary } from './ModalUpdateDiary';
+import { useDiaryMutations } from '../hooks/diary';
 
 type Props = {
     info: GetDiary;
@@ -15,7 +17,10 @@ type Props = {
 
 export function ProfileGiaryCard({ info }: Props) {
     const user = useRecoilValue(userAtom);
+    const { removeDiaryHook } = useDiaryMutations();
+
     const [isModalReadOpen, setIsModalOpen] = useState(false);
+    const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
     const [imageArray, setImageArray] = useState([
         info.image_01,
         info.image_02,
@@ -31,7 +36,7 @@ export function ProfileGiaryCard({ info }: Props) {
     }, []);
 
     useEffect(() => {
-        if (isModalReadOpen) {
+        if (isModalReadOpen || isModalUpdateOpen) {
             // 모달이 열렸을 때 스크롤 막기
             document.body.style.overflow = 'hidden';
         } else {
@@ -43,10 +48,32 @@ export function ProfileGiaryCard({ info }: Props) {
             // 컴포넌트 언마운트될 때 스크롤 다시 활성화
             document.body.style.overflow = 'auto';
         };
-    }, [isModalReadOpen]);
+    }, [isModalReadOpen, isModalUpdateOpen]);
 
     const toggleReadModal = () => {
         setIsModalOpen(!isModalReadOpen);
+    };
+
+    const toggleUpdateModal = () => {
+        console.log('프로필 업데이트', info);
+
+        setIsModalUpdateOpen(!isModalUpdateOpen);
+    };
+
+    const handleDeleteDiary = () => {
+        const result = window.confirm('게시물을 삭제하시겠습니까?');
+
+        if (result) {
+            removeDiaryHook.mutate(
+                { diary_id: info.diary_id, user_id: user! },
+                {
+                    onSuccess(data, variables, context) {
+                        alert('게시물이 삭제되었습니다.');
+                    },
+                    onError(error, variables, context) {},
+                }
+            );
+        }
     };
 
     return (
@@ -72,9 +99,21 @@ export function ProfileGiaryCard({ info }: Props) {
             </SquareImageContainer>
             <p className='date'>{info.diary_date}</p>
             <div className='emotion'>
-                <WeatherEmoji type={info.weather} />
-                <EmotionEmoji type={info.emotion} />
-                {info.share_type === 2 && <AiOutlineLock />}
+                <div className='emotion_box'>
+                    <WeatherEmoji type={info.weather} />
+                    <EmotionEmoji type={info.emotion} />
+                    {info.share_type === 2 && <AiOutlineLock />}
+                </div>
+                {user === info.user_id && (
+                    <div className='update_box'>
+                        <p className='update' onClick={toggleUpdateModal}>
+                            수정
+                        </p>
+                        <p className='delete' onClick={handleDeleteDiary}>
+                            삭제
+                        </p>
+                    </div>
+                )}
             </div>
             {isModalReadOpen && (
                 <ModalReadDiary
@@ -82,6 +121,12 @@ export function ProfileGiaryCard({ info }: Props) {
                     userId={user}
                     toggleReadModal={toggleReadModal}
                     imageArray={imageArray}
+                />
+            )}
+            {isModalUpdateOpen && (
+                <ModalUpdateDiary
+                    info={info}
+                    toggleUpdateModal={toggleUpdateModal}
                 />
             )}
         </Card>
@@ -98,7 +143,33 @@ const Card = styled.div`
     .emotion {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
+
+    .emotion .emotion_box {
+        display: flex;
+        align-items: center;
+    }
+
+    .emotion .update_box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .emotion .update_box p {
+        cursor: pointer;
+    }
+
+    .emotion .update_box .update {
+        color: ${(props) => props.theme.colors.signature};
+    }
+
+    .emotion .update_box .delete {
+        color: ${(props) => props.theme.colors.red};
+    }
+
     .emotion span {
         display: none;
     }

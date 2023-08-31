@@ -21,7 +21,7 @@ type Props = {
 export function DiaryCard({ info, userId }: Props) {
     const navigate = useNavigate();
     const { createLike, removeLike } = useDiaryLike();
-    const { updateDiaryHook, removeDiaryHook } = useDiaryMutations();
+    const { removeDiaryHook } = useDiaryMutations();
 
     const [showFullText, setShowFullText] = useState(false);
     const [likeStatus, setLikeStatus] = useState<boolean>(
@@ -110,10 +110,9 @@ export function DiaryCard({ info, userId }: Props) {
     };
 
     const toggleUpdateModal = () => {
+        console.log('일반 업데이트', info);
         setIsModalUpdateOpen(!isModalUpdateOpen);
     };
-
-    const handleUpdateDiary = () => {};
 
     const handleDeleteDiary = () => {
         const result = window.confirm('게시물을 삭제하시겠습니까?');

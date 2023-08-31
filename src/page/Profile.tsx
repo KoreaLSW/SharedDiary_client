@@ -353,7 +353,10 @@ export function Profile() {
                                                     : 0}
                                             </strong>
                                         </p>
-                                        <p onClick={handleFollowerModal}>
+                                        <p
+                                            className='follower'
+                                            onClick={handleFollowerModal}
+                                        >
                                             팔로워
                                             <strong>
                                                 {' '}
@@ -362,7 +365,10 @@ export function Profile() {
                                                     : 0}
                                             </strong>
                                         </p>
-                                        <p onClick={handleFollowingModal}>
+                                        <p
+                                            className='following'
+                                            onClick={handleFollowingModal}
+                                        >
                                             팔로우
                                             <strong>
                                                 {' '}
@@ -498,6 +504,11 @@ const UserInfoBox = styled.div`
         background-color: ${(props) => props.theme.colors.sky};
         padding: 1rem;
         border-radius: 0.5rem;
+    }
+
+    .userinfo_container .userinfo_box .right_box .bottom .follower,
+    .userinfo_container .userinfo_box .right_box .bottom .following {
+        cursor: pointer;
     }
 
     .userinfo_container .userinfo_box .right_box .nickname_box {
