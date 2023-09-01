@@ -18,7 +18,7 @@ export function ChatMessage() {
 
     const socketIO = socket(process.env.REACT_APP_BASE_URL!);
 
-    const [messages, setMessages] = useState([]);
+    const [messageList, setMessageList] = useState<GetMessage[]>();
     const [newMessage, setNewMessage] = useState('');
     const [showProfilePic, setShowProfilePic] = useState(true);
 
@@ -34,8 +34,13 @@ export function ChatMessage() {
     data && console.log('메시지 리스트', data);
 
     useEffect(() => {
+        data && setMessageList(data.data);
+    }, []);
+
+    useEffect(() => {
         socketIO.on('chatMessage', (data) => {
             console.log('소켓 chatMessage 실행', data);
+            //data && setMessageList(data);
         });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
@@ -77,24 +82,30 @@ export function ChatMessage() {
             <Content $maxWidth='550px'>
                 <ChatContainer>
                     <MessagesContainer ref={messagesContainerRef}>
-                        {data.data.map((message: GetMessage, index: number) => (
-                            <Message
-                                key={index}
-                                isCurrentUser={message.user_id === user}
-                            >
-                                {showProfilePic && message.user_id !== user && (
-                                    <ProfilePic
-                                        src={`profile_${message.user_id}.jpg`}
-                                        alt='Profile'
-                                    />
-                                )}
-                                <MessageText
-                                    isCurrentUser={message.user_id === user}
-                                >
-                                    {message.message}
-                                </MessageText>
-                            </Message>
-                        ))}
+                        {data &&
+                            data.data.map(
+                                (message: GetMessage, index: number) => (
+                                    <Message
+                                        key={index}
+                                        isCurrentUser={message.user_id === user}
+                                    >
+                                        {showProfilePic &&
+                                            message.user_id !== user && (
+                                                <ProfilePic
+                                                    src={`profile_${message.user_id}.jpg`}
+                                                    alt='Profile'
+                                                />
+                                            )}
+                                        <MessageText
+                                            isCurrentUser={
+                                                message.user_id === user
+                                            }
+                                        >
+                                            {message.message}
+                                        </MessageText>
+                                    </Message>
+                                )
+                            )}
                     </MessagesContainer>
                     <InputContainer>
                         <Input
