@@ -18,7 +18,6 @@ export function ChatMessage() {
 
     const socketIO = socket(process.env.REACT_APP_BASE_URL!);
 
-    const [messageList, setMessageList] = useState<GetMessage[]>();
     const [newMessage, setNewMessage] = useState('');
     const [showProfilePic, setShowProfilePic] = useState(true);
 
@@ -34,13 +33,8 @@ export function ChatMessage() {
     data && console.log('메시지 리스트', data);
 
     useEffect(() => {
-        data && setMessageList(data.data);
-    }, []);
-
-    useEffect(() => {
         socketIO.on('chatMessage', (data) => {
             console.log('소켓 chatMessage 실행', data);
-            //data && setMessageList(data);
         });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
@@ -70,7 +64,9 @@ export function ChatMessage() {
                 message: newMessage,
             },
             {
-                onSuccess(data, variables, context) {},
+                onSuccess(data, variables, context) {
+                    socketIO.emit('chatMessage', 'onSuccess');
+                },
                 onError(error, variables, context) {},
             }
         );
