@@ -22,6 +22,7 @@ import { Profile } from './page/Profile';
 import { MyShareDiary } from './page/MyShareDiary';
 import { userSelector } from './recoil/authAtom';
 import { ProtectedRoute } from './routes/ProtectedRoute';
+import { ChatMessage } from './page/ChatMessage';
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
             { path: '/statistics', element: <Statistics /> },
             { path: '/profile/:profileuser', element: <Profile /> },
             { path: '/mysharediary', element: <MyShareDiary /> },
+            { path: '/chat/message/:user', element: <ChatMessage /> },
         ],
     },
 ]);

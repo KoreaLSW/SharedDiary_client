@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-components';
 import { BiSolidPencil } from 'react-icons/bi';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container, Content } from '../theme/theme';
 import { SignUp } from '../type/auth';
@@ -20,6 +20,7 @@ import {
     useGetFollowing,
 } from '../hooks/follow';
 import { FollowModal } from '../component/FollowModal';
+import { useChatRoomMutations } from '../hooks/chatRoom';
 
 const formData = new FormData();
 const nickRegex: RegExp = /^(?:[aeiouAEIOUㄱ-ㅎㅏ-ㅣ]*[a-zA-Z가-힣0-9])*$/;
@@ -27,7 +28,7 @@ const nickRegex: RegExp = /^(?:[aeiouAEIOUㄱ-ㅎㅏ-ㅣ]*[a-zA-Z가-힣0-9])*$/
 export function Profile() {
     const user = useRecoilValue(userAtom);
     const { profileuser } = useParams();
-    console.log('profileuser', profileuser);
+    const navigate = useNavigate();
 
     const { data: follower } = useGetFollower(profileuser!);
     const { data: following } = useGetFollowing(profileuser!);
@@ -63,6 +64,7 @@ export function Profile() {
 
     const { updateHook } = useAuth();
     const { createFollow, removeFollow } = useFollowMutations();
+    const { createChatRoom } = useChatRoomMutations();
 
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -246,6 +248,27 @@ export function Profile() {
         handleUserInfoSave();
     };
 
+    const handleChatSend = () => {
+        createChatRoom.mutate(
+            { user_id: user!, participant_user_id: profileuser! },
+            {
+                onSuccess(data, variables, context) {
+                    console.log('채팅방 생성 완료 data:', data.data);
+                    console.log('채팅방 생성 완료 variables:', variables);
+                    console.log('채팅방 생성 완료 context:', context);
+
+                    navigate(`/chat/message/${profileuser}`, {
+                        state: {
+                            user_id: profileuser,
+                            room_id: data.data,
+                        },
+                    });
+                },
+                onError(error, variables, context) {},
+            }
+        );
+    };
+
     return (
         <Container>
             <Content $maxWidth='1000px'>
@@ -313,6 +336,7 @@ export function Profile() {
                                                         </p>
                                                     </>
                                                 )}
+
                                                 {user !== profileuser &&
                                                     (followCheck &&
                                                     followCheck.data.length ===
@@ -335,6 +359,18 @@ export function Profile() {
                                                             팔로우 취소
                                                         </p>
                                                     ))}
+                                                {user !== profileuser && (
+                                                    <>
+                                                        <p
+                                                            className='chat'
+                                                            onClick={
+                                                                handleChatSend
+                                                            }
+                                                        >
+                                                            메세지 보내기
+                                                        </p>
+                                                    </>
+                                                )}
                                             </>
                                         )}
                                     </div>
@@ -538,9 +574,13 @@ const UserInfoBox = styled.div`
         cursor: pointer;
         color: ${(props) => props.theme.colors.red};
     }
-
-    .userinfo_container .userinfo_box .right_box .nickname_box input {
+    .userinfo_container .userinfo_box .right_box .nickname_box .chat {
+        padding: 0.5rem 1rem;
+        background-color: ${(props) => props.theme.colors.writeGray};
+        border-radius: 0.5rem;
+        cursor: pointer;
     }
+
     .userinfo_container .userinfo_box .right_box .nickname_box button {
         padding: 0.5rem 1rem;
         background-color: ${(props) => props.theme.colors.signature};
