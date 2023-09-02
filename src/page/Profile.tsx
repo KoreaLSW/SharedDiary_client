@@ -249,6 +249,8 @@ export function Profile() {
     };
 
     const handleChatSend = () => {
+        console.log('메시지 보내기 클릭');
+
         createChatRoom.mutate(
             { user_id: user!, participant_user_id: profileuser! },
             {
@@ -264,7 +266,9 @@ export function Profile() {
                         },
                     });
                 },
-                onError(error, variables, context) {},
+                onError(error, variables, context) {
+                    console.log('createChatRoom Error:', error);
+                },
             }
         );
     };

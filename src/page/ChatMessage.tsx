@@ -18,6 +18,7 @@ export function ChatMessage() {
 
     const socketIO = socket(process.env.REACT_APP_BASE_URL!);
 
+    const [messageList, setMessageList] = useState<GetMessage[]>();
     const [newMessage, setNewMessage] = useState('');
     const [showProfilePic, setShowProfilePic] = useState(true);
 
@@ -30,18 +31,23 @@ export function ChatMessage() {
 
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
-    data && console.log('메시지 리스트', data);
-
     useEffect(() => {
         socketIO.on('chatMessage', (data) => {
             console.log('소켓 chatMessage 실행', data);
+            data && Array.isArray(data) && setMessageList(data);
         });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             socketIO.off('소켓 chatMessage 종료');
         };
-    }, [sendMessage]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, [sendMessage, data]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+
+    useEffect(() => {
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messageList]);
 
     // 메시지 입력 핸들러
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,9 +71,11 @@ export function ChatMessage() {
             },
             {
                 onSuccess(data, variables, context) {
-                    socketIO.emit('chatMessage', 'onSuccess');
+                    socketIO.emit('chatMessage', data);
                 },
-                onError(error, variables, context) {},
+                onError(error, variables, context) {
+                    console.log('메세지 전송 error: ', error);
+                },
             }
         );
         setNewMessage('');
@@ -75,11 +83,11 @@ export function ChatMessage() {
 
     return (
         <Container>
-            <Content $maxWidth='550px'>
+            <Content $maxWidth='600px'>
                 <ChatContainer>
-                    <MessagesContainer ref={messagesContainerRef}>
-                        {data &&
-                            data.data.map(
+                    <MessagesContainer>
+                        {messageList &&
+                            messageList.map(
                                 (message: GetMessage, index: number) => (
                                     <Message
                                         key={index}
@@ -99,6 +107,7 @@ export function ChatMessage() {
                                         >
                                             {message.message}
                                         </MessageText>
+                                        <div ref={messagesContainerRef}></div>
                                     </Message>
                                 )
                             )}
@@ -129,7 +138,7 @@ const ChatContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 80vh;
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
@@ -146,6 +155,7 @@ const Message = styled.div<{ isCurrentUser: boolean }>`
     flex-direction: column;
     align-items: ${(props) =>
         props.isCurrentUser ? 'flex-end' : 'flex-start'};
+    justify-content: flex-end;
     margin-bottom: 10px;
 `;
 
