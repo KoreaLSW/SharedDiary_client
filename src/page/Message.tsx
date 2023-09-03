@@ -24,7 +24,7 @@ export function Message() {
     data && console.log('룸리스트', data);
 
     useEffect(() => {
-        socketIO.on(`${user} readChatRoom`, (data) => {
+        socketIO.on(`readChatRoom`, (data) => {
             console.log(`${user} readChatRoom`, data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetChatRoomList) => {
