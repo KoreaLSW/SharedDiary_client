@@ -135,7 +135,8 @@ export function ChatMessage() {
                                         >
                                             {message.message}
                                         </MessageText>
-                                        {message.message_status === 'Read' ? (
+                                        {message.user_id === user &&
+                                        message.message_status === 'Read' ? (
                                             <p>읽음</p>
                                         ) : (
                                             <p>읽지않음</p>
