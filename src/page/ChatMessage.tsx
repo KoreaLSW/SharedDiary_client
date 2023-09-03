@@ -84,6 +84,7 @@ export function ChatMessage() {
     const handleSendMessage = () => {
         sendMessage.mutate(
             {
+                room_id: state.room_id,
                 user_id: user!,
                 participant_user_id: state.user_id!,
                 message: newMessage,
