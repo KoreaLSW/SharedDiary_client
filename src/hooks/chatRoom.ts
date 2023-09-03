@@ -4,7 +4,6 @@ import { ChatRoomUsers, UpdateChatTitle } from '../type/chatRoom';
 
 export function useGetChatRoomList(userId: string, message?: string) {
     const Id = userId ? userId : '';
-    console.log('useGetChatRoomList!!');
 
     return useQuery(
         ['chat', 'chatRoom', Id, message],

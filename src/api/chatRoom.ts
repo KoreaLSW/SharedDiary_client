@@ -12,6 +12,7 @@ const client = axios.create({
 });
 
 export async function getChatRoomList(userId: string): Promise<any> {
+    console.log('useGetChatRoomList!!');
     const url: string = '/chat/room';
     return client.get(url, { params: { userId } }).then((result) => result);
 }
