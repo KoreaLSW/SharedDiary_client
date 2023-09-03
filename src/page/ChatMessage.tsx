@@ -97,7 +97,7 @@ export function ChatMessage() {
                     console.log('user!', user);
 
                     //socketIO.emit(`${state.room_id} chatMessage`, data);
-                    //socketIO.emit(`${user} readChatRoom`);
+                    socketIO.emit('connection');
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
