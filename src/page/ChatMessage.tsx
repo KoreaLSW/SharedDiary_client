@@ -32,7 +32,7 @@ export function ChatMessage() {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        socketIO.on(`${user} chatMessage`, (data) => {
+        socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행', data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetMessage) => {
