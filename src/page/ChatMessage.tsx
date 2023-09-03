@@ -91,6 +91,7 @@ export function ChatMessage() {
             {
                 onSuccess(data, variables, context) {
                     socketIO.emit('chatMessage', data);
+                    socketIO.emit('readChatRoom');
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
@@ -135,12 +136,12 @@ export function ChatMessage() {
                                         >
                                             {message.message}
                                         </MessageText>
-                                        {message.user_id === user &&
+                                        {/* {message.user_id === user &&
                                         message.message_status === 'Read' ? (
                                             <p>읽음</p>
                                         ) : (
                                             <p>읽지않음</p>
-                                        )}
+                                        )} */}
 
                                         <p>{message.message_date}</p>
                                         <div ref={messagesContainerRef}></div>

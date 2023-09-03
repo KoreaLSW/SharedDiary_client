@@ -24,7 +24,7 @@ export function useChatMessageMutations() {
         (send: sendMessage) => sendChatMessage(send),
         {
             onSuccess: () => {
-                queryClient.invalidateQueries(['chat', 'message']);
+                queryClient.invalidateQueries(['chat', 'message', 'chatRoom']);
             },
         }
     );
