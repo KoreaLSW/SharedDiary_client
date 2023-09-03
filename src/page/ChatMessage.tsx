@@ -32,7 +32,8 @@ export function ChatMessage() {
     });
 
     const { data: roomList, refetch: refetchRoomList } = useGetChatRoomList(
-        user!
+        user!,
+        newMessage
     );
 
     const { sendMessage } = useChatMessageMutations();

@@ -2,16 +2,20 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { create, getChatRoomList, remove, update } from '../api/chatRoom';
 import { ChatRoomUsers, UpdateChatTitle } from '../type/chatRoom';
 
-export function useGetChatRoomList(userId: string) {
+export function useGetChatRoomList(userId: string, message?: string) {
     const Id = userId ? userId : '';
     console.log('useGetChatRoomList!!');
 
-    return useQuery(['chat', 'chatRoom', Id], () => getChatRoomList(Id), {
-        refetchOnWindowFocus: false,
-        onError: (err) => {
-            console.error('getChatRoomList: ', err);
-        },
-    });
+    return useQuery(
+        ['chat', 'chatRoom', Id, message],
+        () => getChatRoomList(Id),
+        {
+            refetchOnWindowFocus: false,
+            onError: (err) => {
+                console.error('getChatRoomList: ', err);
+            },
+        }
+    );
 }
 
 export function useChatRoomMutations() {
