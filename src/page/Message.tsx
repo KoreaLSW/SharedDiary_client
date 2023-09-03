@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Container, Content } from '../theme/theme';
 import socket from 'socket.io-client';
@@ -24,7 +24,9 @@ export function Message() {
     data && console.log('룸리스트', data);
 
     useEffect(() => {
-        socketIO.on(`${user} readChatRoom`, (data) => {
+        console.log('zzzzzzzzzzzzzzzzzzz');
+
+        socketIO.on(`readChatRoom`, (data) => {
             console.log(`${user} readChatRoom`, data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetChatRoomList) => {
@@ -47,12 +49,11 @@ export function Message() {
                 setMessageRoom(modifiedData);
             }
         });
-
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             socketIO.off('소켓 readChatRoom 종료');
         };
-    }, [data]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, [data, socketIO]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
     const handleReadMessage = (roomId: number, userId: string) => {
         navigate(`/chat/message/${userId}`, {

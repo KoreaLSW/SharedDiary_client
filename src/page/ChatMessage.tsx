@@ -1,6 +1,6 @@
 import socket from 'socket.io-client';
 import React, { useState, useEffect, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { Container, Content } from '../theme/theme';
