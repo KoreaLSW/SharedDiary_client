@@ -21,7 +21,7 @@ export function Message() {
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
-        socketIO.on('readChatRoom', (data) => {
+        socketIO.on(`${user} readChatRoom`, (data) => {
             console.log('readChatRoom', data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetChatRoomList) => {

@@ -32,7 +32,7 @@ export function ChatMessage() {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        socketIO.on('chatMessage', (data) => {
+        socketIO.on(`${user} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행', data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetMessage) => {
@@ -90,8 +90,8 @@ export function ChatMessage() {
             },
             {
                 onSuccess(data, variables, context) {
-                    socketIO.emit('chatMessage', data);
-                    socketIO.emit('readChatRoom');
+                    socketIO.emit(`${user} chatMessage`, data);
+                    socketIO.emit(`${user} readChatRoom`);
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
