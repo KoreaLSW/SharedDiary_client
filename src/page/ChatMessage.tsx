@@ -16,7 +16,9 @@ export function ChatMessage() {
     const user = useRecoilValue(userAtom);
     const { state } = useLocation();
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!);
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        query: { user }, // 사용자 ID를 서버로 전달
+    });
 
     const [messageList, setMessageList] = useState<GetMessage[]>();
     const [newMessage, setNewMessage] = useState('');
@@ -33,7 +35,7 @@ export function ChatMessage() {
 
     useEffect(() => {
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
-            console.log('소켓 chatMessage 실행', data);
+            console.log('소켓 chatMessage 실행');
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetMessage) => {
                     const messageDate = new Date(message.message_date);
@@ -60,7 +62,7 @@ export function ChatMessage() {
         return () => {
             socketIO.off('소켓 chatMessage 종료');
         };
-    }, [sendMessage, data]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, [sendMessage, data]);
 
     useEffect(() => {
         if (messagesContainerRef.current) {
@@ -92,9 +94,10 @@ export function ChatMessage() {
             {
                 onSuccess(data, variables, context) {
                     console.log('send!', data);
+                    console.log('user!', user);
 
-                    socketIO.emit(`${state.room_id} chatMessage`, data);
-                    socketIO.emit(`${user} readChatRoom`);
+                    //socketIO.emit(`${state.room_id} chatMessage`, data);
+                    //socketIO.emit(`${user} readChatRoom`);
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);

@@ -12,17 +12,20 @@ export function Message() {
     const user = useRecoilValue(userAtom);
     const navigate = useNavigate();
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!);
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        query: { user }, // 사용자 ID를 서버로 전달
+    });
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
 
     const { data } = useGetChatRoomList(user!);
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
+    data && console.log('룸리스트', data);
 
     useEffect(() => {
         socketIO.on(`${user} readChatRoom`, (data) => {
-            console.log('readChatRoom', data);
+            console.log(`${user} readChatRoom`, data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetChatRoomList) => {
                     const messageDate = new Date(message.message_date);
