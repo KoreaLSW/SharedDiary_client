@@ -90,7 +90,9 @@ export function ChatMessage() {
             },
             {
                 onSuccess(data, variables, context) {
-                    socketIO.emit(`${user} chatMessage`, data);
+                    console.log('send!', data);
+
+                    socketIO.emit(`${state.room_id} chatMessage`, data);
                     socketIO.emit(`${user} readChatRoom`);
                 },
                 onError(error, variables, context) {
