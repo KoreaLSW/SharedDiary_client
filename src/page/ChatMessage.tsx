@@ -31,10 +31,7 @@ export function ChatMessage() {
         participant_user_id: state.user_id,
     });
 
-    const { data: roomList, refetch: refetchRoomList } = useGetChatRoomList(
-        user!,
-        newMessage
-    );
+    const { data: roomList } = useGetChatRoomList(user!, newMessage);
 
     const { sendMessage } = useChatMessageMutations();
 
@@ -102,8 +99,6 @@ export function ChatMessage() {
                 onSuccess(data, variables, context) {
                     console.log('send!', data);
                     console.log('user!', user);
-
-                    refetchRoomList();
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
