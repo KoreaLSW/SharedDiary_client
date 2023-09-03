@@ -52,7 +52,7 @@ export function Message() {
         return () => {
             socketIO.off('소켓 readChatRoom 종료');
         };
-    }, [data]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, [data, socketIO]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
     const handleReadMessage = (roomId: number, userId: string) => {
         navigate(`/chat/message/${userId}`, {

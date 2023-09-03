@@ -11,6 +11,7 @@ import {
 import { userAtom } from '../recoil/authAtom';
 import { styled } from 'styled-components';
 import { GetMessage } from '../type/chatMessage';
+import { useGetChatRoomList } from '../hooks/chatRoom';
 
 export function ChatMessage() {
     const user = useRecoilValue(userAtom);
@@ -29,6 +30,9 @@ export function ChatMessage() {
         user_id: user!,
         participant_user_id: state.user_id,
     });
+
+    const { data: roomList } = useGetChatRoomList(user!);
+
     const { sendMessage } = useChatMessageMutations();
 
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
@@ -95,9 +99,6 @@ export function ChatMessage() {
                 onSuccess(data, variables, context) {
                     console.log('send!', data);
                     console.log('user!', user);
-
-                    //socketIO.emit(`${state.room_id} chatMessage`, data);
-                    socketIO.emit('connection');
                 },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
