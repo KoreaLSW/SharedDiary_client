@@ -34,7 +34,26 @@ export function ChatMessage() {
     useEffect(() => {
         socketIO.on('chatMessage', (data) => {
             console.log('소켓 chatMessage 실행', data);
-            data && Array.isArray(data) && setMessageList(data);
+            if (data && Array.isArray(data)) {
+                const modifiedData = data.map((message: GetMessage) => {
+                    const messageDate = new Date(message.message_date);
+                    const options: Intl.DateTimeFormatOptions = {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true,
+                    };
+                    const formattedTime = messageDate.toLocaleTimeString(
+                        [],
+                        options
+                    );
+                    // message 객체를 변경하고 변경된 객체 반환
+                    return {
+                        ...message,
+                        message_date: formattedTime, // message_date 변경
+                    };
+                });
+                setMessageList(modifiedData);
+            }
         });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
@@ -91,22 +110,38 @@ export function ChatMessage() {
                                 (message: GetMessage, index: number) => (
                                     <Message
                                         key={index}
-                                        isCurrentUser={message.user_id === user}
+                                        $isCurrentUser={
+                                            message.user_id === user
+                                        }
                                     >
                                         {showProfilePic &&
                                             message.user_id !== user && (
-                                                <ProfilePic
-                                                    src={`profile_${message.user_id}.jpg`}
-                                                    alt='Profile'
-                                                />
+                                                <MessageProfile>
+                                                    <ProfilePic
+                                                        src={
+                                                            message.profile_img
+                                                        }
+                                                        alt='Profile'
+                                                    />
+                                                    <span>
+                                                        {message.nickname}
+                                                    </span>
+                                                </MessageProfile>
                                             )}
                                         <MessageText
-                                            isCurrentUser={
+                                            $isCurrentUser={
                                                 message.user_id === user
                                             }
                                         >
                                             {message.message}
                                         </MessageText>
+                                        {message.message_status === 'Read' ? (
+                                            <p>읽음</p>
+                                        ) : (
+                                            <p>읽지않음</p>
+                                        )}
+
+                                        <p>{message.message_date}</p>
                                         <div ref={messagesContainerRef}></div>
                                     </Message>
                                 )
@@ -150,11 +185,11 @@ const MessagesContainer = styled.div`
     padding: 10px;
 `;
 
-const Message = styled.div<{ isCurrentUser: boolean }>`
+const Message = styled.div<{ $isCurrentUser: boolean }>`
     display: flex;
     flex-direction: column;
     align-items: ${(props) =>
-        props.isCurrentUser ? 'flex-end' : 'flex-start'};
+        props.$isCurrentUser ? 'flex-end' : 'flex-start'};
     justify-content: flex-end;
     margin-bottom: 10px;
 `;
@@ -167,10 +202,16 @@ const ProfilePic = styled.img`
     align-self: flex-start;
 `;
 
-const MessageText = styled.div<{ isCurrentUser: boolean }>`
+const MessageProfile = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+`;
+
+const MessageText = styled.div<{ $isCurrentUser: boolean }>`
     background-color: ${(props) =>
-        props.isCurrentUser ? '#0084ff' : '#e5e5ea'};
-    color: ${(props) => (props.isCurrentUser ? '#fff' : '#333')};
+        props.$isCurrentUser ? '#0084ff' : '#e5e5ea'};
+    color: ${(props) => (props.$isCurrentUser ? '#fff' : '#333')};
     border-radius: 10px;
     padding: 10px;
     max-width: 70%;

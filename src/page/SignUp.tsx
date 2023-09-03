@@ -94,7 +94,7 @@ export function SignUpPage() {
             return;
         }
 
-        formData.delete('diary');
+        formData.delete('signup');
         formData.append('signup', JSON.stringify(signup));
 
         signUpHook.mutate(formData, {

@@ -18,30 +18,9 @@ export function Message() {
     //     };
     // }, []); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
-    const handleNewMessage = (data: any) => {
-        setMessages((prevMessages: any) => [...prevMessages, data]);
-    };
-
-    const sendMessage = () => {
-        socketIO.emit('message', messageInput);
-        setMessageInput('');
-    };
-
     return (
         <Container>
-            <Content $maxWidth='1000px'>
-                <div>
-                    {messages.map((message: any, index: any) => (
-                        <div key={index}>{message}</div>
-                    ))}
-                </div>
-                <input
-                    type='text'
-                    value={messageInput}
-                    onChange={(e) => setMessageInput(e.target.value)}
-                />
-                <button onClick={sendMessage}>Send</button>
-            </Content>
+            <Content $maxWidth='1000px'></Content>
         </Container>
     );
 }

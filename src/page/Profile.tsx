@@ -281,13 +281,7 @@ export function Profile() {
                         <div className='userinfo_container'>
                             <div className='userinfo_box'>
                                 <label htmlFor='avatar-input'>
-                                    <Avatar
-                                        src={
-                                            userInfo.profile_img
-                                                ? userInfo.profile_img
-                                                : 'https://dmemema.cafe24.com/img/noprofile/noprofile.jpg'
-                                        }
-                                    />
+                                    <Avatar src={userInfo.profile_img!} />
                                 </label>
                                 {user === profileuser && (
                                     <input

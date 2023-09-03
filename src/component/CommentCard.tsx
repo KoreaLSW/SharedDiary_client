@@ -78,11 +78,7 @@ export function CommentCard({ info }: Props) {
     return (
         <CommentContainer>
             <CommentAvatar
-                src={
-                    info.profile_img
-                        ? info.profile_img
-                        : 'https://dmemema.cafe24.com/img/noprofile/noprofile.jpg'
-                }
+                src={info.profile_img!}
                 onClick={() => {
                     navigate(`/profile/${info.user_id}`);
                 }}
