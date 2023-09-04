@@ -69,7 +69,7 @@ export function ChatMessage() {
         return () => {
             socketIO.off('소켓 chatMessage 종료');
         };
-    }, [data]);
+    }, []);
 
     useEffect(() => {
         if (messagesContainerRef.current) {
