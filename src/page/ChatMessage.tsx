@@ -43,27 +43,27 @@ export function ChatMessage() {
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');
 
-            if (data && Array.isArray(data)) {
-                const modifiedData = data.map((message: GetMessage) => {
-                    const messageDate = new Date(message.message_date);
-                    const options: Intl.DateTimeFormatOptions = {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: true,
-                    };
-                    const formattedTime = messageDate.toLocaleTimeString(
-                        [],
-                        options
-                    );
-                    // message 객체를 변경하고 변경된 객체 반환
-                    return {
-                        ...message,
-                        message_date: formattedTime, // message_date 변경
-                    };
-                });
-                setMessageList(modifiedData);
-                socketIO.emit('readChatRoomList', user);
-            }
+            setMessageList(data);
+            socketIO.emit('readChatRoomList', user);
+            // if (data && Array.isArray(data)) {
+            //     const modifiedData = data.map((message: GetMessage) => {
+            //         const messageDate = new Date(message.message_date);
+            //         const options: Intl.DateTimeFormatOptions = {
+            //             hour: '2-digit',
+            //             minute: '2-digit',
+            //             hour12: true,
+            //         };
+            //         const formattedTime = messageDate.toLocaleTimeString(
+            //             [],
+            //             options
+            //         );
+            //         // message 객체를 변경하고 변경된 객체 반환
+            //         return {
+            //             ...message,
+            //             message_date: formattedTime, // message_date 변경
+            //         };
+            //     });
+            // }
         });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거

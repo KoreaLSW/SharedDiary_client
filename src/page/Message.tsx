@@ -18,13 +18,15 @@ export function Message() {
     const { data } = useGetChatRoomList(user!);
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user }, // 사용자 ID를 서버로 전달
-    });
+
     useEffect(() => {
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user }, // 사용자 ID를 서버로 전달
+        });
+
         socketIO.on(`readChatRoom`, (data) => {
             if (Array.isArray(data)) {
-                console.log(`${user} readChatRoom`, data);
+                console.log(`${user} readChatRoom_1`, data);
                 const modifiedData = data.map((message: GetChatRoomList) => {
                     const messageDate = new Date(message.message_date);
                     const options: Intl.DateTimeFormatOptions = {
@@ -51,7 +53,7 @@ export function Message() {
         return () => {
             socketIO.off('소켓 readChatRoom 종료');
         };
-    }, [socketIO]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, []); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
     const handleReadMessage = (roomId: number, userId: string) => {
         navigate(`/chat/message/${userId}`, {
