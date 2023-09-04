@@ -15,8 +15,7 @@ export function Message() {
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
 
-    //const { data } = useGetChatRoomList(user!);
-
+    const { data } = useGetChatRoomList(user!);
     const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
         query: { user }, // 사용자 ID를 서버로 전달
     });

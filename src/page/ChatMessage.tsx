@@ -27,7 +27,7 @@ export function ChatMessage() {
         participant_user_id: state.user_id,
     });
 
-    const { data: roomList } = useGetChatRoomList(user!);
+    //const { data: roomList } = useGetChatRoomList(user!);
 
     const { sendMessage } = useChatMessageMutations();
 
