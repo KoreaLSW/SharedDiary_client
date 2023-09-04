@@ -59,15 +59,15 @@ export function Main() {
         }
     }, [userLoading, weatherLoading, emotionLoading]);
 
-    useEffect(() => {
-        if (userData) {
-            const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-                query: { user: userData.data.id }, // 사용자 ID를 서버로 전달
-            });
+    // useEffect(() => {
+    //     if (userData) {
+    //         const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+    //             query: { user: userData.data.id }, // 사용자 ID를 서버로 전달
+    //         });
 
-            setSocket(socketIO);
-        }
-    }, [userData]);
+    //         setSocket(socketIO);
+    //     }
+    // }, [userData]);
 
     // useEffect(() => {
     //     if (userError || weatherError || emotionError) {

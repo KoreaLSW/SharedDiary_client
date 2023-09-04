@@ -28,6 +28,10 @@ export function ChatMessage() {
         participant_user_id: state.user_id,
     });
 
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        query: { user }, // 사용자 ID를 서버로 전달
+    });
+
     //const { data: roomList } = useGetChatRoomList(user!);
 
     const { sendMessage } = useChatMessageMutations();
@@ -41,7 +45,7 @@ export function ChatMessage() {
         //     query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
         // });
 
-        socketAtom!.on(`${state.room_id} chatMessage`, (data) => {
+        socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');
 
             setMessageList(data);
@@ -68,7 +72,7 @@ export function ChatMessage() {
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            socketAtom!.off('소켓 chatMessage 종료');
+            socketIO.off('소켓 chatMessage 종료');
         };
     }, []);
 
@@ -100,10 +104,7 @@ export function ChatMessage() {
                 message: newMessage,
             },
             {
-                onSuccess(data, variables, context) {
-                    console.log('state.user_id', state.user_id);
-                    socketAtom!.emit('readChatRoomList', state.user_id);
-                },
+                onSuccess(data, variables, context) {},
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
                 },

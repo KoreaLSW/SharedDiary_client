@@ -21,13 +21,17 @@ export function Message() {
     //     query: { user }, // 사용자 ID를 서버로 전달
     // });
 
-    socketAtom!.on(`admin readChatRoom`, (data) => {
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        query: { user }, // 사용자 ID를 서버로 전달
+    });
+
+    socketIO.on('aaa', (data) => {
         console.log('zzzzzzzzzzzzzzzzzzzzz', data);
     });
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
-    socketAtom!.on(`admin readChatRoom`, (data) => {
+    socketIO.on(`${user} readChatRoom`, (data) => {
         if (Array.isArray(data)) {
             console.log(`${user} readChatRoom_1`, data);
             const modifiedData = data.map((message: GetChatRoomList) => {
@@ -61,7 +65,7 @@ export function Message() {
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            socketAtom!.off('소켓 readChatRoom 종료');
+            socketIO.off('소켓 readChatRoom 종료');
         };
     }, [socketAtom]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
