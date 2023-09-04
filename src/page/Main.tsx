@@ -61,11 +61,11 @@ export function Main() {
 
     useEffect(() => {
         const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-            query: { user }, // 사용자 ID를 서버로 전달
+            query: { user: userData.data.id }, // 사용자 ID를 서버로 전달
         });
 
         setSocket(socketIO);
-    }, [setUser]);
+    }, [userData]);
 
     // useEffect(() => {
     //     if (userError || weatherError || emotionError) {
