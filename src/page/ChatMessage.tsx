@@ -45,7 +45,7 @@ export function ChatMessage() {
             console.log('소켓 chatMessage 실행');
 
             setMessageList(data);
-            socketAtom!.emit('readChatRoomList', user);
+            socketAtom!.emit('readChatRoomList', state.user_id);
             // if (data && Array.isArray(data)) {
             //     const modifiedData = data.map((message: GetMessage) => {
             //         const messageDate = new Date(message.message_date);
