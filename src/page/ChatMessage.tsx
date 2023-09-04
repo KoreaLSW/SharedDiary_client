@@ -34,6 +34,8 @@ export function ChatMessage() {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        console.log('이펰트!!!');
+
         const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
             query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
         });
@@ -60,10 +62,9 @@ export function ChatMessage() {
                     };
                 });
                 setMessageList(modifiedData);
+                socketIO.emit('readChatRoomList', user);
             }
         });
-
-        socketIO.emit('readChatRoomList', user);
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
