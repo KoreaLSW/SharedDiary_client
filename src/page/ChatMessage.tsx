@@ -17,10 +17,6 @@ export function ChatMessage() {
     const user = useRecoilValue(userAtom);
     const { state } = useLocation();
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user }, // 사용자 ID를 서버로 전달
-    });
-
     const [messageList, setMessageList] = useState<GetMessage[]>();
     const [newMessage, setNewMessage] = useState('');
     const [showProfilePic, setShowProfilePic] = useState(true);
@@ -31,15 +27,20 @@ export function ChatMessage() {
         participant_user_id: state.user_id,
     });
 
-    const { data: roomList } = useGetChatRoomList(user!, newMessage);
+    const { data: roomList } = useGetChatRoomList(user!);
 
     const { sendMessage } = useChatMessageMutations();
 
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user }, // 사용자 ID를 서버로 전달
+        });
+
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');
+
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetMessage) => {
                     const messageDate = new Date(message.message_date);
@@ -66,7 +67,7 @@ export function ChatMessage() {
         return () => {
             socketIO.off('소켓 chatMessage 종료');
         };
-    }, [sendMessage, data]);
+    }, []);
 
     useEffect(() => {
         if (messagesContainerRef.current) {
