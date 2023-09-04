@@ -5,28 +5,29 @@ import { Container, Content } from '../theme/theme';
 import socket from 'socket.io-client';
 import { styled } from 'styled-components';
 import { useGetChatRoomList } from '../hooks/chatRoom';
-import { userAtom } from '../recoil/authAtom';
+import { socketAtome, userAtom } from '../recoil/authAtom';
 import { GetChatRoomList } from '../type/chatRoom';
 
 export function Message() {
     const user = useRecoilValue(userAtom);
+    const socketAtom = useRecoilValue(socketAtome);
     const navigate = useNavigate();
 
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
 
     const { data } = useGetChatRoomList(user!);
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user }, // 사용자 ID를 서버로 전달
-    });
+    // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+    //     query: { user }, // 사용자 ID를 서버로 전달
+    // });
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
-    socketIO.on(`readChatRoom`, (data) => {
+    socketAtom!.on(`readChatRoom`, (data) => {
         console.log('씨발!!!!!!!!', data);
     });
 
     useEffect(() => {
-        socketIO.on(`readChatRoom`, (data) => {
+        socketAtom!.on(`readChatRoom`, (data) => {
             if (Array.isArray(data)) {
                 console.log(`${user} readChatRoom_1`, data);
                 const modifiedData = data.map((message: GetChatRoomList) => {
@@ -53,7 +54,7 @@ export function Message() {
         });
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            socketIO.off('소켓 readChatRoom 종료');
+            socketAtom!.off('소켓 readChatRoom 종료');
         };
     }, []); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 

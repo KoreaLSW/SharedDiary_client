@@ -1,14 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import socket from 'socket.io-client';
 
 import { Navbar } from '../component/Navbar';
 import { me } from '../api/auth';
-import { useSetRecoilState } from 'recoil';
-import { emotionAtom, userAtom, weatherAtom } from '../recoil/authAtom';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import {
+    emotionAtom,
+    socketAtome,
+    userAtom,
+    weatherAtom,
+} from '../recoil/authAtom';
 import { useMe, useType } from '../hooks/auth';
 
 export function Main() {
-    const setUser = useSetRecoilState(userAtom);
+    const [user, setUser] = useRecoilState(userAtom);
+    const setSocket = useSetRecoilState(socketAtome);
     const setWeather = useSetRecoilState(weatherAtom);
     const setEmotion = useSetRecoilState(emotionAtom);
     const [isMeLoading, setIsMeLoading] = useState(true); // 로딩 상태 관리
@@ -51,6 +58,14 @@ export function Main() {
             setIsMeLoading(false);
         }
     }, [userLoading, weatherLoading, emotionLoading]);
+
+    useEffect(() => {
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user }, // 사용자 ID를 서버로 전달
+        });
+
+        setSocket(socketIO);
+    }, []);
 
     // useEffect(() => {
     //     if (userError || weatherError || emotionError) {

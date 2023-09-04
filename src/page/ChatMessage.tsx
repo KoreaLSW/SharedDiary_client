@@ -8,13 +8,14 @@ import {
     useChatMessageMutations,
     useGetChatMessageList,
 } from '../hooks/chatMessage';
-import { userAtom } from '../recoil/authAtom';
+import { socketAtome, userAtom } from '../recoil/authAtom';
 import { styled } from 'styled-components';
 import { GetMessage } from '../type/chatMessage';
 import { useGetChatRoomList } from '../hooks/chatRoom';
 
 export function ChatMessage() {
     const user = useRecoilValue(userAtom);
+    const socketAtom = useRecoilValue(socketAtome);
     const { state } = useLocation();
 
     const [messageList, setMessageList] = useState<GetMessage[]>();
@@ -36,15 +37,15 @@ export function ChatMessage() {
     useEffect(() => {
         console.log('이펰트!!!');
 
-        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-            query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
-        });
+        // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        //     query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
+        // });
 
-        socketIO.on(`${state.room_id} chatMessage`, (data) => {
+        socketAtom!.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');
 
             setMessageList(data);
-            socketIO.emit('readChatRoomList', user);
+            socketAtom!.emit('readChatRoomList', user);
             // if (data && Array.isArray(data)) {
             //     const modifiedData = data.map((message: GetMessage) => {
             //         const messageDate = new Date(message.message_date);
@@ -68,7 +69,7 @@ export function ChatMessage() {
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
-            socketIO.off('소켓 chatMessage 종료');
+            socketAtom!.off('소켓 chatMessage 종료');
         };
     }, []);
 

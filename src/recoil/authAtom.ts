@@ -1,5 +1,6 @@
 import { atom, selector } from 'recoil';
 import { getType } from '../api/auth';
+import socketio, { Socket } from 'socket.io-client';
 
 export const userAtom = atom({
     key: 'userAtom',
@@ -19,6 +20,11 @@ export const emotionAtom = atom({
 export const dateAtome = atom({
     key: 'monthAtome',
     default: new Date(),
+});
+
+export const socketAtome = atom<Socket | null>({
+    key: 'socketAtome',
+    default: null,
 });
 
 export const userSelector = selector({
