@@ -31,43 +31,44 @@ export function Message() {
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
-    socketIO.on(`${user} readChatRoom`, (data) => {
-        if (Array.isArray(data)) {
-            console.log(`${user} readChatRoom_1`, data);
-            const modifiedData = data.map((message: GetChatRoomList) => {
-                const messageDate = new Date(message.message_date);
-                const options: Intl.DateTimeFormatOptions = {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: true,
-                };
-                const formattedTime = messageDate.toLocaleTimeString(
-                    [],
-                    options
-                );
-                // message 객체를 변경하고 변경된 객체 반환
-                return {
-                    ...message,
-                    message_date: formattedTime, // message_date 변경
-                };
-            });
-            console.log('messageDate', modifiedData);
-
-            setMessageRoom(modifiedData);
-        } else {
-            console.log('roomList 넣음');
-
-            setMessageRoom(roomList);
-        }
-    });
     useEffect(() => {
         console.log('채팅망리스트 이펙트');
+
+        socketIO.on(`${user} readChatRoom`, (data) => {
+            if (Array.isArray(data)) {
+                console.log(`${user} readChatRoom_1`, data);
+                const modifiedData = data.map((message: GetChatRoomList) => {
+                    const messageDate = new Date(message.message_date);
+                    const options: Intl.DateTimeFormatOptions = {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true,
+                    };
+                    const formattedTime = messageDate.toLocaleTimeString(
+                        [],
+                        options
+                    );
+                    // message 객체를 변경하고 변경된 객체 반환
+                    return {
+                        ...message,
+                        message_date: formattedTime, // message_date 변경
+                    };
+                });
+                console.log('messageDate', modifiedData);
+
+                setMessageRoom(modifiedData);
+            } else {
+                console.log('roomList 넣음');
+
+                setMessageRoom(roomList);
+            }
+        });
 
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             socketIO.off('소켓 readChatRoom 종료');
         };
-    }, [socketAtom]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, []); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
     const handleReadMessage = (roomId: number, userId: string) => {
         navigate(`/chat/message/${userId}`, {
