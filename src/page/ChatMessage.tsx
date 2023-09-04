@@ -45,8 +45,6 @@ export function ChatMessage() {
             console.log('소켓 chatMessage 실행');
 
             setMessageList(data);
-            console.log('state.user_id', state.user_id);
-            socketAtom!.emit('readChatRoomList', state.user_id);
             // if (data && Array.isArray(data)) {
             //     const modifiedData = data.map((message: GetMessage) => {
             //         const messageDate = new Date(message.message_date);
@@ -102,7 +100,10 @@ export function ChatMessage() {
                 message: newMessage,
             },
             {
-                onSuccess(data, variables, context) {},
+                onSuccess(data, variables, context) {
+                    console.log('state.user_id', state.user_id);
+                    socketAtom!.emit('readChatRoomList', state.user_id);
+                },
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
                 },
