@@ -20,7 +20,9 @@ export function Message() {
     // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
     //     query: { user }, // 사용자 ID를 서버로 전달
     // });
-
+    socketAtom!.on(`readChatRoom`, () => {
+        console.log('zzzzzzzzzzzzzzzzzzzzz');
+    });
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
