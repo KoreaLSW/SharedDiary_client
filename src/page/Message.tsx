@@ -16,15 +16,12 @@ export function Message() {
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
 
-    const { data } = useGetChatRoomList(user!);
+    const { data: roomList } = useGetChatRoomList(user!);
     // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
     //     query: { user }, // 사용자 ID를 서버로 전달
     // });
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
-    socketAtom!.on(`readChatRoom`, (data) => {
-        console.log('씨발!!!!!!!!', data);
-    });
 
     useEffect(() => {
         socketAtom!.on(`readChatRoom`, (data) => {
@@ -50,6 +47,10 @@ export function Message() {
                 console.log('messageDate', modifiedData);
 
                 setMessageRoom(modifiedData);
+            } else {
+                console.log('roomList 넣음');
+
+                setMessageRoom(roomList);
             }
         });
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거

@@ -65,7 +65,7 @@ export function Main() {
         });
 
         setSocket(socketIO);
-    }, []);
+    }, [setUser]);
 
     // useEffect(() => {
     //     if (userError || weatherError || emotionError) {
