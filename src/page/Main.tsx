@@ -60,11 +60,13 @@ export function Main() {
     }, [userLoading, weatherLoading, emotionLoading]);
 
     useEffect(() => {
-        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-            query: { user: userData.data.id }, // 사용자 ID를 서버로 전달
-        });
+        if (userData) {
+            const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+                query: { user: userData.data.id }, // 사용자 ID를 서버로 전달
+            });
 
-        setSocket(socketIO);
+            setSocket(socketIO);
+        }
     }, [userData]);
 
     // useEffect(() => {
