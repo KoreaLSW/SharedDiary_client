@@ -26,7 +26,7 @@ export function Message() {
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
-        socketAtom!.on(`readChatRoom`, (data) => {
+        socketAtom!.on(`${user} readChatRoom`, (data) => {
             console.log('씨ㅃ씨씨빴ㅃ써찌ㅓㅣㅏ써삐ㅏㅓ싸ㅣ뻐싸ㅣ뻐씨ㅓ!');
 
             if (Array.isArray(data)) {
