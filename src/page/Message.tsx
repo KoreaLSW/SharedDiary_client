@@ -21,7 +21,10 @@ export function Message() {
     //     query: { user }, // 사용자 ID를 서버로 전달
     // });
 
-    console.log('zzzzzzzzzzzzzzzzzzzzz');
+    socketAtom!.on(`admin readChatRoom`, (data) => {
+        console.log('zzzzzzzzzzzzzzzzzzzzz', data);
+    });
+
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
