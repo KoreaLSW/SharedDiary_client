@@ -33,17 +33,18 @@ export function ChatMessage() {
 
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
-    });
-
     useEffect(() => {
         console.log('이펰트!!!');
+
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
+        });
 
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');
 
             setMessageList(data);
+            socketIO.emit('readChatRoomList', user);
             // if (data && Array.isArray(data)) {
             //     const modifiedData = data.map((message: GetMessage) => {
             //         const messageDate = new Date(message.message_date);
@@ -99,9 +100,7 @@ export function ChatMessage() {
                 message: newMessage,
             },
             {
-                onSuccess(data, variables, context) {
-                    socketIO.emit('readChatRoomList', user);
-                },
+                onSuccess(data, variables, context) {},
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
                 },
