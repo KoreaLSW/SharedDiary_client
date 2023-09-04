@@ -25,7 +25,7 @@ export function Message() {
             query: { user }, // 사용자 ID를 서버로 전달
         });
 
-        socketIO.on(`readChatRoom`, (data) => {
+        socketIO.on(`${user} readChatRoom`, (data) => {
             console.log(`${user} readChatRoom`, data);
             if (data && Array.isArray(data)) {
                 const modifiedData = data.map((message: GetChatRoomList) => {
