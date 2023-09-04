@@ -27,7 +27,7 @@ export function Message() {
 
     useEffect(() => {
         socketAtom!.on(`readChatRoom`, (data) => {
-            console.log('씨ㅃ씨씨빴ㅃ써찌ㅓㅣㅏ써삐ㅏㅓ싸ㅣ뻐싸ㅣ뻐씨ㅓ');
+            console.log('씨ㅃ씨씨빴ㅃ써찌ㅓㅣㅏ써삐ㅏㅓ싸ㅣ뻐싸ㅣ뻐씨ㅓ!');
 
             if (Array.isArray(data)) {
                 console.log(`${user} readChatRoom_1`, data);
