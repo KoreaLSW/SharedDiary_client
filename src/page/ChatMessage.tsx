@@ -28,10 +28,6 @@ export function ChatMessage() {
         participant_user_id: state.user_id,
     });
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user }, // 사용자 ID를 서버로 전달
-    });
-
     //const { data: roomList } = useGetChatRoomList(user!);
 
     const { sendMessage } = useChatMessageMutations();
@@ -40,10 +36,9 @@ export function ChatMessage() {
 
     useEffect(() => {
         console.log('이펰트!!!');
-
-        // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        //     query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
-        // });
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user }, // 사용자 ID를 서버로 전달
+        });
 
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
             console.log('소켓 chatMessage 실행');

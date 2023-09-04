@@ -21,18 +21,13 @@ export function Message() {
     //     query: { user }, // 사용자 ID를 서버로 전달
     // });
 
-    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-        query: { user }, // 사용자 ID를 서버로 전달
-    });
-
-    socketIO.on('aaa', (data) => {
-        console.log('zzzzzzzzzzzzzzzzzzzzz', data);
-    });
-
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
         console.log('채팅망리스트 이펙트');
+        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+            query: { user }, // 사용자 ID를 서버로 전달
+        });
 
         socketIO.on(`${user} readChatRoom`, (data) => {
             if (Array.isArray(data)) {
