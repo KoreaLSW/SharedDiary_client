@@ -16,14 +16,16 @@ export function Message() {
     const [messageInput, setMessageInput] = useState('');
 
     const { data } = useGetChatRoomList(user!);
+    const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
+        query: { user }, // 사용자 ID를 서버로 전달
+    });
 
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
+    socketIO.on(`readChatRoom`, (data) => {
+        console.log('씨발!!!!!!!!', data);
+    });
 
     useEffect(() => {
-        const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-            query: { user }, // 사용자 ID를 서버로 전달
-        });
-
         socketIO.on(`readChatRoom`, (data) => {
             if (Array.isArray(data)) {
                 console.log(`${user} readChatRoom_1`, data);
