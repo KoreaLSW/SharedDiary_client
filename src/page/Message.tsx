@@ -27,8 +27,6 @@ export function Message() {
 
     useEffect(() => {
         socketAtom!.on(`${user} readChatRoom`, (data) => {
-            console.log('씨ㅃ씨씨빴ㅃ써찌ㅓㅣㅏ써삐ㅏㅓ싸ㅣ뻐싸ㅣ뻐씨ㅓ!');
-
             if (Array.isArray(data)) {
                 console.log(`${user} readChatRoom_1`, data);
                 const modifiedData = data.map((message: GetChatRoomList) => {
@@ -61,7 +59,7 @@ export function Message() {
         return () => {
             socketAtom!.off('소켓 readChatRoom 종료');
         };
-    }, []); // 빈 배열을 전달하여 처음 마운트될 때만 실행
+    }, [roomList]); // 빈 배열을 전달하여 처음 마운트될 때만 실행
 
     const handleReadMessage = (roomId: number, userId: string) => {
         navigate(`/chat/message/${userId}`, {
