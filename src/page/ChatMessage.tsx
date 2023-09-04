@@ -35,7 +35,7 @@ export function ChatMessage() {
 
     useEffect(() => {
         const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-            query: { user }, // 사용자 ID를 서버로 전달
+            query: { user, roomId: state.room_id }, // 사용자 ID를 서버로 전달
         });
 
         socketIO.on(`${state.room_id} chatMessage`, (data) => {
@@ -63,11 +63,13 @@ export function ChatMessage() {
             }
         });
 
+        socketIO.emit('readChatRoomList', user);
+
         // 컴포넌트가 언마운트될 때 이벤트 리스너 제거
         return () => {
             socketIO.off('소켓 chatMessage 종료');
         };
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         if (messagesContainerRef.current) {
@@ -97,10 +99,7 @@ export function ChatMessage() {
                 message: newMessage,
             },
             {
-                onSuccess(data, variables, context) {
-                    console.log('send!', data);
-                    console.log('user!', user);
-                },
+                onSuccess(data, variables, context) {},
                 onError(error, variables, context) {
                     console.log('메세지 전송 error: ', error);
                 },
