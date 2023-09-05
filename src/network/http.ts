@@ -41,6 +41,7 @@ export default class HttpClient {
                 // isNetworkOrIdempotentRequestError : 네트워크 관련된 오류이거나
                 // 멱등상오류(멱등성 요청은 동일한 요청을 여러 번 보내더라도 동일한 결과가 나와야 하는 요청을 의미(ex: Get요청))인 경우
                 // true를 반환함
+
                 axiosRetry.isNetworkOrIdempotentRequestError(err) ||
                 err.response.status === 429,
         });
