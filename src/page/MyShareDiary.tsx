@@ -47,6 +47,7 @@ export function MyShareDiary() {
     }, [bottomBoundaryRef, fetchNextPage, hasNextPage]);
 
     //data && console.log('MyShareDiary', data);
+
     return (
         <Container>
             <Content $maxWidth='500px'>
