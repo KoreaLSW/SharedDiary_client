@@ -8,6 +8,7 @@ import { useGetChatRoomList } from '../hooks/chatRoom';
 import { socketAtome, userAtom } from '../recoil/authAtom';
 import { GetChatRoomList } from '../type/chatRoom';
 import { useSocket } from '../socket/SocketProvider';
+import { Loding } from '../component/Loding';
 
 export function Message() {
     const user = useRecoilValue(userAtom);
@@ -73,6 +74,10 @@ export function Message() {
             },
         });
     };
+
+    if (!messagRoom) {
+        return <Loding />;
+    }
 
     return (
         <Container>
