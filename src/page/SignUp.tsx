@@ -262,6 +262,10 @@ const SignUpContainer = styled.div`
         div {
             width: 90%;
         }
+
+        form input {
+            width: 100%;
+        }
     }
 `;
 
