@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { styled } from 'styled-components';
 import { BiSolidPencil } from 'react-icons/bi';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,6 +27,7 @@ const nickRegex: RegExp = /^(?:[aeiouAEIOUㄱ-ㅎㅏ-ㅣ]*[a-zA-Z가-힣0-9])*$/
 
 export function Profile() {
     const user = useRecoilValue(userAtom);
+    const setUserAtom = useSetRecoilState(userAtom);
     const { profileuser } = useParams();
     const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ export function Profile() {
     const [isFollowerModal, setIsFollowerModal] = useState(false); // 팔로워 모달창 상태관리
     const [isFollowingModal, setIsFollowingModal] = useState(false); // 팔로우 모달창 상태관리
 
-    const { updateHook } = useAuth();
+    const { updateHook, logoutHook } = useAuth();
     const { createFollow, removeFollow } = useFollowMutations();
     const { createChatRoom } = useChatRoomMutations();
 
@@ -243,6 +244,27 @@ export function Profile() {
         setEditingIntroduction(false);
     };
 
+    const handleLogout = (e: React.FormEvent) => {
+        e.preventDefault();
+        const result = window.confirm('로그아웃 하시겠습니까?');
+        if (result) {
+            logoutHook.mutate(undefined, {
+                onSuccess(data, variables, context) {
+                    console.log('logoutSuccess data', data);
+                    console.log('logoutSuccess variables', variables);
+                    console.log('logoutSuccess context', context);
+                    alert('로그아웃 되었습니다.');
+                    setUserAtom('' as any);
+                    navigate('/login');
+                },
+                onError(error: any, variables, context) {
+                    console.log('logoutError', error);
+                    alert(error.response.data.message);
+                },
+            });
+        }
+    };
+
     const handlePasswordSubmit = (password: string) => {
         userInfo!.passwordUpdate = password && password;
         handleUserInfoSave();
@@ -331,6 +353,14 @@ export function Profile() {
                                                             }
                                                         >
                                                             비밀번호 변경
+                                                        </p>
+                                                        <p
+                                                            className='password_update'
+                                                            onClick={
+                                                                handleLogout
+                                                            }
+                                                        >
+                                                            로그아웃
                                                         </p>
                                                     </>
                                                 )}

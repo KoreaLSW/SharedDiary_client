@@ -115,20 +115,23 @@ export function Navbar() {
 
     const handleLogout = (e: React.FormEvent) => {
         e.preventDefault();
-        logoutHook.mutate(undefined, {
-            onSuccess(data, variables, context) {
-                console.log('logoutSuccess data', data);
-                console.log('logoutSuccess variables', variables);
-                console.log('logoutSuccess context', context);
-
-                setUserAtom('' as any);
-                navigate('/login');
-            },
-            onError(error: any, variables, context) {
-                console.log('logoutError', error);
-                alert(error.response.data.message);
-            },
-        });
+        const result = window.confirm('로그아웃 하시겠습니까?');
+        if (result) {
+            logoutHook.mutate(undefined, {
+                onSuccess(data, variables, context) {
+                    console.log('logoutSuccess data', data);
+                    console.log('logoutSuccess variables', variables);
+                    console.log('logoutSuccess context', context);
+                    alert('로그아웃 되었습니다.');
+                    setUserAtom('' as any);
+                    navigate('/login');
+                },
+                onError(error: any, variables, context) {
+                    console.log('logoutError', error);
+                    alert(error.response.data.message);
+                },
+            });
+        }
     };
 
     const navbarList: JSX.Element[] = navbarArray.map((item, index) => (

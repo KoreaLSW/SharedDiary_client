@@ -17,6 +17,7 @@ import { Container, Content } from '../theme/theme';
 import { Calendar } from '../component/Calendar';
 import { useNavigate } from 'react-router-dom';
 import { ModalWriteDiary } from '../component/ModalWritediary';
+import { Loding } from '../component/Loding';
 
 export type HomeMenuUnion = 'first' | 'second' | 'third';
 
@@ -89,7 +90,7 @@ export function Home() {
     };
 
     if (isLoading) {
-        return <div>로딩중...</div>;
+        return <Loding />;
     }
 
     return (

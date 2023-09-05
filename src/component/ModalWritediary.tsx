@@ -12,6 +12,7 @@ import {
     WeatherType,
 } from '../type/type';
 import { useDiaryMutations } from '../hooks/diary';
+import { Loding } from './Loding';
 
 type Props = {
     modalDate: string;
@@ -58,9 +59,16 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
     };
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const files = event.target.files;
+        let files = event.target.files;
         // 이미지 업로드 전에 초기화
         formData.delete('images');
+
+        files && console.log('1232112312', files.length);
+
+        if (files && files.length > 5) {
+            files = null;
+            return alert('이미지는 최대 5장까지 선택가능합니다.');
+        }
 
         if (files) {
             const selected = Array.from(files).slice(0, 5); // 최대 5개까지 선택
@@ -118,6 +126,10 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
             onError(error, variables, context) {},
         });
     };
+
+    if (createDiaryHook.isLoading) {
+        return <Loding />;
+    }
 
     return (
         <ModalWrapper>
