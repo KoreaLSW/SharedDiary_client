@@ -173,7 +173,10 @@ export function Calendar({ info, toggleModal }: Props) {
 const Container = styled.div`
     width: 100%;
     margin: 0 auto;
-    margin-top: 2rem;
+    margin: 2rem 0;
+    @media (max-width: 768px) {
+        margin: 1rem 0;
+    }
 `;
 
 const Header = styled.div`
@@ -213,6 +216,10 @@ const Week = styled.div<DayProps>`
     align-items: center;
     padding: 0.5rem 2rem;
     border: 1px solid ${(props) => props.theme.colors.line};
+
+    @media (max-width: 768px) {
+        padding: 0.5rem;
+    }
 `;
 
 const DayContainer = styled.div`
@@ -236,6 +243,10 @@ const PrevDay = styled.div<DayProps>`
         top: 0.5rem;
         right: 0.5rem;
         font-size: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        height: 3rem;
     }
 `;
 
@@ -281,5 +292,24 @@ const Day = styled.div<DayProps>`
     .day_emoji span {
         font-size: 0.2rem;
         font-weight: 100;
+    }
+
+    @media (max-width: 768px) {
+        height: 3rem;
+
+        .day_emoji {
+            flex-direction: row;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            font-size: 0.8rem;
+        }
+
+        .day_emoji span {
+            display: none;
+        }
     }
 `;

@@ -31,7 +31,7 @@ export function MyShareDiary() {
                     fetchNextPage();
                 }
             },
-            { rootMargin: '10px' }
+            { rootMargin: '200px' }
         );
 
         if (bottomBoundaryRef.current) {

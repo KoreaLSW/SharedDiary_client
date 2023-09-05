@@ -372,7 +372,7 @@ export function Profile() {
                                             </>
                                         )}
                                     </div>
-                                    <p>
+                                    <p className='create_date'>
                                         가입날짜
                                         {` ${
                                             userInfo.create_date.split(' ')[0]
@@ -637,6 +637,47 @@ const UserInfoBox = styled.div`
         background-color: ${(props) => props.theme.colors.sky};
         resize: vertical; // textarea의 높이 조절 방향을 수직으로 지정합니다.
     }
+
+    @media (max-width: 768px) {
+        .userinfo_container {
+            width: 100vw;
+            padding: 0 0.5rem;
+        }
+        .userinfo_container .userinfo_box {
+            width: 100%;
+            align-items: start;
+        }
+        .userinfo_container .userinfo_box .right_box {
+            width: 100%;
+        }
+
+        .userinfo_container .userinfo_box .right_box .bottom {
+            flex-direction: column;
+            gap: 0.2rem;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .userinfo_container .userinfo_box .right_box .nickname_box {
+            margin-bottom: 0;
+        }
+
+        .userinfo_container .userinfo_box .right_box .nickname_box .nickname {
+            font-size: 1.1rem;
+        }
+
+        .userinfo_container .userinfo_box .right_box .create_date {
+            font-size: 0.7rem;
+        }
+
+        .userinfo_container
+            .userinfo_box
+            .right_box
+            .nickname_box
+            .password_update {
+            font-size: 0.7rem;
+        }
+    }
 `;
 
 const Avatar = styled.img`
@@ -645,6 +686,11 @@ const Avatar = styled.img`
     object-fit: cover;
     border-radius: 50%;
     margin-right: 1rem;
+
+    @media (max-width: 768px) {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
 `;
 
 const GridViewContainer = styled.div`
@@ -653,4 +699,8 @@ const GridViewContainer = styled.div`
     gap: 1rem; /* 아이템 간 간격 */
     margin-top: 2rem;
     margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        gap: 0.1rem; /* 아이템 간 간격 */
+    }
 `;

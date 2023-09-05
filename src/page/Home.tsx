@@ -76,7 +76,7 @@ export function Home() {
             first.score = data.data.length;
             setFirst({
                 ...first,
-                name: `${date.getMonth() + 1}월에 내가 쓴 글`,
+                name: `${date.getMonth() + 1}월에 쓴 글`,
                 score: data.data.length,
             });
             console.log('useEffect', first.score);

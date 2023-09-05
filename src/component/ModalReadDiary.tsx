@@ -212,6 +212,14 @@ const ModalContent = styled.div`
     border-radius: 8px;
     display: flex;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        flex-direction: column;
+        overflow: scroll;
+    }
 `;
 
 const LeftSection = styled.div`
@@ -230,6 +238,9 @@ const LeftHeader = styled.header`
     .no-profile {
         font-size: 2rem;
         margin-right: 1rem;
+    }
+    @media (max-width: 768px) {
+        position: static;
     }
 `;
 
@@ -298,6 +309,14 @@ const TypeBox = styled.div`
     .likebtn {
         cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+        position: static;
+        padding: 1rem;
+        div {
+            font-size: 1.5rem;
+        }
+    }
 `;
 
 const RightSection = styled.div`
@@ -305,6 +324,10 @@ const RightSection = styled.div`
     overflow-y: auto;
     position: relative;
     height: 100%;
+
+    @media (max-width: 768px) {
+        overflow: visible;
+    }
 `;
 
 const NotCommentBox = styled.div`
@@ -354,6 +377,12 @@ const ModalCloseButton = styled.button`
     border: none;
     cursor: pointer;
     font-size: 2rem;
+
+    @media (max-width: 768px) {
+        top: 5px;
+        right: 15px;
+        color: black;
+    }
 `;
 
 export const LikeButton = styled.div<{ $liked: string }>`

@@ -23,7 +23,7 @@ export function ShareDiary() {
                     fetchNextPage();
                 }
             },
-            { rootMargin: '10px' }
+            { rootMargin: '200px' }
         );
 
         if (bottomBoundaryRef.current) {

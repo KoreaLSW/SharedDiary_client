@@ -45,13 +45,13 @@ const navbarArray: List[] = [
         value: 2,
         path: '/shareDiary',
     },
-    {
-        icon: <BsPersonPlus />,
-        clickicon: <BsPersonPlusFill />,
-        text: <span>팔로우</span>,
-        value: 3,
-        path: '/follow',
-    },
+    // {
+    //     icon: <BsPersonPlus />,
+    //     clickicon: <BsPersonPlusFill />,
+    //     text: <span>팔로우</span>,
+    //     value: 3,
+    //     path: '/follow',
+    // },
     {
         icon: <RiMessage3Line />,
         clickicon: <RiMessage3Fill />,
@@ -59,13 +59,13 @@ const navbarArray: List[] = [
         value: 4,
         path: '/message',
     },
-    {
-        icon: <BsFileEarmarkBarGraph />,
-        clickicon: <BsFileEarmarkBarGraphFill />,
-        text: <span>통계</span>,
-        value: 5,
-        path: '/statistics',
-    },
+    // {
+    //     icon: <BsFileEarmarkBarGraph />,
+    //     clickicon: <BsFileEarmarkBarGraphFill />,
+    //     text: <span>통계</span>,
+    //     value: 5,
+    //     path: '/statistics',
+    // },
     {
         icon: <HiOutlineUser />,
         clickicon: <HiUser />,
@@ -186,6 +186,23 @@ const Nav = styled.div`
     border-right: 1px solid ${(props) => props.theme.colors.line};
     padding: 0 1rem;
     position: fixed;
+
+    @media (max-width: 1024px) {
+        width: 8rem;
+    }
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        position: fixed;
+        bottom: 0;
+        height: 3rem;
+        flex-direction: row;
+        background-color: white;
+        z-index: 999;
+        border-top: 1px solid solid ${(props) => props.theme.colors.line};
+        margin-right: none;
+        margin: 0;
+    }
 `;
 
 const Logo = styled.div`
@@ -195,10 +212,33 @@ const Logo = styled.div`
     p {
         font-weight: bold;
     }
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 
 const Ul = styled.ul`
     width: 100%;
+
+    @media (max-width: 1024px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.5rem;
+        gap: 1rem;
+
+        span {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.5rem;
+    }
 `;
 
 const Li = styled.li`
@@ -224,6 +264,27 @@ const Li = styled.li`
         color: ${(props) => props.theme.colors.signature};
         font-weight: bold;
         background-color: ${(props) => props.theme.colors.sky};
+    }
+
+    @media (max-width: 1024px) {
+        &.active {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 768px) {
+        margin: 0;
+        padding: 0;
+        background-color: none;
+
+        &.active {
+            width: auto;
+            border: none;
+            background-color: white;
+        }
     }
 `;
 
@@ -255,5 +316,16 @@ const LoginBox = styled.div`
         display: flex;
         color: ${(props) => props.theme.colors.red};
         cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        margin: 0;
+        p {
+            display: none;
+        }
     }
 `;

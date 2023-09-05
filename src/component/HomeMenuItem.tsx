@@ -75,4 +75,12 @@ const Item = styled.li`
     span {
         font-size: 1.5rem;
     }
+
+    @media (max-width: 768px) {
+        height: 3rem;
+        border-radius: 0.5rem;
+        span {
+            font-size: 0.7rem;
+        }
+    }
 `;

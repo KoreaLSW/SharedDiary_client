@@ -137,6 +137,17 @@ const ModalContent = styled.div`
     button:last-of-type {
         color: black;
     }
+
+    @media (max-width: 768px) {
+        width: 95%;
+        input {
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+    }
 `;
 
 const ErrorText = styled.p`

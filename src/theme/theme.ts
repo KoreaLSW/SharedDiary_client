@@ -21,6 +21,13 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     padding-top: 4rem;
+
+    @media (max-width: 768px) {
+        width: 100vw;
+        margin: auto;
+        margin-bottom: 3rem;
+        overflow-x: hidden;
+    }
 `;
 
 export const Content = styled.div<{ $maxWidth: string }>`
@@ -28,6 +35,13 @@ export const Content = styled.div<{ $maxWidth: string }>`
     width: 85%;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 768px) {
+        max-width: 100vw;
+        width: 100vw;
+        margin: auto;
+        margin-bottom: 3rem;
+    }
 `;
 
 export const LikeButton = styled.button<{ $liked: string; $type: string }>`

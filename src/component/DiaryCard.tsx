@@ -265,6 +265,11 @@ const Heard = styled.div`
         margin-right: 0.5rem;
         cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
+    }
 `;
 
 const Avatar = styled.img`
@@ -332,6 +337,11 @@ const Bottom = styled.div`
     .delete {
         cursor: pointer;
         color: ${(props) => props.theme.colors.red};
+    }
+
+    @media (max-width: 768px) {
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
     }
 `;
 
@@ -411,6 +421,11 @@ const ArrowButton = styled.button`
 const ContentText = styled.span`
     margin-top: 0.8rem;
     font-size: 0.9rem;
+
+    @media (max-width: 768px) {
+        margin-left: 0.8rem;
+        margin-right: 0.8rem;
+    }
 `;
 
 const FullContentText = styled.span`
