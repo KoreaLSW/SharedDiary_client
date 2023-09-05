@@ -25,7 +25,6 @@ export default class HttpClient {
                 'Content-Type': 'multipart/form-data',
                 withCredentials: true,
             },
-            withCredentials: true,
         });
         axiosRetry(this.client, {
             retries: this.config.retries, // 몇번을 시도하는지

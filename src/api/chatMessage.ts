@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SelectMessage, sendMessage } from '../type/chatMessage';
+import HttpClient from '../network/http';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -11,16 +12,18 @@ const client = axios.create({
     withCredentials: true, // withCredentials 설정
 });
 
+const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
+
 export async function getChatMessageList(
     selectMessage: SelectMessage
 ): Promise<any> {
     const url: string = '/chat/message';
-    return client
+    return http.client
         .get(url, { params: { selectMessage } })
         .then((result) => result);
 }
 
 export async function sendChatMessage(send: sendMessage): Promise<any> {
     const url: string = '/chat/message';
-    return client.post(url, send, headers).then((result) => result);
+    return http.client.post(url, send).then((result) => result);
 }
