@@ -19,7 +19,7 @@ export async function getChatMessageList(
 ): Promise<any> {
     const url: string = '/chat/message';
     return client
-        .get(url, { params: { selectMessage }, headers })
+        .get(url, { params: { selectMessage } })
         .then((result) => result);
 }
 
