@@ -197,6 +197,7 @@ const SignUpContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow-y: scroll;
 
     div {
         width: 30rem;
@@ -255,6 +256,13 @@ const SignUpContainer = styled.div`
         font-weight: bold;
         cursor: pointer;
     }
+
+    @media (max-width: 768px) {
+        padding-bottom: 5rem;
+        div {
+            width: 90%;
+        }
+    }
 `;
 
 const Avatar = styled.img`
@@ -262,4 +270,10 @@ const Avatar = styled.img`
     height: 10rem;
     object-fit: cover;
     border-radius: 50%;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+        width: 5rem;
+        height: 5rem;
+    }
 `;

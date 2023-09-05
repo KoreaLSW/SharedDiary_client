@@ -24,7 +24,7 @@ export const Container = styled.div`
 
     @media (max-width: 768px) {
         width: 100vw;
-        margin: auto;
+        margin-left: 0;
         margin-bottom: 3rem;
         overflow-x: hidden;
     }
@@ -39,7 +39,6 @@ export const Content = styled.div<{ $maxWidth: string }>`
     @media (max-width: 768px) {
         max-width: 100vw;
         width: 100vw;
-        margin: auto;
         margin-bottom: 3rem;
     }
 `;

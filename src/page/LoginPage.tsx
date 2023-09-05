@@ -132,4 +132,10 @@ const LoginPageContainer = styled.div`
         text-decoration: underline;
         text-underline-offset: 5px;
     }
+
+    @media (max-width: 768px) {
+        div {
+            width: 90%;
+        }
+    }
 `;
