@@ -21,7 +21,10 @@ export default class HttpClient {
 
         this.client = axios.create({
             baseURL: this.baseURL,
-            headers: { 'Content-Type': 'multipart/form-data' },
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                withCredentials: true,
+            },
             withCredentials: true,
         });
         axiosRetry(this.client, {
