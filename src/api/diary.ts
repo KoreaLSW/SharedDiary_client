@@ -6,9 +6,16 @@ import {
     DeleteDiary,
     SelectDiaryMonth,
 } from '../type/diary';
-import HttpClient from '../network/http';
 
-const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
+const headers = {
+    'Content-Type': 'multipart/form-data',
+    withCredentials: true,
+};
+
+const client = axios.create({
+    baseURL: process.env.REACT_APP_BASE_URL, // 기본 URL 설정
+    withCredentials: true, // withCredentials 설정
+});
 
 export async function getAll(
     userId: string,
@@ -16,7 +23,7 @@ export async function getAll(
     offset: number
 ): Promise<any> {
     const url: string = '/diary/all';
-    return http.client
+    return client
         .get(url, {
             params: { userId, page, offset },
         })
@@ -25,9 +32,7 @@ export async function getAll(
 
 export async function getByUserId(userId: string): Promise<any> {
     const url: string = '/diary';
-    return http.client
-        .get(url, { params: { userId } })
-        .then((result) => result);
+    return client.get(url, { params: { userId } }).then((result) => result);
 }
 
 export async function getByUserIdPage(
@@ -36,14 +41,14 @@ export async function getByUserIdPage(
     offset: number
 ): Promise<any> {
     const url: string = '/diary/page';
-    return http.client
+    return client
         .get(url, { params: { userId, page, offset } })
         .then((result) => result);
 }
 
 export async function getByMonthHome(data: SelectDiaryMonth): Promise<any> {
     const url: string = '/diary/month/home';
-    return http.client
+    return client
         .get(url, {
             params: { user_id: data.user_id, month: data.month },
         })
@@ -56,7 +61,7 @@ export async function getByMonth(
     offset: number
 ): Promise<any> {
     const url: string = '/diary/month/page';
-    return http.client
+    return client
         .get(url, {
             params: { user_id: data.user_id, month: data.month, page, offset },
         })
@@ -65,17 +70,17 @@ export async function getByMonth(
 
 export async function create(diary: FormData): Promise<any> {
     const url: string = '/diary';
-    return http.client.post(url, diary).then((result) => result);
+    return client.post(url, diary, headers).then((result) => result);
 }
 
 export async function update(diary: UpdateDiary): Promise<any> {
     const url: string = '/diary/' + diary.diary_id;
-    return http.client.put(url, diary.diary).then((result) => result);
+    return client.put(url, diary.diary, headers).then((result) => result);
 }
 
 export async function remove(diary: DeleteDiary): Promise<any> {
     const url: string = '/diary';
-    return http.client
+    return client
         .delete(url, {
             params: { diaryId: diary.diary_id, userId: diary.user_id },
         })
