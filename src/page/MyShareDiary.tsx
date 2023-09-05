@@ -6,6 +6,7 @@ import { dateAtome, userAtom } from '../recoil/authAtom';
 import { GetDiary } from '../type/diary';
 import { DiaryCard } from '../component/DiaryCard';
 import { styled } from 'styled-components';
+import { Loding } from '../component/Loding';
 
 export function MyShareDiary() {
     const user = useRecoilValue(userAtom);
@@ -63,7 +64,7 @@ export function MyShareDiary() {
                     ))}
                 </Ul>
                 <div ref={bottomBoundaryRef}></div>
-                {isLoading && <p>로딩 중...</p>}
+                {isLoading && <Loding />}
             </Content>
         </Container>
     );

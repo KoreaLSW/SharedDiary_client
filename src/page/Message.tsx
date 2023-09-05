@@ -103,11 +103,11 @@ export function Message() {
                                     <MessageTime>
                                         {room.message_date}
                                     </MessageTime>
-                                    {room.unread_count > 0 && (
+                                    {/* {room.unread_count > 0 && (
                                         <UnreadCount>
                                             {room.unread_count}
                                         </UnreadCount>
-                                    )}
+                                    )} */}
                                 </div>
                             </ChatRoom>
                         ))}
