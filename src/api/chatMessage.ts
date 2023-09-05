@@ -25,5 +25,5 @@ export async function getChatMessageList(
 
 export async function sendChatMessage(send: sendMessage): Promise<any> {
     const url: string = '/chat/message';
-    return http.client.post(url, send).then((result) => result);
+    return http.client.post(url, send, headers).then((result) => result);
 }
