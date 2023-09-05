@@ -264,6 +264,14 @@ const ModalContent = styled.div`
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+        flex-direction: column;
+        overflow-y: scroll;
+    }
 `;
 
 const LeftContent = styled.div`
@@ -304,6 +312,10 @@ const TextArea = styled.textarea`
     resize: none;
     padding: 1rem 0.5rem;
     font-size: 1rem;
+
+    @media (max-width: 768px) {
+        min-height: 15rem;
+    }
 `;
 
 const ModalButton = styled.button`
@@ -323,6 +335,10 @@ const RightContent = styled.div`
     overflow: auto;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 768px) {
+        overflow: visible;
+    }
 `;
 
 const FileInput = styled.input`
