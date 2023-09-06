@@ -47,7 +47,7 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.message_date
                                 );
-                                console.log('formatDate1', formatDate);
+                                console.log('formatDate1_1', formatDate);
 
                                 return {
                                     ...message,
@@ -57,7 +57,7 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.create_date
                                 );
-                                console.log('formatDate2', formatDate);
+                                console.log('formatDate2_1', formatDate);
                                 return {
                                     ...message,
                                     message_date: formatDate, // message_date 변경
@@ -245,15 +245,13 @@ export function formatMessageDate(messageSandDate: string) {
         today.getMonth(),
         today.getDate()
     );
+    console.log('messageDate', messageDate);
     console.log('currentDate', currentDate);
 
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
         messageDate.getMonth(),
-        messageDate.getDate(),
-        messageDate.getHours() - 9,
-        messageDate.getMinutes(),
-        messageDate.getSeconds()
+        messageDate.getDate()
     );
     console.log('messageDateOnly', messageDateOnly);
 
