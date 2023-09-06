@@ -259,7 +259,10 @@ export function formatMessageDate(messageSandDate: string) {
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
         messageDate.getMonth(),
-        messageDate.getDate()
+        messageDate.getDate(),
+        messageDate.getHours() - 9,
+        messageDate.getMinutes(),
+        messageDate.getSeconds()
     );
     console.log('messageDateOnly', messageDateOnly);
 
