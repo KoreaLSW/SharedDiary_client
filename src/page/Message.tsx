@@ -47,6 +47,8 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.message_date
                                 );
+                                console.log('formatDate', formatDate);
+
                                 return {
                                     ...message,
                                     message_date: formatDate, // message_date 변경
