@@ -242,11 +242,14 @@ export function formatMessageDate(messageSandDate: string) {
         today.getMonth(),
         today.getDate()
     );
+    console.log('currentDate', currentDate);
+
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
         messageDate.getMonth(),
         messageDate.getDate()
     );
+    console.log('messageDateOnly', messageDateOnly);
 
     // 현재 날짜와 message_date를 비교
     if (currentDate <= messageDateOnly) {
