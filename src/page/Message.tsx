@@ -275,7 +275,7 @@ export function formatMessageDate(messageSandDate: string) {
             timeZone: 'Asia/Seoul',
         };
 
-        return messageDate.toLocaleTimeString([], options);
+        return messageDateOnly.toLocaleTimeString([], options);
     } else {
         return messageSandDate;
     }
