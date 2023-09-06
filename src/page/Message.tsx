@@ -259,8 +259,7 @@ export function formatMessageDate(messageSandDate: string) {
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
         messageDate.getMonth(),
-        messageDate.getDate(),
-        messageDate.getHours() + 15
+        messageDate.getDate()
     );
     console.log('messageDateOnly', messageDateOnly);
 
@@ -270,6 +269,7 @@ export function formatMessageDate(messageSandDate: string) {
             hour: '2-digit',
             minute: '2-digit',
             hour12: true,
+            timeZone: 'Asia/Seoul',
         };
 
         return messageDate.toLocaleTimeString([], options);
