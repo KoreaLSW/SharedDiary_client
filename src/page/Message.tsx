@@ -260,7 +260,7 @@ export function formatMessageDate(messageSandDate: string) {
         messageDate.getFullYear(),
         messageDate.getMonth(),
         messageDate.getDate(),
-        messageDate.getHours() + 9
+        messageDate.getHours() + 15
     );
     console.log('messageDateOnly', messageDateOnly);
 
@@ -271,6 +271,7 @@ export function formatMessageDate(messageSandDate: string) {
             minute: '2-digit',
             hour12: true,
         };
+
         return messageDate.toLocaleTimeString([], options);
     } else {
         return messageSandDate;
