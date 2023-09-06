@@ -277,8 +277,12 @@ export function formatMessageDate(messageSandDate: string) {
 
         return messageDateOnly.toLocaleTimeString([], options);
     } else {
-        return `${
-            messageDateOnly.getFullYear
-        }-${messageDate.getMonth()}-${messageDate.getDate()}`;
+        const formattedMonth = (messageDate.getMonth() + 1)
+            .toString()
+            .padStart(2, '0'); // 월 포맷 변경
+        const formattedDay = messageDate.getDate().toString().padStart(2, '0'); // 날짜 포맷 변경
+        const date = `${messageDateOnly.getFullYear()}-${formattedMonth}-${formattedDay}`;
+
+        return date;
     }
 }
