@@ -249,8 +249,11 @@ export function formatMessageDate(messageSandDate: string) {
 
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
-        messageDate.getMonth() + 9,
-        messageDate.getDate()
+        messageDate.getMonth(),
+        messageDate.getDate(),
+        messageDate.getUTCHours() + 9, // UTC 시간에 9시간을 더함
+        messageDate.getUTCMinutes(),
+        messageDate.getUTCSeconds()
     );
     console.log('messageDateOnly', messageDateOnly);
 
