@@ -99,63 +99,7 @@ https://timely-youtiao-22dcc8.netlify.app
  ┣ 📜index.tsx<br/>
  ┣ 📜logo.svg<br/>
 
-#### ⚒ 주요 사용 기술(BackEnd)
-+ NodeJS, TypeScript
-+ Express, MySQL, PassPort, Socket.io, Rate-limit
 
-#### 서버(BackEnd) 파일 경로
-📦server
- ┣ 📂bufferToString
- ┃ ┗ 📜bufferToString.ts
- ┣ 📂controller
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┣ 📜type.ts
- ┃ ┗ 📜user.ts
- ┣ 📂data
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┣ 📜type.ts
- ┃ ┗ 📜user.ts
- ┣ 📂db
- ┃ ┗ 📜mysql.ts
- ┣ 📂middleware
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜image.ts
- ┃ ┗ 📜rate-limiter.ts
- ┣ 📂router
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┣ 📜type.ts
- ┃ ┗ 📜user.ts
- ┣ 📂socket
- ┃ ┗ 📜socketModule.ts
- ┣ 📂type
- ┃ ┗ 📜type.ts
- ┣ 📜.env
- ┣ 📜.gitignore
- ┣ 📜app.ts
- ┣ 📜config.ts
- ┣ 📜package-lock.json
- ┗ 📜package.json 
  
  
  #### ⚒ 사용 기술 설명(React)
