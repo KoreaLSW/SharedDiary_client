@@ -15,9 +15,9 @@ https://timely-youtiao-22dcc8.netlify.app
 + Styled-Components, Axios, React-Query, React-Router-Dom, Socket.io-Client, Recoil
   
 #### 리액트(FrontEnd) 파일 경로
-📦src
- ┣ 📂api
- ┃ ┣ 📜auth.ts
+📦src<br/>
+ ┣ 📂api<br/>
+ ┃ ┣ 📜auth.ts<br/>
  ┃ ┣ 📜chatMessage.ts
  ┃ ┣ 📜chatRoom.ts
  ┃ ┣ 📜comment.ts
