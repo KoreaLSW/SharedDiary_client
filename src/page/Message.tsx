@@ -277,6 +277,6 @@ export function formatMessageDate(messageSandDate: string) {
 
         return messageDateOnly.toLocaleTimeString([], options);
     } else {
-        return messageSandDate;
+        return messageDateOnly.toString();
     }
 }
