@@ -13,6 +13,15 @@ export function LoginPage() {
     const navigate = useNavigate();
     const isLogin = useRecoilValue(userSelector);
 
+    const [isModalOpen, setIsModalOpen] = useState(true);
+
+    if (isModalOpen) {
+        const result = window.confirm(
+            '테스트용 아이디입니다. \n ID: aaaa Pw: aaaa1234 \n\n ID: bbbb Pw: bbbb1234'
+        );
+        result && setIsModalOpen(!isModalOpen);
+    }
+
     useEffect(() => {
         // 로그인되어있으면 홈으로
         if (isLogin) {
@@ -48,6 +57,8 @@ export function LoginPage() {
             },
         });
     };
+
+    //alert('aaaa');
 
     return (
         <LoginPageContainer>
@@ -124,6 +135,7 @@ const LoginPageContainer = styled.div`
         background-color: ${(props) => props.theme.colors.signature};
         color: #ffffff;
         font-weight: bold;
+        cursor: pointer;
     }
 
     .signup {

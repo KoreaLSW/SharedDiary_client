@@ -409,12 +409,12 @@ export function Profile() {
                                             </>
                                         )}
                                     </div>
-                                    <p className='create_date'>
+                                    {/* <p className='create_date'>
                                         가입날짜
                                         {` ${
                                             userInfo.create_date.split(' ')[0]
                                         }`}
-                                    </p>
+                                    </p> */}
                                     <div className='bottom'>
                                         <p>
                                             총 게시물{' '}

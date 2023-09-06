@@ -38,8 +38,6 @@ export function ChatMessage() {
     const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        console.log('이펰트!!!');
-
         socketIO &&
             socketIO.on(`${state.room_id} chatMessage`, (data) => {
                 console.log('소켓 chatMessage 실행');

@@ -102,6 +102,8 @@ export function SignUpPage() {
                 console.log('signUpSuccess data', data);
                 console.log('signUpSuccess variables', variables);
                 console.log('signUpSuccess context', context);
+
+                navigate('/login');
             },
             onError(error: any, variables, context) {
                 console.log('signUpError', error);
