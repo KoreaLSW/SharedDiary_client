@@ -21,7 +21,7 @@ import {
 } from '../hooks/follow';
 import { FollowModal } from '../component/FollowModal';
 import { useChatRoomMutations } from '../hooks/chatRoom';
-import { Loding } from '../component/Loding';
+import { Loading } from '../component/Loading';
 
 const formData = new FormData();
 const nickRegex: RegExp = /^(?:[aeiouAEIOUㄱ-ㅎㅏ-ㅣ]*[a-zA-Z가-힣0-9])*$/;
@@ -520,7 +520,7 @@ export function Profile() {
                     ))}
                 </GridViewContainer>
                 <div ref={bottomBoundaryRef}></div>
-                {isLoading && <Loding />}
+                {isLoading && <Loading />}
                 {isFollowingModal && following && (
                     <FollowModal
                         onClose={() => setIsFollowingModal(false)}

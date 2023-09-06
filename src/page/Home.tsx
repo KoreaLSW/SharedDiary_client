@@ -16,7 +16,7 @@ import { Container, Content } from '../theme/theme';
 import { Calendar } from '../component/Calendar';
 import { useNavigate } from 'react-router-dom';
 import { ModalWriteDiary } from '../component/ModalWritediary';
-import { Loding } from '../component/Loding';
+import { Loading } from '../component/Loading';
 import { useGetFollower, useGetFollowing } from '../hooks/follow';
 
 export function Home() {
@@ -72,7 +72,7 @@ export function Home() {
     };
 
     if (isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
     return (

@@ -12,6 +12,7 @@ import {
     weatherAtom,
 } from '../recoil/authAtom';
 import { useMe, useType } from '../hooks/auth';
+import { Loading } from '../component/Loading';
 
 export function Main() {
     const [user, setUser] = useRecoilState(userAtom);
@@ -76,7 +77,7 @@ export function Main() {
     // }, [userError, weatherError, emotionError]);
 
     if (isMeLoading) {
-        return <div>로딩중.....</div>;
+        return <Loading />;
     } else {
         return (
             <div style={{ display: 'flex', height: '100vh' }}>

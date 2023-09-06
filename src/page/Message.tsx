@@ -9,7 +9,7 @@ import { useChatRoomMutations, useGetChatRoomList } from '../hooks/chatRoom';
 import { socketAtome, userAtom } from '../recoil/authAtom';
 import { GetChatRoomList } from '../type/chatRoom';
 import { useSocket } from '../socket/SocketProvider';
-import { Loding } from '../component/Loding';
+import { Loading } from '../component/Loading';
 
 type RemoveChatRoom = {
     user_id: string;
@@ -128,7 +128,7 @@ export function Message() {
     });
 
     if (!messagRoom) {
-        return <Loding />;
+        return <Loading />;
     }
 
     return (

@@ -12,7 +12,7 @@ import {
     WeatherType,
 } from '../type/type';
 import { useDiaryMutations } from '../hooks/diary';
-import { Loding } from './Loding';
+import { Loding } from './Loading';
 
 type Props = {
     modalDate: string;

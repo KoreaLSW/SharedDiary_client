@@ -1,6 +1,6 @@
 import { styled, keyframes } from 'styled-components';
 
-export function Loding() {
+export function Loading() {
     return (
         <LodingBox>
             <LoaderContainer>
