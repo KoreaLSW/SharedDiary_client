@@ -277,6 +277,8 @@ export function formatMessageDate(messageSandDate: string) {
 
         return messageDateOnly.toLocaleTimeString([], options);
     } else {
-        return messageDateOnly.toString();
+        return `${
+            messageDateOnly.getFullYear
+        }-${messageDate.getMonth()}-${messageDate.getDate()}`;
     }
 }
