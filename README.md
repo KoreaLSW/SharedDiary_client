@@ -6,116 +6,156 @@
 + React-Query라이브러리를 사용하여 상태관리를 하였습니다.
 + styled-components를 사용하여 스타일링을 하였습니다.
 + Recoil을 사용하여 전역변수관리를 하였습니다.
+ 
+#### 🔗 공유 링크
+https://timely-youtiao-22dcc8.netlify.app
 
 #### ⚒ 주요 사용 기술(FrontEnd)
 + HTML, CSS, TypeScript, REACT
 + Styled-Components, Axios, React-Query, React-Router-Dom, Socket.io-Client, Recoil
+  
+#### 리액트(FrontEnd) 파일 경로
+📦src
+ ┣ 📂api
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┗ 📜user.ts
+ ┣ 📂component
+ ┃ ┣ 📜Calendar.tsx
+ ┃ ┣ 📜CommentCard.tsx
+ ┃ ┣ 📜DiaryCard.tsx
+ ┃ ┣ 📜DropdownSelect.tsx
+ ┃ ┣ 📜EmotionEmoji.tsx
+ ┃ ┣ 📜FollowCard.tsx
+ ┃ ┣ 📜FollowModal.tsx
+ ┃ ┣ 📜ImageSlider.tsx
+ ┃ ┣ 📜Loading.tsx
+ ┃ ┣ 📜ModalReadDiary.tsx
+ ┃ ┣ 📜ModalUpdateDiary.tsx
+ ┃ ┣ 📜ModalWritediary.tsx
+ ┃ ┣ 📜Navbar.tsx
+ ┃ ┣ 📜PasswordUpdateModal.tsx
+ ┃ ┣ 📜ProfileGiaryCard.tsx
+ ┃ ┣ 📜TextCollapse.tsx
+ ┃ ┗ 📜WeatherEmoji.tsx
+ ┣ 📂hooks
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┗ 📜user.ts
+ ┣ 📂localstorage
+ ┃ ┗ 📜localstorage.ts
+ ┣ 📂network
+ ┃ ┗ 📜http.ts
+ ┣ 📂page
+ ┃ ┣ 📂error
+ ┃ ┃ ┗ 📜ErrorPage.tsx
+ ┃ ┣ 📜ChatMessage.tsx
+ ┃ ┣ 📜Follow.tsx
+ ┃ ┣ 📜Home.tsx
+ ┃ ┣ 📜LoginPage.tsx
+ ┃ ┣ 📜Main.tsx
+ ┃ ┣ 📜Message.tsx
+ ┃ ┣ 📜MyShareDiary.tsx
+ ┃ ┣ 📜Profile.tsx
+ ┃ ┣ 📜ShareDiary.tsx
+ ┃ ┣ 📜SignUp.tsx
+ ┃ ┗ 📜Statistics.tsx
+ ┣ 📂recoil
+ ┃ ┗ 📜authAtom.ts
+ ┣ 📂routes
+ ┃ ┗ 📜ProtectedRoute.tsx
+ ┣ 📂socket
+ ┃ ┗ 📜SocketProvider.tsx
+ ┣ 📂theme
+ ┃ ┗ 📜theme.ts
+ ┣ 📂timedifference
+ ┃ ┗ 📜timedifference.tsx
+ ┣ 📂type
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┗ 📜type.ts
+ ┣ 📜App.css
+ ┣ 📜App.test.tsx
+ ┣ 📜App.tsx
+ ┣ 📜index.css
+ ┣ 📜index.tsx
+ ┣ 📜logo.svg
 
 #### ⚒ 주요 사용 기술(BackEnd)
 + NodeJS, TypeScript
 + Express, MySQL, PassPort, Socket.io, Rate-limit
 
-#### 🔗 공유 링크
-https://timely-youtiao-22dcc8.netlify.app
-
-📦src <br/>
- ┣ 📂api <br/>
- ┃ ┣ 📜firebase.ts <br/>
- ┃ ┗ 📜server.ts <br/>
- ┣ 📂component <br/>
- ┃ ┣ 📂community <br/>
- ┃ ┃ ┣ 📜CommentCard.module.css <br/>
- ┃ ┃ ┣ 📜CommentCard.tsx <br/>
- ┃ ┃ ┣ 📜CommunityCard.module.css <br/>
- ┃ ┃ ┣ 📜CommunityCard.tsx<br/>
- ┃ ┃ ┗ 📜Pagination.tsx <br/>
- ┃ ┣ 📂footballinfo <br/>
- ┃ ┃ ┣ 📜FootballPlayer.module.css <br/>
- ┃ ┃ ┣ 📜FootballPlayer.tsx <br/>
- ┃ ┃ ┣ 📜FootballPlayerCard.module.css <br/>
- ┃ ┃ ┣ 📜FootballPlayerCard.tsx <br/>
- ┃ ┃ ┣ 📜FootballStandings.module.css <br/>
- ┃ ┃ ┣ 📜FootballStandings.tsx <br/>
- ┃ ┃ ┣ 📜FootballStandingsCard.module.css <br/>
- ┃ ┃ ┗ 📜FootballStandingsCard.tsx <br/>
- ┃ ┣ 📂home <br/>
- ┃ ┃ ┣ 📜HomeCommunityCard.module.css <br/>
- ┃ ┃ ┣ 📜HomeCommunityCard.tsx <br/>
- ┃ ┃ ┣ 📜HomeFootBallStandingsCard.module.css <br/>
- ┃ ┃ ┣ 📜HomeFootBallStandingsCard.tsx <br/>
- ┃ ┃ ┣ 📜HomeNewsCard.module.css <br/>
- ┃ ┃ ┣ 📜HomeNewsCard.tsx <br/>
- ┃ ┃ ┣ 📜HomeVideoCard.module.css <br/>
- ┃ ┃ ┗ 📜HomeVideoCard.tsx <br/>
- ┃ ┣ 📂loading <br/>
- ┃ ┃ ┣ 📜Loading.module.css <br/>
- ┃ ┃ ┗ 📜Loading.tsx <br/>
- ┃ ┣ 📂modal <br/>
- ┃ ┃ ┣ 📜Modal.module.css <br/>
- ┃ ┃ ┗ 📜Modal.tsx <br/>
- ┃ ┣ 📂navbar <br/>
- ┃ ┃ ┣ 📜LoginButton.module.css <br/>
- ┃ ┃ ┣ 📜LoginButton.tsx <br/>
- ┃ ┃ ┣ 📜Navbar.module.css <br/>
- ┃ ┃ ┣ 📜Navbar.tsx <br/>
- ┃ ┃ ┣ 📜User.module.css <br/>
- ┃ ┃ ┗ 📜User.tsx <br/>
- ┃ ┣ 📂news <br/>
- ┃ ┃ ┣ 📜NewsCard.module.css <br/>
- ┃ ┃ ┗ 📜NewsCard.tsx <br/>
- ┃ ┣ 📂userupdate <br/>
- ┃ ┃ ┣ 📜ImgUpdate.module.css <br/>
- ┃ ┃ ┣ 📜ImgUpdate.tsx <br/>
- ┃ ┃ ┣ 📜InfoUpdate.module.css <br/>
- ┃ ┃ ┗ 📜InfoUpdate.tsx <br/>
- ┃ ┗ 📂video <br/>
- ┃ ┃ ┣ 📜VideoCard.module.css <br/>
- ┃ ┃ ┗ 📜VideoCard.tsx <br/>
- ┣ 📂hooks <br/>
- ┃ ┣ 📜useCommunity.tsx <br/>
- ┃ ┣ 📜useFootballAPI.tsx <br/>
- ┃ ┣ 📜useHome.tsx <br/>
- ┃ ┗ 📜useSingUp.tsx <br/>
- ┣ 📂page <br/>
- ┃ ┣ 📜Community.module.css <br/>
- ┃ ┣ 📜Community.tsx <br/>
- ┃ ┣ 📜CommunityRead.module.css <br/>
- ┃ ┣ 📜CommunityRead.tsx <br/>
- ┃ ┣ 📜CommunityWrite.module.css <br/>
- ┃ ┣ 📜CommunityWrite.tsx <br/>
- ┃ ┣ 📜ErrorPage.module.css <br/>
- ┃ ┣ 📜ErrorPage.tsx <br/>
- ┃ ┣ 📜FootballInfo.module.css <br/>
- ┃ ┣ 📜FootballInfo.tsx <br/>
- ┃ ┣ 📜FootballNews.module.css <br/>
- ┃ ┣ 📜FootballNews.tsx <br/>
- ┃ ┣ 📜FootballVideo.module.css <br/>
- ┃ ┣ 📜FootballVideo.tsx <br/>
- ┃ ┣ 📜Home.module.css <br/>
- ┃ ┣ 📜Home.tsx <br/>
- ┃ ┣ 📜Login.module.css <br/>
- ┃ ┣ 📜Login.tsx <br/>
- ┃ ┣ 📜SingUp.module.css <br/>
- ┃ ┣ 📜SingUp.tsx <br/>
- ┃ ┣ 📜UserInfoUpdate.module.css <br/>
- ┃ ┗ 📜UserInfoUpdate.tsx <br/>
- ┣ 📂redux <br/>
- ┃ ┣ 📜provider.ts <br/>
- ┃ ┗ 📜rootReducer.ts <br/>
- ┣ 📂type <br/>
- ┃ ┗ 📜type.ts <br/>
- ┣ 📜App.css <br/>
- ┣ 📜App.test.tsx <br/>
- ┣ 📜App.tsx <br/>
- ┣ 📜index.css <br/>
- ┣ 📜index.tsx <br/>
- ┣ 📜logo.svg <br/>
- ┣ 📜react-app-env.d.ts <br/>
- ┣ 📜reportWebVitals.ts <br/>
- ┗ 📜setupTests.ts <br/>
- + 브라우저에서 Page로 보이는부분과 Page의 내부에서 component로 사용되는 부분을 나누어서 관리해보았습니다.
- 
- 
+#### 서버(BackEnd) 파일 경로
+📦server
+ ┣ 📂bufferToString
+ ┃ ┗ 📜bufferToString.ts
+ ┣ 📂controller
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┣ 📜type.ts
+ ┃ ┗ 📜user.ts
+ ┣ 📂data
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┣ 📜type.ts
+ ┃ ┗ 📜user.ts
+ ┣ 📂db
+ ┃ ┗ 📜mysql.ts
+ ┣ 📂middleware
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜image.ts
+ ┃ ┗ 📜rate-limiter.ts
+ ┣ 📂router
+ ┃ ┣ 📜auth.ts
+ ┃ ┣ 📜chatMessage.ts
+ ┃ ┣ 📜chatRoom.ts
+ ┃ ┣ 📜comment.ts
+ ┃ ┣ 📜commentLike.ts
+ ┃ ┣ 📜diary.ts
+ ┃ ┣ 📜diaryLike.ts
+ ┃ ┣ 📜follow.ts
+ ┃ ┣ 📜type.ts
+ ┃ ┗ 📜user.ts
+ ┣ 📂socket
+ ┃ ┗ 📜socketModule.ts
+ ┣ 📂type
+ ┃ ┗ 📜type.ts
+ ┣ 📜.env
+ ┣ 📜.gitignore
+ ┣ 📜app.ts
+ ┣ 📜config.ts
+ ┣ 📜package-lock.json
+ ┗ 📜package.json 
  
  
  #### ⚒ 사용 기술 설명(React)
