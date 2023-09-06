@@ -134,7 +134,7 @@ export function DiaryCard({ info, userId }: Props) {
         <Card>
             <Heard>
                 <Avatar
-                    src={info.profile_img!}
+                    src={info.profile_img ? info.profile_img : '/noprofile.jpg'}
                     alt='프로필사진'
                     onClick={() => navigate(`/profile/${info.user_id}`)}
                 />

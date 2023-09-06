@@ -128,6 +128,8 @@ export function ChatMessage() {
                                                     <ProfilePic
                                                         src={
                                                             message.profile_img
+                                                                ? message.profile_img
+                                                                : '/noprofile.jpg'
                                                         }
                                                         alt='Profile'
                                                     />

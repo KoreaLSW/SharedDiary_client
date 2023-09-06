@@ -97,7 +97,13 @@ export function ModalReadDiary({
             <ModalContent>
                 <LeftSection>
                     <LeftHeader>
-                        <UserAvatar src={info.profile_img!} />
+                        <UserAvatar
+                            src={
+                                info.profile_img
+                                    ? info.profile_img
+                                    : '/noprofile.jpg'
+                            }
+                        />
 
                         <UserInfoBox>
                             <p className='nickname'>{info.nickname}</p>
