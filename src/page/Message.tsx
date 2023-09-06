@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useLongPress } from 'use-long-press';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Container, Content } from '../theme/theme';
 import socket from 'socket.io-client';
 import { styled } from 'styled-components';
-import { useGetChatRoomList } from '../hooks/chatRoom';
+import { useChatRoomMutations, useGetChatRoomList } from '../hooks/chatRoom';
 import { socketAtome, userAtom } from '../recoil/authAtom';
 import { GetChatRoomList } from '../type/chatRoom';
 import { useSocket } from '../socket/SocketProvider';
 import { Loding } from '../component/Loding';
+
+type RemoveChatRoom = {
+    user_id: string;
+    participant_user_id: string;
+};
 
 export function Message() {
     const user = useRecoilValue(userAtom);
@@ -17,11 +23,13 @@ export function Message() {
 
     const [messages, setMessages] = useState<any>([]);
     const [messageInput, setMessageInput] = useState('');
+    const [selectDeleteMsgId, setSelectDeleteMsgId] = useState<RemoveChatRoom>({
+        user_id: '',
+        participant_user_id: '',
+    });
 
     const { data: roomList } = useGetChatRoomList(user!);
-    // const socketIO = socket(process.env.REACT_APP_BASE_URL!, {
-    //     query: { user }, // 사용자 ID를 서버로 전달
-    // });
+    const { removeChatRoom } = useChatRoomMutations();
 
     const socketIO = useSocket();
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
@@ -75,6 +83,35 @@ export function Message() {
         });
     };
 
+    const callback = React.useCallback(() => {
+        console.log('szdfsdsdgsdg', selectDeleteMsgId);
+        const { user_id, participant_user_id } = selectDeleteMsgId;
+        const result = window.confirm(
+            '해당 채팅방을 삭제하시겠습니까? \n삭제한 메세지는 복구가 불가능합니다.'
+        );
+        if (result) {
+            removeChatRoom.mutate(
+                {
+                    user_id,
+                    participant_user_id,
+                },
+                {
+                    onSuccess(data, variables, context) {
+                        alert('채팅방 삭제 완료');
+                    },
+                    onError(error, variables, context) {},
+                }
+            );
+        }
+    }, [selectDeleteMsgId]);
+
+    const onDeleteMsg = useLongPress(callback, {
+        onStart: (e, meta: any) => setSelectDeleteMsgId(meta.context), //누른것이 시작되면 호출되는 함수
+        threshold: 500, // press 시간 /ms 초 단위이다.
+        captureEvent: true, // 첫번째 인자로 들어온 callback 함수가 react MouseEvent를 도와주게 설정
+        cancelOnMovement: false, // 확실하진않지만 꾹 눌렀다가 옆으로 이동했을때 취소여부 옵션인것같다
+    });
+
     if (!messagRoom) {
         return <Loding />;
     }
@@ -86,6 +123,10 @@ export function Message() {
                     {messagRoom &&
                         messagRoom.map((room: GetChatRoomList) => (
                             <ChatRoom
+                                {...onDeleteMsg({
+                                    user,
+                                    participant: room.participant_user_id,
+                                })}
                                 key={room.room_id}
                                 onClick={() => {
                                     handleReadMessage(
