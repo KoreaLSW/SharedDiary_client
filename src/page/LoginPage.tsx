@@ -13,14 +13,18 @@ export function LoginPage() {
     const navigate = useNavigate();
     const isLogin = useRecoilValue(userSelector);
 
-    const [isModalOpen, setIsModalOpen] = useState(true);
+    // if (isModalOpen) {
+    //     const result = window.confirm(
+    //         '테스트용 아이디입니다. \n ID: aaaa Pw: aaaa1234 \n\n ID: bbbb Pw: bbbb1234'
+    //     );
+    //     result && setIsModalOpen(!isModalOpen);
+    // }
 
-    if (isModalOpen) {
-        const result = window.confirm(
+    const handleTestId = () => {
+        window.alert(
             '테스트용 아이디입니다. \n ID: aaaa Pw: aaaa1234 \n\n ID: bbbb Pw: bbbb1234'
         );
-        result && setIsModalOpen(!isModalOpen);
-    }
+    };
 
     useEffect(() => {
         // 로그인되어있으면 홈으로
@@ -87,6 +91,9 @@ export function LoginPage() {
                 <Link className='signup' to='/signup'>
                     SignUp
                 </Link>
+                <button className='test-id' onClick={handleTestId}>
+                    테스트아이디보기
+                </button>
             </div>
         </LoginPageContainer>
     );
@@ -143,6 +150,11 @@ const LoginPageContainer = styled.div`
         color: #bbc1c6;
         text-decoration: underline;
         text-underline-offset: 5px;
+    }
+
+    .test-id {
+        width: auto;
+        margin-top: 3rem;
     }
 
     @media (max-width: 768px) {
