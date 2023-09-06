@@ -55,7 +55,7 @@ export function FollowCard({ info, onClose }: Props) {
             <img
                 className='following-avatar'
                 onClick={handleItemClick}
-                src={info.profile_img!}
+                src={info.profile_img ? info.profile_img : '/noprofile.jpg'}
                 alt='프로필 이미지'
             />
 
