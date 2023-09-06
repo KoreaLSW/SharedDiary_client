@@ -24,9 +24,11 @@ export async function create(users: ChatRoomUsers): Promise<any> {
 
 export async function remove(users: ChatRoomUsers): Promise<any> {
     const url: string = '/chat/room';
+    console.log('채팅 리무브,', users);
+
     return client
         .delete(url, {
-            data: {
+            params: {
                 user_id: users.user_id,
                 participant_user_id: users.participant_user_id,
             },

@@ -124,8 +124,9 @@ export function Message() {
                         messagRoom.map((room: GetChatRoomList) => (
                             <ChatRoom
                                 {...onDeleteMsg({
-                                    user,
-                                    participant: room.participant_user_id,
+                                    user_id: user,
+                                    participant_user_id:
+                                        room.participant_user_id,
                                 })}
                                 key={room.room_id}
                                 onClick={() => {
