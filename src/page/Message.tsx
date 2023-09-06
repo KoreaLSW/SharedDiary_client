@@ -62,8 +62,8 @@ export function Message() {
                                     message.create_date
                                 );
                                 console.log(
-                                    'message.message_date',
-                                    message.message_date
+                                    'message.create_date',
+                                    message.create_date
                                 );
                                 console.log('formatDate2_2', formatDate);
                                 return {
