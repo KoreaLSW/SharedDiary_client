@@ -15,7 +15,6 @@ const client = axios.create({
 const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
 
 export async function getChatRoomList(userId: string): Promise<any> {
-    console.log('useGetChatRoomList!!');
     const url: string = '/chat/room';
     return http.client
         .get(url, { params: { userId } })
@@ -29,8 +28,6 @@ export async function create(users: ChatRoomUsers): Promise<any> {
 
 export async function remove(users: ChatRoomUsers): Promise<any> {
     const url: string = '/chat/room';
-    console.log('채팅 리무브,', users);
-
     return http.client
         .delete(url, {
             params: {

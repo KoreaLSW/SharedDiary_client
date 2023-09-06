@@ -94,7 +94,6 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
 
     const handleDiaryUpload = () => {
         formData.delete('diary');
-        console.log('diary', diary);
         formData.append('diary', JSON.stringify(diary));
 
         if (diary.contents === '') {
@@ -118,8 +117,6 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
                 formData.delete('diary');
                 formData.delete('images');
                 window.alert('작성이 완료되었습니다.');
-                console.log('감화니..');
-
                 toggleModal();
             },
             onError(error, variables, context) {},

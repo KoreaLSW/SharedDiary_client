@@ -224,8 +224,6 @@ export function Profile() {
             return;
         }
 
-        console.log('userInfo!', userInfo);
-
         // 이미지 업로드 전에 초기화
         formData.delete('profile-image');
         formData.delete('user');
@@ -272,8 +270,6 @@ export function Profile() {
     };
 
     const handleChatSend = () => {
-        console.log('메시지 보내기 클릭');
-
         createChatRoom.mutate(
             { user_id: user!, participant_user_id: profileuser! },
             {

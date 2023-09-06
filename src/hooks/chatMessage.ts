@@ -3,8 +3,6 @@ import { getChatMessageList, sendChatMessage } from '../api/chatMessage';
 import { SelectMessage, sendMessage } from '../type/chatMessage';
 
 export function useGetChatMessageList(selectMessage: SelectMessage) {
-    console.log('useGetChatMessageList!!');
-
     return useQuery(
         ['chat', 'message', selectMessage],
         () => getChatMessageList(selectMessage),

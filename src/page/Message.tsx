@@ -35,23 +35,15 @@ export function Message() {
     const [messagRoom, setMessageRoom] = useState<GetChatRoomList[]>();
 
     useEffect(() => {
-        console.log('채팅망리스트 이펙트');
-
         socketIO &&
             socketIO.on(`${user} readChatRoom`, (data) => {
                 if (Array.isArray(data)) {
-                    console.log(`${user} readChatRoom_1`, data);
                     const modifiedData = data.map(
                         (message: GetChatRoomList) => {
                             if (message.message_date) {
                                 const formatDate = formatMessageDate(
                                     message.message_date
                                 );
-                                console.log(
-                                    'message.message_date',
-                                    message.message_date
-                                );
-                                console.log('formatDate1_2', formatDate);
 
                                 return {
                                     ...message,
@@ -61,11 +53,7 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.create_date
                                 );
-                                console.log(
-                                    'message.create_date',
-                                    message.create_date
-                                );
-                                console.log('formatDate2_2', formatDate);
+
                                 return {
                                     ...message,
                                     message_date: formatDate, // message_date 변경
@@ -73,12 +61,9 @@ export function Message() {
                             }
                         }
                     );
-                    console.log('messageDate', modifiedData);
 
                     setMessageRoom(modifiedData);
                 } else {
-                    console.log('roomList 넣음');
-
                     setMessageRoom(roomList);
                 }
             });
@@ -252,8 +237,6 @@ export function formatMessageDate(messageSandDate: string) {
         today.getMonth(),
         today.getDate()
     );
-    console.log('messageDate', messageDate);
-    console.log('currentDate', currentDate);
 
     const messageDateOnly = new Date(
         messageDate.getFullYear(),
@@ -263,7 +246,6 @@ export function formatMessageDate(messageSandDate: string) {
         messageDate.getMinutes(),
         messageDate.getSeconds()
     );
-    console.log('messageDateOnly', messageDateOnly);
 
     // 현재 날짜와 message_date를 비교
     if (currentDate <= messageDateOnly) {

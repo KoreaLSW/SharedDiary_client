@@ -55,8 +55,6 @@ export function ProfileGiaryCard({ info }: Props) {
     };
 
     const toggleUpdateModal = () => {
-        console.log('프로필 업데이트', info);
-
         setIsModalUpdateOpen(!isModalUpdateOpen);
     };
 

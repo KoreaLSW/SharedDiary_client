@@ -110,7 +110,6 @@ export function DiaryCard({ info, userId }: Props) {
     };
 
     const toggleUpdateModal = () => {
-        console.log('일반 업데이트', info);
         setIsModalUpdateOpen(!isModalUpdateOpen);
     };
 

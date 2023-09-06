@@ -53,8 +53,6 @@ export function PasswordModal({
 
         onPasswordSubmit(password);
 
-        // 비밀번호 처리 로직
-        console.log('Entered password:', password);
         // 모달 닫기
         onClose();
     };

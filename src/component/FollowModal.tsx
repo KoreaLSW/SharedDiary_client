@@ -9,8 +9,6 @@ type Props = {
 };
 
 export function FollowModal({ onClose, info, title }: Props) {
-    console.log('FollowingModal', info);
-
     return (
         <Modal>
             <ModalContent>

@@ -66,8 +66,6 @@ export function Home() {
             '0'
         )}-${String(currentDay).padStart(2, '0')}`;
 
-        console.log('datedate', date);
-
         toggleModal(date);
     };
 

@@ -67,7 +67,6 @@ export function ModalUpdateDiary({ info, toggleUpdateModal }: Props) {
 
         if (files) {
             const selected = Array.from(files).slice(0, 5); // 최대 5개까지 선택
-            console.log('selected', selected);
 
             setSelectedFiles(selected);
             setCurrentSlide(0); // 첫 번째 슬라이드로 초기화

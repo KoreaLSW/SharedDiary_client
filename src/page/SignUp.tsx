@@ -61,8 +61,6 @@ export function SignUpPage() {
         formData.delete('profile-image');
         file && formData.append('profile-image', file);
         file && setAvatar(file);
-
-        console.log('이미지파일', file);
     };
 
     const handleSubmit = (e: React.FormEvent) => {

@@ -26,13 +26,11 @@ const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
 
 export async function create(diaryLike: DiaryLike): Promise<any> {
     const url: string = '/diary/like';
-    console.log('create', diaryLike);
     return http.client.post(url, diaryLike, headers).then((result) => result);
 }
 
 export async function remove(diaryLike: DiaryLike): Promise<any> {
     const url: string = '/diary/like/delete';
-    console.log('remove123', diaryLike);
 
     return http.client
         .delete(url, { data: diaryLike, headers }) // 여기서 data 옵션 사용

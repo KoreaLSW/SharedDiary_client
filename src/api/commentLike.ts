@@ -27,13 +27,11 @@ const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
 
 export async function create(commnetLike: CommentLike): Promise<any> {
     const url: string = '/diary/comment/like';
-    console.log('create', commnetLike);
     return http.client.post(url, commnetLike, headers).then((result) => result);
 }
 
 export async function remove(commnetLike: CommentLike): Promise<any> {
     const url: string = '/diary/comment/like/delete';
-    console.log('remove123', commnetLike);
 
     return http.client
         .delete(url, { data: commnetLike, headers }) // 여기서 data 옵션 사용

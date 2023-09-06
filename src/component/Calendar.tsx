@@ -39,8 +39,6 @@ type Props = {
 export function Calendar({ info, toggleModal }: Props) {
     const [date, setDate] = useRecoilState(dateAtome);
 
-    console.log('info', info);
-
     const today = new Date();
     const currentYear = date.getFullYear();
     const currentMonth = date.getMonth();
