@@ -43,19 +43,23 @@ export function Message() {
                     console.log(`${user} readChatRoom_1`, data);
                     const modifiedData = data.map(
                         (message: GetChatRoomList) => {
-                            const messageDate = new Date(message.message_date);
-                            const options: Intl.DateTimeFormatOptions = {
-                                hour: '2-digit',
-                                minute: '2-digit',
-                                hour12: true,
-                            };
-                            const formattedTime =
-                                messageDate.toLocaleTimeString([], options);
-                            // message 객체를 변경하고 변경된 객체 반환
-                            return {
-                                ...message,
-                                message_date: formattedTime, // message_date 변경
-                            };
+                            if (message.message_date) {
+                                const formatDate = formatMessageDate(
+                                    message.message_date
+                                );
+                                return {
+                                    ...message,
+                                    message_date: formatDate, // message_date 변경
+                                };
+                            } else {
+                                const formatDate = formatMessageDate(
+                                    message.create_date
+                                );
+                                return {
+                                    ...message,
+                                    message_date: formatDate, // message_date 변경
+                                };
+                            }
                         }
                     );
                     console.log('messageDate', modifiedData);
@@ -227,3 +231,32 @@ const UnreadCount = styled.div`
     text-align: center;
     line-height: 20px;
 `;
+
+export function formatMessageDate(messageSandDate: string) {
+    const messageDate = new Date(messageSandDate);
+    const today = new Date();
+
+    // 현재 날짜와 message_date의 날짜 부분만 가져옵니다.
+    const currentDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate()
+    );
+    const messageDateOnly = new Date(
+        messageDate.getFullYear(),
+        messageDate.getMonth(),
+        messageDate.getDate()
+    );
+
+    // 현재 날짜와 message_date를 비교
+    if (currentDate <= messageDateOnly) {
+        const options: Intl.DateTimeFormatOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+        };
+        return messageDate.toLocaleTimeString([], options);
+    } else {
+        return messageSandDate;
+    }
+}
