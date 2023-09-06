@@ -18,86 +18,86 @@ https://timely-youtiao-22dcc8.netlify.app
 📦src<br/>
  ┣ 📂api<br/>
  ┃ ┣ 📜auth.ts<br/>
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┗ 📜user.ts
- ┣ 📂component
- ┃ ┣ 📜Calendar.tsx
- ┃ ┣ 📜CommentCard.tsx
- ┃ ┣ 📜DiaryCard.tsx
- ┃ ┣ 📜DropdownSelect.tsx
- ┃ ┣ 📜EmotionEmoji.tsx
- ┃ ┣ 📜FollowCard.tsx
- ┃ ┣ 📜FollowModal.tsx
- ┃ ┣ 📜ImageSlider.tsx
- ┃ ┣ 📜Loading.tsx
- ┃ ┣ 📜ModalReadDiary.tsx
- ┃ ┣ 📜ModalUpdateDiary.tsx
- ┃ ┣ 📜ModalWritediary.tsx
- ┃ ┣ 📜Navbar.tsx
- ┃ ┣ 📜PasswordUpdateModal.tsx
- ┃ ┣ 📜ProfileGiaryCard.tsx
- ┃ ┣ 📜TextCollapse.tsx
- ┃ ┗ 📜WeatherEmoji.tsx
- ┣ 📂hooks
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┗ 📜user.ts
- ┣ 📂localstorage
- ┃ ┗ 📜localstorage.ts
- ┣ 📂network
- ┃ ┗ 📜http.ts
- ┣ 📂page
- ┃ ┣ 📂error
- ┃ ┃ ┗ 📜ErrorPage.tsx
- ┃ ┣ 📜ChatMessage.tsx
- ┃ ┣ 📜Follow.tsx
- ┃ ┣ 📜Home.tsx
- ┃ ┣ 📜LoginPage.tsx
- ┃ ┣ 📜Main.tsx
- ┃ ┣ 📜Message.tsx
- ┃ ┣ 📜MyShareDiary.tsx
- ┃ ┣ 📜Profile.tsx
- ┃ ┣ 📜ShareDiary.tsx
- ┃ ┣ 📜SignUp.tsx
- ┃ ┗ 📜Statistics.tsx
- ┣ 📂recoil
- ┃ ┗ 📜authAtom.ts
- ┣ 📂routes
- ┃ ┗ 📜ProtectedRoute.tsx
- ┣ 📂socket
- ┃ ┗ 📜SocketProvider.tsx
- ┣ 📂theme
- ┃ ┗ 📜theme.ts
- ┣ 📂timedifference
- ┃ ┗ 📜timedifference.tsx
- ┣ 📂type
- ┃ ┣ 📜auth.ts
- ┃ ┣ 📜chatMessage.ts
- ┃ ┣ 📜chatRoom.ts
- ┃ ┣ 📜comment.ts
- ┃ ┣ 📜commentLike.ts
- ┃ ┣ 📜diary.ts
- ┃ ┣ 📜diaryLike.ts
- ┃ ┣ 📜follow.ts
- ┃ ┗ 📜type.ts
- ┣ 📜App.css
- ┣ 📜App.test.tsx
- ┣ 📜App.tsx
- ┣ 📜index.css
- ┣ 📜index.tsx
- ┣ 📜logo.svg
+ ┃ ┣ 📜chatMessage.ts<br/>
+ ┃ ┣ 📜chatRoom.ts<br/>
+ ┃ ┣ 📜comment.ts<br/>
+ ┃ ┣ 📜commentLike.ts<br/>
+ ┃ ┣ 📜diary.ts<br/>
+ ┃ ┣ 📜diaryLike.ts<br/>
+ ┃ ┣ 📜follow.ts<br/>
+ ┃ ┗ 📜user.ts<br/>
+ ┣ 📂component<br/>
+ ┃ ┣ 📜Calendar.tsx<br/>
+ ┃ ┣ 📜CommentCard.tsx<br/>
+ ┃ ┣ 📜DiaryCard.tsx<br/>
+ ┃ ┣ 📜DropdownSelect.tsx<br/>
+ ┃ ┣ 📜EmotionEmoji.tsx<br/>
+ ┃ ┣ 📜FollowCard.tsx<br/>
+ ┃ ┣ 📜FollowModal.tsx<br/>
+ ┃ ┣ 📜ImageSlider.tsx<br/>
+ ┃ ┣ 📜Loading.tsx<br/>
+ ┃ ┣ 📜ModalReadDiary.tsx<br/>
+ ┃ ┣ 📜ModalUpdateDiary.tsx<br/>
+ ┃ ┣ 📜ModalWritediary.tsx<br/>
+ ┃ ┣ 📜Navbar.tsx<br/>
+ ┃ ┣ 📜PasswordUpdateModal.tsx<br/>
+ ┃ ┣ 📜ProfileGiaryCard.tsx<br/>
+ ┃ ┣ 📜TextCollapse.tsx<br/>
+ ┃ ┗ 📜WeatherEmoji.tsx<br/>
+ ┣ 📂hooks<br/>
+ ┃ ┣ 📜auth.ts<br/>
+ ┃ ┣ 📜chatMessage.ts<br/>
+ ┃ ┣ 📜chatRoom.ts<br/>
+ ┃ ┣ 📜comment.ts<br/>
+ ┃ ┣ 📜commentLike.ts<br/>
+ ┃ ┣ 📜diary.ts<br/>
+ ┃ ┣ 📜diaryLike.ts<br/>
+ ┃ ┣ 📜follow.ts<br/>
+ ┃ ┗ 📜user.ts<br/>
+ ┣ 📂localstorage<br/>
+ ┃ ┗ 📜localstorage.ts<br/>
+ ┣ 📂network<br/>
+ ┃ ┗ 📜http.ts<br/>
+ ┣ 📂page<br/>
+ ┃ ┣ 📂error<br/>
+ ┃ ┃ ┗ 📜ErrorPage.tsx<br/>
+ ┃ ┣ 📜ChatMessage.tsx<br/>
+ ┃ ┣ 📜Follow.tsx<br/>
+ ┃ ┣ 📜Home.tsx<br/>
+ ┃ ┣ 📜LoginPage.tsx<br/>
+ ┃ ┣ 📜Main.tsx<br/>
+ ┃ ┣ 📜Message.tsx<br/>
+ ┃ ┣ 📜MyShareDiary.tsx<br/>
+ ┃ ┣ 📜Profile.tsx<br/>
+ ┃ ┣ 📜ShareDiary.tsx<br/>
+ ┃ ┣ 📜SignUp.tsx<br/>
+ ┃ ┗ 📜Statistics.tsx<br/>
+ ┣ 📂recoil<br/>
+ ┃ ┗ 📜authAtom.ts<br/>
+ ┣ 📂routes<br/>
+ ┃ ┗ 📜ProtectedRoute.tsx<br/>
+ ┣ 📂socket<br/>
+ ┃ ┗ 📜SocketProvider.tsx<br/>
+ ┣ 📂theme<br/>
+ ┃ ┗ 📜theme.ts<br/>
+ ┣ 📂timedifference<br/>
+ ┃ ┗ 📜timedifference.tsx<br/>
+ ┣ 📂type<br/>
+ ┃ ┣ 📜auth.ts<br/>
+ ┃ ┣ 📜chatMessage.ts<br/>
+ ┃ ┣ 📜chatRoom.ts<br/>
+ ┃ ┣ 📜comment.ts<br/>
+ ┃ ┣ 📜commentLike.ts<br/>
+ ┃ ┣ 📜diary.ts<br/>
+ ┃ ┣ 📜diaryLike.ts<br/>
+ ┃ ┣ 📜follow.ts<br/>
+ ┃ ┗ 📜type.ts<br/>
+ ┣ 📜App.css<br/>
+ ┣ 📜App.test.tsx<br/>
+ ┣ 📜App.tsx<br/>
+ ┣ 📜index.css<br/>
+ ┣ 📜index.tsx<br/>
+ ┣ 📜logo.svg<br/>
 
 #### ⚒ 주요 사용 기술(BackEnd)
 + NodeJS, TypeScript
