@@ -136,7 +136,11 @@ export function Message() {
                                 }}
                             >
                                 <UserProfile
-                                    src={room.profile_img}
+                                    src={
+                                        room.profile_img
+                                            ? room.profile_img
+                                            : '/noprofile.jpg'
+                                    }
                                     alt='Profile'
                                 />
                                 <UserInfo>
