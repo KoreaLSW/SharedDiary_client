@@ -1,46 +1,104 @@
-# Getting Started with Create React App
+# 공유 일기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### 📝 개요
 
-## Available Scripts
+-   행복했던일이나 슬펏던일들을 그냥 지나가기에는 너무 아쉬은날들이 많다고 느껴져서 그런 날들을 기록할수있도록 만든 프로젝트입니다.
+-   SPA에서 페이지전환을 하기위해 React-Router-Dom라이브러리를 사용했습니다.
+-   React-Query라이브러리를 사용하여 상태관리를 하였습니다.
+-   styled-components를 사용하여 스타일링을 하였습니다.
+-   Recoil을 사용하여 전역변수관리를 하였습니다.
 
-In the project directory, you can run:
+#### 🔗 공유 링크
 
-### `yarn start`
+https://timely-youtiao-22dcc8.netlify.app
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### ⚒ 주요 사용 기술(FrontEnd)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+-   HTML, CSS, TypeScript, REACT
+-   Styled-Components, Axios, React-Query, React-Router-Dom, Socket.io-Client, Recoil
 
-### `yarn test`
+#### 리액트(FrontEnd) 파일 경로
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+📦src<br/>
+┣ 📂api<br/>
+┃ ┣ 📜auth.ts<br/>
+┃ ┣ 📜chatMessage.ts<br/>
+┃ ┣ 📜chatRoom.ts<br/>
+┃ ┣ 📜comment.ts<br/>
+┃ ┣ 📜commentLike.ts<br/>
+┃ ┣ 📜diary.ts<br/>
+┃ ┣ 📜diaryLike.ts<br/>
+┃ ┣ 📜follow.ts<br/>
+┃ ┗ 📜user.ts<br/>
+┣ 📂component<br/>
+┃ ┣ 📜Calendar.tsx<br/>
+┃ ┣ 📜CommentCard.tsx<br/>
+┃ ┣ 📜DiaryCard.tsx<br/>
+┃ ┣ 📜DropdownSelect.tsx<br/>
+┃ ┣ 📜EmotionEmoji.tsx<br/>
+┃ ┣ 📜FollowCard.tsx<br/>
+┃ ┣ 📜FollowModal.tsx<br/>
+┃ ┣ 📜ImageSlider.tsx<br/>
+┃ ┣ 📜Loading.tsx<br/>
+┃ ┣ 📜ModalReadDiary.tsx<br/>
+┃ ┣ 📜ModalUpdateDiary.tsx<br/>
+┃ ┣ 📜ModalWritediary.tsx<br/>
+┃ ┣ 📜Navbar.tsx<br/>
+┃ ┣ 📜PasswordUpdateModal.tsx<br/>
+┃ ┣ 📜ProfileGiaryCard.tsx<br/>
+┃ ┣ 📜TextCollapse.tsx<br/>
+┃ ┗ 📜WeatherEmoji.tsx<br/>
+┣ 📂hooks<br/>
+┃ ┣ 📜auth.ts<br/>
+┃ ┣ 📜chatMessage.ts<br/>
+┃ ┣ 📜chatRoom.ts<br/>
+┃ ┣ 📜comment.ts<br/>
+┃ ┣ 📜commentLike.ts<br/>
+┃ ┣ 📜diary.ts<br/>
+┃ ┣ 📜diaryLike.ts<br/>
+┃ ┣ 📜follow.ts<br/>
+┃ ┗ 📜user.ts<br/>
+┣ 📂localstorage<br/>
+┃ ┗ 📜localstorage.ts<br/>
+┣ 📂network<br/>
+┃ ┗ 📜http.ts<br/>
+┣ 📂page<br/>
+┃ ┣ 📂error<br/>
+┃ ┃ ┗ 📜ErrorPage.tsx<br/>
+┃ ┣ 📜ChatMessage.tsx<br/>
+┃ ┣ 📜Follow.tsx<br/>
+┃ ┣ 📜Home.tsx<br/>
+┃ ┣ 📜LoginPage.tsx<br/>
+┃ ┣ 📜Main.tsx<br/>
+┃ ┣ 📜Message.tsx<br/>
+┃ ┣ 📜MyShareDiary.tsx<br/>
+┃ ┣ 📜Profile.tsx<br/>
+┃ ┣ 📜ShareDiary.tsx<br/>
+┃ ┣ 📜SignUp.tsx<br/>
+┃ ┗ 📜Statistics.tsx<br/>
+┣ 📂recoil<br/>
+┃ ┗ 📜authAtom.ts<br/>
+┣ 📂routes<br/>
+┃ ┗ 📜ProtectedRoute.tsx<br/>
+┣ 📂socket<br/>
+┃ ┗ 📜SocketProvider.tsx<br/>
+┣ 📂theme<br/>
+┃ ┗ 📜theme.ts<br/>
+┣ 📂timedifference<br/>
+┃ ┗ 📜timedifference.tsx<br/>
+┣ 📂type<br/>
+┃ ┣ 📜auth.ts<br/>
+┃ ┣ 📜chatMessage.ts<br/>
+┃ ┣ 📜chatRoom.ts<br/>
+┃ ┣ 📜comment.ts<br/>
+┃ ┣ 📜commentLike.ts<br/>
+┃ ┣ 📜diary.ts<br/>
+┃ ┣ 📜diaryLike.ts<br/>
+┃ ┣ 📜follow.ts<br/>
+┃ ┗ 📜type.ts<br/>
+┣ 📜App.css<br/>
+┣ 📜App.test.tsx<br/>
+┣ 📜App.tsx<br/>
+┣ 📜index.css<br/>
+┣ 📜index.tsx<br/>
+┣ 📜logo.svg<br/>

@@ -12,7 +12,7 @@ import {
     WeatherType,
 } from '../type/type';
 import { useDiaryMutations } from '../hooks/diary';
-import { Loding } from './Loading';
+import { Loading } from './Loading';
 
 type Props = {
     modalDate: string;
@@ -63,8 +63,6 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
         // 이미지 업로드 전에 초기화
         formData.delete('images');
 
-        files && console.log('1232112312', files.length);
-
         if (files && files.length > 5) {
             files = null;
             return alert('이미지는 최대 5장까지 선택가능합니다.');
@@ -72,7 +70,6 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
 
         if (files) {
             const selected = Array.from(files).slice(0, 5); // 최대 5개까지 선택
-            console.log('selected', selected);
 
             setSelectedFiles(selected);
             setCurrentSlide(0); // 첫 번째 슬라이드로 초기화
@@ -130,7 +127,7 @@ export function ModalWriteDiary({ modalDate, toggleModal }: Props) {
     };
 
     if (createDiaryHook.isLoading) {
-        return <Loding />;
+        return <Loading />;
     }
 
     return (

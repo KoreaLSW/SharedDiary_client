@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SetComments, RemoveComments } from '../type/comment';
+import HttpClient from '../network/http';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -11,12 +12,14 @@ const client = axios.create({
     withCredentials: true, // withCredentials 설정
 });
 
+const http = new HttpClient(process.env.REACT_APP_BASE_URL!);
+
 export async function getComment(
     userId: string,
     diaryId: string
 ): Promise<any> {
     const url: string = '/diary/comment';
-    return client
+    return http.client
         .get(url, {
             params: {
                 user_id: userId,
@@ -28,12 +31,12 @@ export async function getComment(
 
 export async function create(comments: SetComments): Promise<any> {
     const url: string = '/diary/comment/';
-    return client.post(url, comments, headers).then((result) => result);
+    return http.client.post(url, comments, headers).then((result) => result);
 }
 
 export async function remove(comments: RemoveComments): Promise<any> {
     const url: string = '/diary/comment/delete';
-    return client
+    return http.client
         .delete(url, {
             data: { commentId: comments.comment_id, userId: comments.user_id },
             headers,
