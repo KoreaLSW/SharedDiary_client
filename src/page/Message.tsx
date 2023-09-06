@@ -99,7 +99,6 @@ export function Message() {
     };
 
     const callback = React.useCallback(() => {
-        console.log('szdfsdsdgsdg', selectDeleteMsgId);
         const { user_id, participant_user_id } = selectDeleteMsgId;
         const result = window.confirm(
             '해당 채팅방을 삭제하시겠습니까? \n삭제한 메세지는 복구가 불가능합니다.'
