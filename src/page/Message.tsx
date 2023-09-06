@@ -47,7 +47,11 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.message_date
                                 );
-                                console.log('formatDate1_1', formatDate);
+                                console.log(
+                                    'message.message_date',
+                                    message.message_date
+                                );
+                                console.log('formatDate1_2', formatDate);
 
                                 return {
                                     ...message,
@@ -57,7 +61,11 @@ export function Message() {
                                 const formatDate = formatMessageDate(
                                     message.create_date
                                 );
-                                console.log('formatDate2_1', formatDate);
+                                console.log(
+                                    'message.message_date',
+                                    message.message_date
+                                );
+                                console.log('formatDate2_2', formatDate);
                                 return {
                                     ...message,
                                     message_date: formatDate, // message_date 변경
